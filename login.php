@@ -43,8 +43,7 @@
                 <!--Google signup-->
                 <div class="d-flex justify-content-center">
                     <button type="button" class="btn google-btn rounded-btn fs-5">
-                        <a class="text-decoration-none text-black" href="https://accounts.google.com
-"><img src="assets/resources/google.png" alt="Google logo">
+                        <a class="text-decoration-none text-black" href="https://accounts.google.com"><img src="assets/resources/google.png" alt="Google logo">
                             Google</a>
                     </button>
                 </div>
