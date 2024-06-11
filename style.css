@@ -1,0 +1,65 @@
+.bodycolor {
+    background-image: url('https://img.freepik.com/free-photo/sand-textures-background_74190-1330.jpg?size=626&ext=jpg&ga=GA1.1.1141335507.1718064000&semt=ais_user');
+    background-size: cover;
+}
+
+.bgcolor {
+    background-color: white;
+}
+
+.woodViz-style {
+    color: orange;
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+.head-style {
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+.div-height{
+    min-height: 65vh;
+}
+
+.search-style{
+    border : 1px solid black;
+    border-radius: 10px;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.main {
+    overflow: hidden;
+    width: 100%;
+}
+
+#sidebar {
+    width: 200px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+li {
+    list-style: none;
+}
+
+.sidebar-link {
+    border: none;
+    padding: 10px;
+    background-color: white;
+    color: black;
+}
+
+.sidebar-link:hover{
+    background-color: orange;
+}
+
+.sidebar-span-style {
+    font-size: medium;
+    font-weight: 500;
+}
