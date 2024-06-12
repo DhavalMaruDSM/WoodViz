@@ -4,6 +4,17 @@ document.getElementById('addUserBtn').addEventListener('click', function () {
     this.classList.add('d-none');
 });
 
+//CloseBtn
+document.getElementById('userFormModal').addEventListener('hidden.bs.modal', function () {
+    document.getElementById('form').reset();
+
+    form.classList.remove('was-validated');
+    const inputs = form.querySelectorAll('.form-control, .form-select, .form-check-input');
+    inputs.forEach(input => {
+        input.classList.remove('is-valid');
+        input.classList.remove('is-invalid');
+    });
+});
 
 // Submit
 document.getElementById("form").addEventListener("submit", function (event) {
