@@ -22,13 +22,13 @@
                         <!--Username-->
                         <div class="mb-3 col-md-6">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" placeholder="Enter the Username" required>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter the Username" required>
                             <div class="invalid-feedback">Please enter a Username!</div>
                         </div>
                         <!--Fullname-->
                         <div class="mb-3 col-md-6">
                             <label for="fullname" class="form-label">Fullname</label>
-                            <input type="text" class="form-control" id="fullname" placeholder="Enter the Fullname" required>
+                            <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter the Fullname" required>
                             <div class="invalid-feedback">Please enter your Fullname!</div>
                         </div>
                     </div>
@@ -38,13 +38,13 @@
                         <!--Email-->
                         <div class="mb-3 col-md-6">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter the Email" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter the Email" required>
                             <div class="invalid-feedback">Please enter a valid Email address!</div>
                         </div>
                         <!--Mobile-->
                         <div class="mb-3 col-md-6">
                             <label for="mobile" class="form-label">Mobile</label>
-                            <input type="tel" pattern="[0-9]{10}" class="form-control" id="mobile" placeholder="Enter the Mobile" required>
+                            <input type="tel" pattern="[0-9]{10}" class="form-control" id="mobile" name="mobile" placeholder="Enter the Mobile" required>
                             <div class="invalid-feedback">Please enter a 10-digit Mobile number!</div>
                         </div>
                     </div>
@@ -54,13 +54,13 @@
                         <!--Password-->
                         <div class="mb-3 col-md-6">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Enter the Password" pattern=".{8,15}" required>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter the Password" pattern=".{8,15}" required>
                             <div class="invalid-feedback">Password must be between 8 and 15 characters long!</div>
                         </div>
                         <!--Confirm Password-->
                         <div class="mb-3 col-md-6">
                             <label for="confirmPassword" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
                             <div class="invalid-feedback">Please Confirm your password!</div>
                         </div>
                     </div>
@@ -78,18 +78,39 @@
                             <div class="invalid-feedback">Please select a Role!</div>
                         </div>
                     </div>
-                    
+
+                    <!--5th Row-->
                     <div class="row">
                         <!-- Permission -->
-                        <div class="mb-3 col-md-6">
+                        <div class="mb-3 col-md-">
                             <label for="permissions" class="form-label">Permissions</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="admin">
                                 <label class="form-check-label" for="admin">Admin</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="limited">
-                                <label class="form-check-label" for="limited">Limited</label>
+                                <input class="form-check-input" type="checkbox" value="" id="product">
+                                <label class="form-check-label" for="product">Product</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="purchase">
+                                <label class="form-check-label" for="purchase">Purchase</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="production">
+                                <label class="form-check-label" for="production">Production</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="billing">
+                                <label class="form-check-label" for="billing">Billing</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="customer">
+                                <label class="form-check-label" for="customer">Customer</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="report">
+                                <label class="form-check-label" for="report">Report</label>
                             </div>
                         </div>
                     </div>

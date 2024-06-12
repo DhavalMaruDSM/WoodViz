@@ -44,18 +44,33 @@ document.getElementById("form").addEventListener("submit", function (event) {
 document.getElementById('role').addEventListener('change', function () {
     var role = this.value;
     var admin = document.getElementById('admin');
-    var limited = document.getElementById('limited');
+    var product = document.getElementById('product');
+    var purchase = document.getElementById('purchase');
+    var production = document.getElementById('production');
+    var billing = document.getElementById('billing');
+    var customer = document.getElementById('customer');
+    var report = document.getElementById('report');
 
     if (role === "admin") {
         admin.checked = true;
-        limited.checked = true;
+        product.checked = true;
+        purchase.checked = true;
+        production.checked = true;
+        billing.checked = true;
+        customer.checked = true;
+        report.checked = true;
     } else if (role === "limited") {
         admin.checked = false;
-        limited.checked = false;
+        product.checked = false;
+        purchase.checked = false;
+        production.checked = false;
+        billing.checked = false;
+        customer.checked = false;
+        report.checked = false;
     }
 });
 
-// Form validation on input change
+//Form Validation
 document.querySelectorAll(".form-control").forEach(function (input) {
     input.addEventListener("input", function () {
         if (this.checkValidity()) {
