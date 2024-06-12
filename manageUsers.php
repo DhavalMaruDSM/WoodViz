@@ -16,7 +16,7 @@
             <button class="btn btn-warning mb-3 mt-5" id="addUserBtn">Add User</button>
             <div class="user-card col-md-8 col-lg-6 mt-3 d-none" id="userForm">
                 <form id="form" class="needs-validation" novalidate>
-                    
+
                     <!--1st Row-->
                     <div class="row">
                         <!--Username-->
@@ -78,10 +78,25 @@
                             <div class="invalid-feedback">Please select a Role!</div>
                         </div>
                     </div>
+                    
+                    <div class="row">
+                        <!-- Permission -->
+                        <div class="col-md-6">
+                            <label for="permissions" class="form-label">Permissions</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="admin">
+                                <label class="form-check-label" for="admin">Admin</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="limited">
+                                <label class="form-check-label" for="limited">Limited</label>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <!--Submit-->
-                    <button type="submit" class="btn btn-primary mt-3 w-100" id="createAccountBtn">Create
-                        Account</button>
+                    <button type="submit" class="btn btn-primary mt-3 w-100" id="createAccountBtn">Create Account</button>
                 </form>
             </div>
         </div>

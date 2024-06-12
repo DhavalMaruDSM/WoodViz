@@ -1,17 +1,18 @@
-//Add User
+// Add User
 document.getElementById('addUserBtn').addEventListener('click', function () {
     document.getElementById('userForm').classList.toggle('d-none');
     this.classList.add('d-none');
 });
 
-//Submit
+
+// Submit
 document.getElementById("form").addEventListener("submit", function (event) {
     if (this.checkValidity() === false) {
         event.preventDefault();
     }
     this.classList.add("was-validated");
 
-    //Password
+    // Password
     var password = document.getElementById('password').value;
     if (password.length < 8 || password.length > 15) {
         document.getElementById('password').classList.add("is-invalid");
@@ -19,7 +20,7 @@ document.getElementById("form").addEventListener("submit", function (event) {
         event.preventDefault();
     }
 
-    //Confrim Password
+    // Confirm Password
     var confirmPassword = document.getElementById('confirmPassword').value;
     if (password !== confirmPassword) {
         document.getElementById('confirmPassword').classList.add("is-invalid");
@@ -27,7 +28,7 @@ document.getElementById("form").addEventListener("submit", function (event) {
         event.preventDefault();
     }
 
-    //Role
+    // Role
     var role = document.getElementById('role').value;
     if (!role) {
         document.getElementById('role').classList.add("is-invalid");
@@ -37,9 +38,24 @@ document.getElementById("form").addEventListener("submit", function (event) {
         document.getElementById('role').classList.remove("is-invalid");
         document.getElementById('role').nextElementSibling.textContent = "";
     }
+});
 
-}, false);
+// Permissions
+document.getElementById('role').addEventListener('change', function () {
+    var role = this.value;
+    var admin = document.getElementById('admin');
+    var limited = document.getElementById('limited');
 
+    if (role === "admin") {
+        admin.checked = true;
+        limited.checked = true;
+    } else if (role === "limited") {
+        admin.checked = false;
+        limited.checked = false;
+    }
+});
+
+// Form validation on input change
 document.querySelectorAll(".form-control").forEach(function (input) {
     input.addEventListener("input", function () {
         if (this.checkValidity()) {
@@ -51,6 +67,3 @@ document.querySelectorAll(".form-control").forEach(function (input) {
         }
     });
 });
-
-
-
