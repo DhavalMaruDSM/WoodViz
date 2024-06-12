@@ -18,12 +18,16 @@
     font-weight: bolder;
 }
 
-.div-height{
-    min-height: 65vh;
+.img1 {
+    width: 170px;
 }
 
-.search-style{
-    border : 1px solid black;
+.div-height {
+    min-height: 100vh;
+}
+
+.search-style {
+    border: 1px solid black;
     border-radius: 10px;
 }
 
@@ -55,11 +59,84 @@ li {
     color: black;
 }
 
+.sidebar-sub-link {
+    border: none;
+    padding: 10px;
+    background-color: #00000000;
+    color: black;
+    width: 200px;
+    min-width: 200px;
+}
+
 .sidebar-item:hover {
     background-color: orange;
+}
+
+.sidebar-sub-link:hover {
+    background-color: white;
+}
+
+.sidebar-sub-item {
+    background-color: peachpuff;
+    width: 200px;
+    min-width: 200px;
 }
 
 .sidebar-span-style {
     font-size: medium;
     font-weight: 500;
+}
+
+.sidebar-sub-span-style {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+@media (max-width:500px) {
+    #sidebar {
+        width: 100px;
+        min-width: 100px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+    }
+
+    .img1 {
+        width: 100px;
+    }
+
+    .sidebar-span-style {
+        font-size: small;
+        font-weight: 500;
+    }
+    .extra-style{
+        padding-left: 10px;
+    }
+
+    .sidebar-sub-span-style {
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .sidebar-sub-item {
+        background-color: peachpuff;
+        width: 100px;
+        min-width: 100px;
+    }
+
+    .sidebar-sub-link {
+        border: none;
+        padding: 10px;
+        background-color: #00000000;
+        color: black;
+        width: 100px;
+        min-width: 100px;
+    }
+    .icon-b{
+        display: block;
+    }
+    .icon-b1{
+        display: none;
+        padding: 0;
+    }
 }

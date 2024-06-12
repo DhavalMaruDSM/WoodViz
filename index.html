@@ -14,8 +14,8 @@
 </head>
 
 <body class="bodycolor">
-    <div class="card m-5">
-        <div class="card-header border-0 bgcolor">
+    <div>
+        <div class="bgcolor py-2">
             <nav class="navbar navbar-expand-lg p-0">
                 <div class="container-fluid">
                     <a href="#" class="navbar-brand">
@@ -68,64 +68,93 @@
             <aside id="sidebar">
                 <div class="div-height">
                     <ul class="sidebar-nav p-0">
-                    <li class="sidebar-item py-1">
-                        <button class="sidebar-link" id="dashboard" type="button">
-                            <i class="bi bi-columns-gap p-3"></i>
-                            <span class="sidebar-span-style">Dashboard</span>
-                        </button>
-                    </li>
-                    <li class="sidebar-item py-1">
-                        <button class="sidebar-link" id="admin" type="button">
-                            <i class="bi bi-person-circle p-3"></i>
-                            <span class="sidebar-span-style">Admin</span>
-                        </button>
-                    </li>
-                    <li class="sidebar-item py-1">
-                        <button class="sidebar-link" id="product" type="button">
-                            <i class="bi bi-box-seam p-3"></i>
-                            <span class="sidebar-span-style">Product</span>
-                        </button>
-                    </li>
-                    <li class="sidebar-item py-1">
-                        <button class="sidebar-link" id="import" type="button">
-                            <i class="bi bi-arrow-left p-3"></i>
-                            <span class="sidebar-span-style">Import</span>
-                        </button>
-                    </li>
-                    <li class="sidebar-item py-1">
-                        <button class="sidebar-link" id="production" type="button">
-                            <i class="bi bi-database-fill p-3"></i>
-                            <span class="sidebar-span-style">Production</span>
-                        </button>
-                    </li>
-                    <li class="sidebar-item py-1">
-                        <button class="sidebar-link" id="billing" type="button">
-                            <i class="bi bi-receipt p-3"></i>
-                            <span class="sidebar-span-style">Billing</span>
-                        </button>
-                    </li>
-                    <li class="sidebar-item py-1">
-                        <button class="sidebar-link" id="customer" type="button">
-                            <i class="bi bi-people-fill p-3"></i>
-                            <span class="sidebar-span-style">Customer</span>
-                        </button>
-                    </li>
-                    <li class="sidebar-item py-1">
-                        <button class="sidebar-link" id="report" type="button">
-                            <i class="bi bi-file-text-fill p-3"></i>
-                            <span class="sidebar-span-style">Report</span>
-                        </button>
-                    </li>
-                    <li class="sidebar-item py-1">
-                        <button class="sidebar-link" id="setting" type="button">
-                            <i class="bi bi-gear p-3"></i>
-                            <span class="sidebar-span-style">Setting</span>
-                        </button>
-                    </li>
+                        <li class="sidebar-item py-1">
+                            <button class="sidebar-link" id="dashboard" type="button">
+                                <i class="bi bi-columns-gap p-3"></i>
+                                <span class="sidebar-span-style">Dashboard</span>
+                            </button>
+                        </li>
+                        <li class="sidebar-item py-1">
+                            <button class="sidebar-link dropdown-toggle" 
+                                id="admin" type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="bi bi-person-circle p-3 icon-b"></i>
+                                <span class="sidebar-span-style extra-style">Admin</span>
+                            </button>
+                            <ul class="sidebar-sub-item dropdown-menu p-0" aria-labelledby="admin">
+                                <li class=" py-1">
+                                    <button class="sidebar-sub-link dropdown-item text-wrap p-1" id="user" type="button">
+                                        <i class="bi bi-dash icon-b1"></i>
+                                        <span class="sidebar-sub-span-style">Manage Users</span>
+                                    </button>
+                                </li>
+                                <li class=" py-1">
+                                    <button class="sidebar-sub-link dropdown-item text-wrap p-1" id="user" type="button">
+                                        <i class="bi bi-dash icon-b1"></i>
+                                        <span class="sidebar-sub-span-style">Permission Management</span>
+                                    </button>
+                                </li>
+                                <li class=" py-1">
+                                    <button class="sidebar-sub-link dropdown-item text-wrap p-1" id="user" type="button">
+                                        <i class="bi bi-dash icon-b1"></i>
+                                        <span class="sidebar-sub-span-style">User Activity Monitor</span>
+                                    </button>
+                                </li>
+                                <li class=" py-1">
+                                    <button class="sidebar-sub-link dropdown-item text-wrap p-1" id="user" type="button">
+                                        <i class="bi bi-dash icon-b1"></i>
+                                        <span class="sidebar-sub-span-style">Production Monitoring</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item py-1">
+                            <button class="sidebar-link" id="product" type="button">
+                                <i class="bi bi-box-seam p-3"></i>
+                                <span class="sidebar-span-style">Product</span>
+                            </button>
+                        </li>
+                        <li class="sidebar-item py-1">
+                            <button class="sidebar-link" id="import" type="button">
+                                <i class="bi bi-arrow-left p-3"></i>
+                                <span class="sidebar-span-style">Import</span>
+                            </button>
+                        </li>
+                        <li class="sidebar-item py-1">
+                            <button class="sidebar-link" id="production" type="button">
+                                <i class="bi bi-database-fill p-3"></i>
+                                <span class="sidebar-span-style">Production</span>
+                            </button>
+                        </li>
+                        <li class="sidebar-item py-1">
+                            <button class="sidebar-link" id="billing" type="button">
+                                <i class="bi bi-receipt p-3"></i>
+                                <span class="sidebar-span-style">Billing</span>
+                            </button>
+                        </li>
+                        <li class="sidebar-item py-1">
+                            <button class="sidebar-link" id="customer" type="button">
+                                <i class="bi bi-people-fill p-3"></i>
+                                <span class="sidebar-span-style">Customer</span>
+                            </button>
+                        </li>
+                        <li class="sidebar-item py-1">
+                            <button class="sidebar-link" id="report" type="button">
+                                <i class="bi bi-file-text-fill p-3"></i>
+                                <span class="sidebar-span-style">Report</span>
+                            </button>
+                        </li>
+                        <li class="sidebar-item py-1">
+                            <button class="sidebar-link" id="setting" type="button">
+                                <i class="bi bi-gear p-3"></i>
+                                <span class="sidebar-span-style">Setting</span>
+                            </button>
+                        </li>
                     </ul>
                 </div>
                 <div class="text-center">
-                    <img style="width:170px" src="logo.png">
+                    <img class="img1" src="logo.png">
                 </div>
             </aside>
             <div class="main" style="background-color: 	#F5F5F5;">
