@@ -51,11 +51,11 @@ li {
 .sidebar-link {
     border: none;
     padding: 10px;
-    background-color: white;
+    background-color: #00000000;
     color: black;
 }
 
-.sidebar-link:hover{
+.sidebar-item:hover {
     background-color: orange;
 }
 
