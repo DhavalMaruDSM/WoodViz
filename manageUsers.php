@@ -81,7 +81,7 @@
                     
                     <div class="row">
                         <!-- Permission -->
-                        <div class="col-md-6">
+                        <div class="mb-3 col-md-6">
                             <label for="permissions" class="form-label">Permissions</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="admin">
