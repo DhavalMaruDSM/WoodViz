@@ -84,25 +84,25 @@
                             </button>
                             <ul class="sidebar-sub-item dropdown-menu p-0" aria-labelledby="admin">
                                 <li class=" py-1">
-                                    <button class="sidebar-sub-link dropdown-item text-wrap p-1" id="user" type="button">
+                                    <button class="sidebar-sub-link dropdown-item text-wrap p-1  <?= ($current_page == 'manageUsers.php') ? 'active' : '' ?>" id="user" type="button">
                                         <i class="bi bi-dash icon-b1"></i>
                                         <span class="sidebar-sub-span-style">Manage Users</span>
                                     </button>
                                 </li>
                                 <li class=" py-1">
-                                    <button class="sidebar-sub-link dropdown-item text-wrap p-1" id="user" type="button">
+                                    <button class="sidebar-sub-link dropdown-item text-wrap p-1 <?= ($current_page == '#') ? 'active' : '' ?>" id="user" type="button">
                                         <i class="bi bi-dash icon-b1"></i>
                                         <span class="sidebar-sub-span-style">Permission Management</span>
                                     </button>
                                 </li>
                                 <li class=" py-1">
-                                    <button class="sidebar-sub-link dropdown-item text-wrap p-1" id="user" type="button">
+                                    <button class="sidebar-sub-link dropdown-item text-wrap p-1 <?= ($current_page == '#') ? 'active' : '' ?>" id="user" type="button">
                                         <i class="bi bi-dash icon-b1"></i>
                                         <span class="sidebar-sub-span-style">User Activity Monitor</span>
                                     </button>
                                 </li>
                                 <li class=" py-1">
-                                    <button class="sidebar-sub-link dropdown-item text-wrap p-1" id="user" type="button">
+                                    <button class="sidebar-sub-link dropdown-item text-wrap p-1 <?= ($current_page == '#') ? 'active' : '' ?>" id="user" type="button">
                                         <i class="bi bi-dash icon-b1"></i>
                                         <span class="sidebar-sub-span-style">Production Monitoring</span>
                                     </button>
@@ -110,43 +110,43 @@
                             </ul>
                         </li>
                         <li class="sidebar-item py-1">
-                            <button class="sidebar-link" id="product" type="button">
+                            <button class="sidebar-link <?= ($current_page == '#') ? 'active' : '' ?>" id="product" type="button">
                                 <i class="bi bi-box-seam p-3"></i>
                                 <span class="sidebar-span-style">Product</span>
                             </button>
                         </li>
                         <li class="sidebar-item py-1">
-                            <button class="sidebar-link" id="import" type="button">
+                            <button class="sidebar-link <?= ($current_page == '#') ? 'active' : '' ?>" id="import" type="button">
                                 <i class="bi bi-arrow-left p-3"></i>
                                 <span class="sidebar-span-style">Import</span>
                             </button>
                         </li>
                         <li class="sidebar-item py-1">
-                            <button class="sidebar-link" id="production" type="button">
+                            <button class="sidebar-link <?= ($current_page == '#') ? 'active' : '' ?>" id="production" type="button">
                                 <i class="bi bi-database-fill p-3"></i>
                                 <span class="sidebar-span-style">Production</span>
                             </button>
                         </li>
                         <li class="sidebar-item py-1">
-                            <button class="sidebar-link" id="billing" type="button">
+                            <button class="sidebar-link <?= ($current_page == '#') ? 'active' : '' ?>" id="billing" type="button">
                                 <i class="bi bi-receipt p-3"></i>
                                 <span class="sidebar-span-style">Billing</span>
                             </button>
                         </li>
                         <li class="sidebar-item py-1">
-                            <button class="sidebar-link" id="customer" type="button">
+                            <button class="sidebar-link <?= ($current_page == '#') ? 'active' : '' ?>" id="customer" type="button">
                                 <i class="bi bi-people-fill p-3"></i>
                                 <span class="sidebar-span-style">Customer</span>
                             </button>
                         </li>
                         <li class="sidebar-item py-1">
-                            <button class="sidebar-link" id="report" type="button">
+                            <button class="sidebar-link <?= ($current_page == '#') ? 'active' : '' ?>" id="report" type="button">
                                 <i class="bi bi-file-text-fill p-3"></i>
                                 <span class="sidebar-span-style">Report</span>
                             </button>
                         </li>
                         <li class="sidebar-item py-1">
-                            <button class="sidebar-link" id="setting" type="button">
+                            <button class="sidebar-link <?= ($current_page == '#') ? 'active' : '' ?>" id="setting" type="button">
                                 <i class="bi bi-gear p-3"></i>
                                 <span class="sidebar-span-style">Setting</span>
                             </button>
