@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     deleteButton.innerHTML = "Delete";
                     deleteButton.onclick = function () {
                         let rowData = cell.getRow().getData();
-                        showDeleteConfirmation(rowData.id); // Pass row id to delete confirmation
+                        showDeleteConfirmation(rowData.id);
                     };
                     div.appendChild(deleteButton);
 
@@ -146,32 +146,25 @@ function showDeleteConfirmation(rowId) {
     let modal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
     modal.show();
 
-    // Handle click on "Yes" button in modal
     document.getElementById('confirmDeleteButton').onclick = function () {
-        // Perform deletion action here (for example, removing row from Tabulator)
-        table.deleteRow(rowId); // Delete row using the row identifier
-
-        // Close the modal
+        table.deleteRow(rowId);
         modal.hide();
     };
 }
 
 //Edit
 function fillForm(data) {
-    // Update a variable to keep track of the row being edited
-    editingRowId = data.srNo; // Assuming 'srNo' is a unique identifier for rows
+    
+    editingRowId = data.srNo; 
 
-    // Fill the form with data to edit
     document.getElementById('username').value = data.username;
     document.getElementById('fullname').value = data.fullname;
     document.getElementById('email').value = data.email;
     document.getElementById('mobile').value = data.mobile;
     document.getElementById('role').value = data.role;
 
-    // Set permissions if needed
     let checkboxes = document.querySelectorAll('.form-check-input');
     checkboxes.forEach(checkbox => checkbox.checked = data.permissions.includes(checkbox.id));
 
-    // Show modal
     new bootstrap.Modal(document.getElementById('userFormModal')).show();
 }
