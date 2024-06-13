@@ -12,6 +12,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage User</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="assets/css/css/tabulator_simple.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/manageUsers.css" type="text/css">
 </head>
 
@@ -21,6 +22,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
         <div class="container d-flex align-items-center justify-content-center flex-column">
             <button class="btn btn-warning mb-3 mt-5" id="addUserBtn" data-bs-toggle="modal" data-bs-target="#userFormModal">Add User</button>
         </div>
+        <div id="user-table"></div>
     </div>
 
     <div class="modal fade" id="userFormModal" tabindex="-1" aria-labelledby="userFormModalLabel" aria-hidden="true">
@@ -144,8 +146,28 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
         </div>
     </div>
 
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteButton">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="assets/js/js/tabulator.min.js"></script>
     <script src="assets/js/manageUsers.js"></script>
 </body>
 
