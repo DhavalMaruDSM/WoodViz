@@ -1,1 +1,10 @@
+<<<<<<< HEAD
 /* // WoodViz */
+=======
+.button-color{
+    background-color: orange;
+}
+.button-color:hover{
+    background-color: peachpuff;
+}
+>>>>>>> categories-subcategories
