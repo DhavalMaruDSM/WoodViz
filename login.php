@@ -12,9 +12,9 @@
 require 'vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
-$clientID = $_ENV['CLIENT_ID'];
-$clientSecret = $_ENV['CLIENT_SECRET'];
-$redirectUri = $_ENV['REDIRECT_URI'];
+$clientID = $_ENV['clientID'];
+$clientSecret = $_ENV['clientSecret'];
+$redirectUri = $_ENV['redirectUri'];
 // create Client Request to access Google API
 $client = new Google_Client();
 $client->setClientId($clientID);
