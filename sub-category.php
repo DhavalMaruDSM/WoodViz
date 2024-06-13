@@ -34,7 +34,7 @@ include("components/header.php");
                         <hr>
                         <div class="d-flex justify-content-between">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn button-color" id="createAccountBtn">Add Sub-Category</button>
+                            <button type="submit" class="btn button-color" id="addsubcategoryBtn">Add Sub-Category</button>
                         </div>
                     </form>
                 </div>

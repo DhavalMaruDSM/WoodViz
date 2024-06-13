@@ -76,7 +76,7 @@ include("components/header.php");
                         <hr>
                         <div class="d-flex justify-content-between">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn button-color" id="createAccountBtn">Add Product</button>
+                            <button type="submit" class="btn button-color" id="addproductBtn">Add Product</button>
                         </div>
                     </form>
                 </div>
