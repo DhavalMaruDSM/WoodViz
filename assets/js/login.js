@@ -60,3 +60,10 @@ const form = document.getElementById('form');
                 setSuccess(password);
             }
         };
+        const validateForm=()=> {
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                validateInputs();
+                document.getElementById('form').submit();
+            });
+        };
