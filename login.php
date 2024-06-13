@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/login.css" type="text/css">
 </head>
+<?php
+require 'vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+$clientID = $_ENV['CLIENT_ID'];
+$clientSecret = $_ENV['CLIENT_SECRET'];
+$redirectUri = $_ENV['REDIRECT_URI'];
+// create Client Request to access Google API
+$client = new Google_Client();
+$client->setClientId($clientID);
+$client->setClientSecret($clientSecret);
+$client->setRedirectUri($redirectUri);
+$client->addScope('email');
+$client->addScope('profile');
+
+$loginUrl = $client->createAuthUrl();
+?>
 
 <body>
     <div class="container d-flex align-items-center justify-content-center">
@@ -15,17 +32,17 @@
             <h2 class="text-center fw-bold fs-1">Login</h2>
             <p class="text-center text-secondary fst-italic fs-5 mb-5">Hey, Welcome Back!</p>
 
-            <form id="form" onsubmit="return validateForm()">
+            <form id="form" action="php/login.php" method="POST" onsubmit="validateForm()">
                 <!--Email/Username-->
                 <div class="mb-3">
-                    <input type="text" class="form-control rounded-field" id="email" placeholder="Email/Username">
+                    <input type="text" class="form-control rounded-field" name="email" id="email" placeholder="Email/Username">
                     <div class="error text-danger ms-2 mt-1"></div>
 
                 </div>
 
                 <!--Password-->
                 <div class="mb-3">
-                    <input type="password" class="form-control rounded-field" id="password" placeholder="Password">
+                    <input type="password" class="form-control rounded-field" name="password" id="password" placeholder="Password">
                     <div class="error text-danger ms-2 mt-1"></div>
 
                 </div>
@@ -36,14 +53,14 @@
                 </div>
 
                 <!--Sign in Button-->
-                <button type="submit" class="btn w-100 mb-3 rounded-btn signin-btn fw-bold">Sign In</button>
+                <button type="submit" class="btn w-100 mb-3 rounded-btn signin-btn fw-bold" name="signin">Sign In</button>
 
                 <p class="text-center mb-3 mt-3 fst-italic text-secondary">Or signup with</p>
 
                 <!--Google signup-->
                 <div class="d-flex justify-content-center">
                     <button type="button" class="btn google-btn rounded-btn fs-5">
-                        <a class="text-decoration-none text-black" href="https://accounts.google.com"><img src="assets/resources/google.png" alt="Google logo">
+                        <a class="text-decoration-none text-black" href="<?php echo $loginUrl ?>"><img src="assets/resources/google.png" alt="Google logo">
                             Google</a>
                     </button>
                 </div>
