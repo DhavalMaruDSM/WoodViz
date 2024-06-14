@@ -1,6 +1,8 @@
-CREATE TABLE sub_categories (
-    sub_category_id INT AUTO_INCREMENT PRIMARY KEY,
-    category_id INT,
-    sub_category_name VARCHAR(255) NOT NULL,
-    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+CREATE TABLE SubCategory (
+    sub_category_id INT PRIMARY KEY,
+    description VARCHAR(255),
+    created_at DATETIME,
+    created_by INT,
+    updated_at DATETIME,
+    updated_by INT
 );
