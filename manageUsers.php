@@ -13,16 +13,38 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
     <title>Manage User</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link href="assets/css/css/tabulator_simple.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/manageUsers.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/main.css" type="text/css">
 </head>
 
-<body>
-
+<body id="manageUsers-body">
     <div class="main-content">
-        <div class="container d-flex align-items-center justify-content-center flex-column">
-            <button class="btn btn-warning mb-3 mt-5" id="addUserBtn" data-bs-toggle="modal" data-bs-target="#userFormModal">Add User</button>
+        <div class="container">
+            <div class="row align-items-center mb-3">
+                <div id="searchbar">
+                    <div class="input-group">
+                        <i class="bi bi-search bg-light"></i>
+                        <select class="btn bg-light" id="searchDropdown" required>
+                            <option value="username"><a href="#">Username</a></option>
+                            <option value="fullname"><a href="#">Fullname</a></option>
+                            <option value="email"><a href="#">Email</a></option>
+                            <option value="mobile"><a href="#">Mobile</a></option>
+                        </select>
+                        <input type="search" class="form-control" placeholder="Search..." aria-label="search">
+                        <button class="btn btn-success" type="submit">Search</button>
+                    </div>
+                    <button class="btn ms-2" id="addUserBtn" data-bs-toggle="modal" data-bs-target="#userFormModal">
+                        <i class="bi bi-plus-circle-fill"></i> ADD USER
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div id="user-table-container" class="p-3">
+                        <div id="user-table"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="user-table"></div>
     </div>
 
     <div class="modal fade" id="userFormModal" tabindex="-1" aria-labelledby="userFormModalLabel" aria-hidden="true">
