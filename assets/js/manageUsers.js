@@ -97,13 +97,13 @@ document.querySelectorAll(".form-control").forEach(function (input) {
 
 //Table
 document.addEventListener("DOMContentLoaded", function () {
-    table = new Tabulator("#user-table", {
+    var table = new Tabulator("#user-table", {
         layout: "fitDataFill",
         maxHeight: "200px",
-        maxWidth:"100%",
+        maxWidth: "100%",
         responsiveLayout: "collapse",
         columns: [
-            { title: "#", field: "srNo", sorter: "number", width: 70 },
+            { title: "#", field: "id", sorter: "number", width: 70 },
             { title: "Username", field: "username", sorter: "string" },
             { title: "Fullname", field: "fullname", sorter: "string" },
             { title: "Email", field: "email", sorter: "string" },
@@ -112,24 +112,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 title: "Actions",
                 field: "actions",
                 formatter: function (cell, formatterParams) {
-                    let div = document.createElement("div");
+                    var div = document.createElement("div");
 
                     // Edit Button
-                    let editButton = document.createElement("button");
+                    var editButton = document.createElement("button");
                     editButton.className = "btn btn-sm btn-primary me-2";
                     editButton.innerHTML = "Edit";
                     editButton.onclick = function () {
-                        let rowData = cell.getRow().getData();
+                        var rowData = cell.getRow().getData();
                         fillForm(rowData);
                     };
                     div.appendChild(editButton);
 
                     // Delete Button
-                    let deleteButton = document.createElement("button");
+                    var deleteButton = document.createElement("button");
                     deleteButton.className = "btn btn-sm btn-danger";
                     deleteButton.innerHTML = "Delete";
                     deleteButton.onclick = function () {
-                        let rowData = cell.getRow().getData();
+                        var rowData = cell.getRow().getData();
                         showDeleteConfirmation(rowData.id);
                     };
                     div.appendChild(deleteButton);
@@ -137,9 +137,26 @@ document.addEventListener("DOMContentLoaded", function () {
                     return div;
                 }
             }
-        ]
+        ],
+        data: [] 
+    });
+
+    $.ajax({
+        url: '../php/fetchUsers.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            console.log("Data fetched from server:", data);
+            alert("Data fetched successfully!");
+            table.setData(data);
+        },
+        error: function (xhr, status, error) {
+            console.error('AJAX Error:', status, error);
+            alert("Error fetching data. Check console for details.");
+        }
     });
 });
+
 
 //Delete
 function showDeleteConfirmation(rowId) {
