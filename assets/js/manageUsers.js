@@ -97,9 +97,8 @@ document.querySelectorAll(".form-control").forEach(function (input) {
 
 //Table
 document.addEventListener("DOMContentLoaded", function () {
-    var table = new Tabulator("#user-table", {
+    table = new Tabulator("#user-table", {
         layout: "fitDataFill",
-<<<<<<< HEAD
         maxHeight: "400px",
         maxWidth: "100%",
         hozAlign: "center",
@@ -110,53 +109,30 @@ document.addEventListener("DOMContentLoaded", function () {
             { title: "Fullname", field: "fullname", sorter: "string", headerHozAlign: "center", width: 250 },
             { title: "Email", field: "email", sorter: "string", headerHozAlign: "center", width: 330 },
             { title: "Mobile", field: "mobile", sorter: "string", headerHozAlign: "center", width: 180 },
-=======
-        maxHeight: "200px",
-        maxWidth: "100%",
-        responsiveLayout: "collapse",
-        columns: [
-            { title: "#", field: "id", sorter: "number", width: 70 },
-            { title: "Username", field: "username", sorter: "string" },
-            { title: "Fullname", field: "fullname", sorter: "string" },
-            { title: "Email", field: "email", sorter: "string" },
-            { title: "Mobile", field: "mobile", sorter: "string" },
->>>>>>> f4a71e3f5b395dcc5f39f8608a5f0a2181c28873
             {
                 title: "Actions",
                 field: "actions",
                 width: 200,
                 headerHozAlign: "center",
                 formatter: function (cell, formatterParams) {
-                    var div = document.createElement("div");
+                    let div = document.createElement("div");
 
                     // Edit Button
-<<<<<<< HEAD
                     let editButton = document.createElement("button");
                     editButton.className = "btn btn-sm btn-primary me-2 p-2";
                     editButton.innerHTML = "<i class='bi bi-pencil-fill'></i><style='font-size:18px;'> Edit";
-=======
-                    var editButton = document.createElement("button");
-                    editButton.className = "btn btn-sm btn-primary me-2";
-                    editButton.innerHTML = "Edit";
->>>>>>> f4a71e3f5b395dcc5f39f8608a5f0a2181c28873
                     editButton.onclick = function () {
-                        var rowData = cell.getRow().getData();
+                        let rowData = cell.getRow().getData();
                         fillForm(rowData);
                     };
                     div.appendChild(editButton);
 
                     // Delete Button
-<<<<<<< HEAD
                     let deleteButton = document.createElement("button");
                     deleteButton.className = "btn btn-sm btn-danger p-2";
                     deleteButton.innerHTML = "<i class='bi bi-trash-fill'></i> Delete";
-=======
-                    var deleteButton = document.createElement("button");
-                    deleteButton.className = "btn btn-sm btn-danger";
-                    deleteButton.innerHTML = "Delete";
->>>>>>> f4a71e3f5b395dcc5f39f8608a5f0a2181c28873
                     deleteButton.onclick = function () {
-                        var rowData = cell.getRow().getData();
+                        let rowData = cell.getRow().getData();
                         showDeleteConfirmation(rowData.id);
                     };
                     div.appendChild(deleteButton);
@@ -164,29 +140,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     return div;
                 }
             }
-        ],
-        data: [] 
-    });
-
-    $.ajax({
-        url: '../php/fetchUsers.php',
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            console.log("Data fetched from server:", data);
-            alert("Data fetched successfully!");
-            table.setData(data);
-        },
-        error: function (xhr, status, error) {
-            console.error('AJAX Error:', status, error);
-            alert("Error fetching data. Check console for details.");
-        }
+        ]
     });
     window.addEventListener("resize", function () {
         table.redraw();
     });
 });
-
 
 //Delete
 function showDeleteConfirmation(rowId) {
