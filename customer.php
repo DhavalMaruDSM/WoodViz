@@ -14,6 +14,7 @@ include("components/header.php");
         .tabulator .tabulator-cell .balance-negative {
             color: red;
         }
+        
     </style>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -21,9 +22,11 @@ include("components/header.php");
                 <li class="breadcrumb-item active" aria-current="page">Customer</li>
             </ol>
         </nav>
+        <div class="container">
         <h3 class="mt-4">Customer</h3>
-        <div class="d-flex justify-content-between align-items-center mt-3">
-            <div class="input-group w-50">
+        <div class="row ">
+            <div class="col-10 ">
+            <div class="input-group">
             <span class="input-group-text" id="basic-addon1"><i class="bi bi-search "></i></span>
             <select class="form-select" id="search-field">
                     <option value="name" selected>Name</option>
@@ -31,10 +34,10 @@ include("components/header.php");
                     <option value="mobile">Mobile</option>
                     <option value="balance">Balance</option>
                 </select>
-                <input type="text" id="search-input" class="form-control" placeholder="Search...">
+                <input type="text" id="search-input" class="form-control w-50" placeholder="Search...">
                 <button class="btn btn-outline-warning" type="button" id="search-button">Search</button>
-            </div>
-            <button type="button" class="btn btn-warning float-end  mt-0" data-bs-toggle="modal" data-bs-target="#addAccountModal">+ Add Account</button>
+            </div></div>    
+            <button type="button" class="btn btn-warning col ms-3 me-3" data-bs-toggle="modal" data-bs-target="#addAccountModal">+ Add Account</button>
         </div>
         
                     <!-- Modal -->  
@@ -117,7 +120,8 @@ include("components/header.php");
             </div>
         </div>
     </div>
-    <div id="customer-table" class="mt-3"></div>
+    <div id="customer-table" class="mt-3 me-1"></div>
+    </div>
     <script src="https://unpkg.com/tabulator-tables@5.3.2/dist/js/tabulator.min.js"></script>
     <script>
         const tableData = [
