@@ -1,4 +1,8 @@
-CREATE TABLE categories (
-    category_id INT AUTO_INCREMENT PRIMARY KEY,
-    category_name VARCHAR(255) NOT NULL
+CREATE TABLE Category (
+    category_id INT PRIMARY KEY,
+    description VARCHAR(255),
+    created_at TIMESTAMP,
+    created_by INT,
+    updated_at TIMESTAMP,
+    updated_by INT
 );
