@@ -5,6 +5,16 @@ include("components/header.php");
 
 <!-- ---------------------------------- -->
 <div class="container mt-4">
+<link href="https://unpkg.com/tabulator-tables@5.3.2/dist/css/tabulator.min.css" rel="stylesheet">
+    <style>
+        .tabulator .tabulator-cell .balance-positive {
+            color: green;
+        }
+
+        .tabulator .tabulator-cell .balance-negative {
+            color: red;
+        }
+    </style>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -12,7 +22,21 @@ include("components/header.php");
             </ol>
         </nav>
         <h3 class="mt-4">Customer</h3>
-        <button type="button" class="btn btn-warning float-end m-3 mt-0" data-bs-toggle="modal" data-bs-target="#addAccountModal">+ Add Account</button>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div class="input-group w-50">
+            <span class="input-group-text" id="basic-addon1"><i class="bi bi-search "></i></span>
+            <select class="form-select" id="search-field">
+                    <option value="name" selected>Name</option>
+                    <option value="email">Email</option>
+                    <option value="mobile">Mobile</option>
+                    <option value="balance">Balance</option>
+                </select>
+                <input type="text" id="search-input" class="form-control" placeholder="Search...">
+                <button class="btn btn-outline-warning" type="button" id="search-button">Search</button>
+            </div>
+            <button type="button" class="btn btn-warning float-end  mt-0" data-bs-toggle="modal" data-bs-target="#addAccountModal">+ Add Account</button>
+        </div>
+        
                     <!-- Modal -->  
             <div class="modal fade" id="addAccountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl" >
@@ -93,6 +117,65 @@ include("components/header.php");
             </div>
         </div>
     </div>
+    <div id="customer-table" class="mt-3"></div>
+    <script src="https://unpkg.com/tabulator-tables@5.3.2/dist/js/tabulator.min.js"></script>
+    <script>
+        const tableData = [
+            { id: 1, name: "A", email: "a@mail.com", mobile: "9876543210", balance: 100 },
+            { id: 2, name: "B", email: "b@mail.com", mobile: "7968543210", balance: -50 },
+            { id: 3, name: "C", email: "c@mail.com", mobile: "7954832610", balance: 200 },
+            { id: 4, name: "D", email: "d@mail.com", mobile: "9128076354", balance: -150 },
+            { id: 5, name: "E", email: "e@mail.com", mobile: "9238476510", balance: 300 },
+        ];
+
+        const table = new Tabulator("#customer-table", {
+            data: tableData,
+            layout: "fitColumns",
+            columns: [
+                { title: "#", field: "id", width: 50 },
+                { title: "Full Name", field: "name"},
+                { title: "Email", field: "email"},
+                { title: "Mobile", field: "mobile"},
+                {
+                    title: "Balance",
+                    field: "balance",
+                    formatter: function (cell, formatterParams, onRendered) {
+                        const value = cell.getValue();
+                        const className = value < 0 ? 'balance-negative' : 'balance-positive';
+                        return `<span class="${className}">${value}</span>`;
+                    }
+                },
+                {
+                    title: "Action",
+                    formatter: function (cell, formatterParams, onRendered) {
+                        return `
+                            <button class="btn btn-sm btn-primary edit-button">Edit</button>
+                            <button class="btn btn-sm btn-danger delete-button">Delete</button>
+                        `;
+                    },
+                    width: 150,
+                    hozAlign: "center",
+                    cellClick: function (e, cell) {
+                        if (e.target.classList.contains('edit-button')) {
+                            alert('Edit button clicked for ' + cell.getRow().getData().name);
+                        } else if (e.target.classList.contains('delete-button')) {
+                            alert('Delete button clicked for ' + cell.getRow().getData().name);
+                        }
+                    }
+                }
+            ]
+        });
+
+        document.getElementById('search-button').addEventListener('click', function () {
+            const query = document.getElementById('search-input').value;
+            table.setFilter([[
+                { field: "name", type: "like", value: query },
+                { field: "email", type: "like", value: query },
+                { field: "mobile", type: "like", value: query },
+                { field: "balance", type: "like", value: query },
+            ]]);
+        });
+        </script>
 </div>
                 
 <?php
