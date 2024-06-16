@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/login.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/main.css" type="text/css">
 </head>
 <?php
 require 'vendor/autoload.php';
@@ -26,8 +26,8 @@ $client->addScope('profile');
 $loginUrl = $client->createAuthUrl();
 ?>
 
-<body>
-    <div class="container d-flex align-items-center justify-content-center">
+<body id="login-body">
+    <div class="container d-flex align-items-center justify-content-center login-container">
         <div class="login-card col-md-6 col-lg-4">
             <h2 class="text-center fw-bold fs-1">Login</h2>
             <p class="text-center text-secondary fst-italic fs-5 mb-5">Hey, Welcome Back!</p>

@@ -99,25 +99,28 @@ document.querySelectorAll(".form-control").forEach(function (input) {
 document.addEventListener("DOMContentLoaded", function () {
     table = new Tabulator("#user-table", {
         layout: "fitDataFill",
-        maxHeight: "200px",
-        maxWidth:"100%",
-        responsiveLayout: "collapse",
+        maxHeight: "400px",
+        maxWidth: "100%",
+        hozAlign: "center",
+        responsiveLayout: true,
         columns: [
-            { title: "#", field: "srNo", sorter: "number", width: 70 },
-            { title: "Username", field: "username", sorter: "string" },
-            { title: "Fullname", field: "fullname", sorter: "string" },
-            { title: "Email", field: "email", sorter: "string" },
-            { title: "Mobile", field: "mobile", sorter: "string" },
+            { title: "#", field: "srNo", sorter: "number", headerHozAlign: "center", width: 50 },
+            { title: "Username", field: "username", sorter: "string", headerHozAlign: "center", width: 200 },
+            { title: "Fullname", field: "fullname", sorter: "string", headerHozAlign: "center", width: 250 },
+            { title: "Email", field: "email", sorter: "string", headerHozAlign: "center", width: 330 },
+            { title: "Mobile", field: "mobile", sorter: "string", headerHozAlign: "center", width: 180 },
             {
                 title: "Actions",
                 field: "actions",
+                width: 200,
+                headerHozAlign: "center",
                 formatter: function (cell, formatterParams) {
                     let div = document.createElement("div");
 
                     // Edit Button
                     let editButton = document.createElement("button");
-                    editButton.className = "btn btn-sm btn-primary me-2";
-                    editButton.innerHTML = "Edit";
+                    editButton.className = "btn btn-sm btn-primary me-2 p-2";
+                    editButton.innerHTML = "<i class='bi bi-pencil-fill'></i><style='font-size:18px;'> Edit";
                     editButton.onclick = function () {
                         let rowData = cell.getRow().getData();
                         fillForm(rowData);
@@ -126,8 +129,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Delete Button
                     let deleteButton = document.createElement("button");
-                    deleteButton.className = "btn btn-sm btn-danger";
-                    deleteButton.innerHTML = "Delete";
+                    deleteButton.className = "btn btn-sm btn-danger p-2";
+                    deleteButton.innerHTML = "<i class='bi bi-trash-fill'></i> Delete";
                     deleteButton.onclick = function () {
                         let rowData = cell.getRow().getData();
                         showDeleteConfirmation(rowData.id);
@@ -138,6 +141,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         ]
+    });
+    window.addEventListener("resize", function () {
+        table.redraw();
     });
 });
 
@@ -154,8 +160,8 @@ function showDeleteConfirmation(rowId) {
 
 //Edit
 function fillForm(data) {
-    
-    editingRowId = data.srNo; 
+
+    editingRowId = data.srNo;
 
     document.getElementById('username').value = data.username;
     document.getElementById('fullname').value = data.fullname;
