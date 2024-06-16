@@ -1,5 +1,6 @@
 <?php
 include("components/header.php");
+include 'php/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,9 +10,10 @@ include("components/header.php");
     <title>categories</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div class="main" style="background-color: 	#F5F5F5;">
+    <div class="main" style="background-color: #F5F5F5;">
         <div class="container d-flex align-items-center justify-content-center flex-column">
             <button class="btn btn-warning mb-3 mt-5" id="addproductBtn" data-bs-toggle="modal" data-bs-target="#productFormModal">Add Product</button>
         </div>
@@ -34,16 +36,14 @@ include("components/header.php");
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label for="category" class="form-label">Category:</label>
-                                <select class="form-select" id="categoryselect" required>
+                                <select class="form-select" id="categoryselect" name="category" required>
                                     <option disabled selected>Select a Category</option>
-                                    <option></option>
                                 </select>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="sub-category" class="form-label">Sub Category:</label>
-                                <select class="form-select" id="subcategoryselect" required>
+                                <select class="form-select" id="subcategoryselect" name="sub_category" required>
                                     <option disabled selected>Select a Sub-Category</option>
-                                    <option></option>
                                 </select>
                             </div>
                         </div>
@@ -85,6 +85,7 @@ include("components/header.php");
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets\js\product_backend.js"></script>
 </body>
 </html>
 <?php
