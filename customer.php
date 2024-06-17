@@ -216,104 +216,107 @@ include("components/header.php");
         </div>
     </div>
 </div>
-    <script src="https://unpkg.com/tabulator-tables@5.3.2/dist/js/tabulator.min.js"></script>
-    <script>
-        const tableData = [
-            { id: 1, name: "A", email: "a@mail.com", mobile: "9876543210", balance: 100 },
-            { id: 2, name: "B", email: "b@mail.com", mobile: "7968543210", balance: -50 },
-            { id: 3, name: "C", email: "c@mail.com", mobile: "7954832610", balance: 200 },
-            { id: 4, name: "D", email: "d@mail.com", mobile: "9128076354", balance: -150 },
-            { id: 5, name: "E", email: "e@mail.com", mobile: "9238476510", balance: 300 },
-        ];
+<script src="https://unpkg.com/tabulator-tables@5.3.2/dist/js/tabulator.min.js"></script>
+<script>
+    
+    function showData() {
+        fetch('php/get-customer.php')
+            .then(response => response.json())
+            .then(data => {
+                
+                const table = new Tabulator("#customer-table", {
+                    data: data,
+                    layout: "fitColumns",
+                    columns: [
+                        { title: "#", field: "id", width: 50 },
+                        { title: "Full Name", field: "name" },
+                        { title: "Email", field: "email" },
+                        { title: "Mobile", field: "mobile" },
+                        {
+                            title: "Balance",
+                            field: "balance",
+                            formatter: function (cell, formatterParams, onRendered) {
+                                const value = cell.getValue();
+                                const className = value < 0 ? 'balance-negative' : 'balance-positive';
+                                return `<span class="${className}">${value}</span>`;
+                            }
+                        },
+                        {
+                            title: "Action",
+                            formatter: function (cell, formatterParams, onRendered) {
+                                return `
+                                    <button class="btn btn-sm btn-primary edit-button">Edit</button>
+                                    <button class="btn btn-sm btn-danger delete-button">Delete</button>
+                                `;
+                            },
+                            width: 150,
+                            hozAlign: "center",
+                            cellClick: function (e, cell) {
+                                if (e.target.classList.contains('edit-button')) {
+                                    var data = cell.getRow().getData();
+                                    // Populate the modal with the customer's data
+                                    document.getElementById('editAccountName').value = data.name;
+                                    document.getElementById('editMobile').value = data.mobile; 
+                                    document.getElementById('editEmail').value = data.email; 
+                                    var myModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
+                                    myModal.show();
+                                } else if (e.target.classList.contains('delete-button')) {
+                                    var data = cell.getRow().getData();
+                                    var currentCustomerId = data.id;
+                                    document.getElementById('deleteCustomerText').innerText = `Are you sure you want to delete customer ${data.name}?`;
 
-        const table = new Tabulator("#customer-table", {
-            data: tableData,
-            layout: "fitColumns",
-            columns: [
-                { title: "#", field: "id", width: 50 },
-                { title: "Full Name", field: "name"},
-                { title: "Email", field: "email"},
-                { title: "Mobile", field: "mobile"},
-                {
-                    title: "Balance",
-                    field: "balance",
-                    formatter: function (cell, formatterParams, onRendered) {
-                        const value = cell.getValue();
-                        const className = value < 0 ? 'balance-negative' : 'balance-positive';
-                        return `<span class="${className}">${value}</span>`;
-                    }
-                },
-                {
-                    title: "Action",
-                    formatter: function (cell, formatterParams, onRendered) {
-                        return `
-                            <button class="btn btn-sm btn-primary edit-button">Edit</button>
-                            <button class="btn btn-sm btn-danger delete-button">Delete</button>
-                        `;
-                    },
-                    width: 150,
-                    hozAlign: "center",
-                    cellClick: function (e, cell) {
-                        if (e.target.classList.contains('edit-button')) {
+                                    var myModal = new bootstrap.Modal(document.getElementById('deleteCustomerModal'));
+                                    myModal.show();
 
-                            var data = cell.getRow().getData();
-        // Populate the modal with the customer's data
-        document.getElementById('editAccountName').value = data.name;
-        document.getElementById('editMobile').value = data.mobile; 
-        document.getElementById('editEmail').value = data.email; 
-        var myModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
-        myModal.show();
-                        } else if (e.target.classList.contains('delete-button')) {
-                            var data = cell.getRow().getData();
-        var currentCustomerId = data.id;
-        document.getElementById('deleteCustomerText').innerText = `Are you sure you want to delete customer ${data.name}?`;
+                                    document.getElementById('confirmDeleteCustomer').addEventListener('click', function() {
+                                        if (currentCustomerId !== null) {
+                                            table.deleteRow(currentCustomerId);
 
-        var myModal = new bootstrap.Modal(document.getElementById('deleteCustomerModal'));
-        myModal.show();
+                                            var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteCustomerModal'));
+                                            deleteModal.hide();
 
-        document.getElementById('confirmDeleteCustomer').addEventListener('click', function() {
-        if (currentCustomerId !== null) {
-            table.deleteRow(currentCustomerId);
-
-            var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteCustomerModal'));
-            deleteModal.hide();
-
-            currentCustomerId = null;
-        }
-        });
+                                            currentCustomerId = null;
+                                        }
+                                    });
+                                }
+                            }
                         }
-                    }
-                }
-            ]
-        });
+                    ]
+                });
 
-        
+                // Add event listener for search button
+                document.getElementById('search-button').addEventListener('click', function () {
+                    const query = document.getElementById('search-input').value;
+                    table.setFilter([
+                        { field: "name", type: "like", value: query },
+                        { field: "email", type: "like", value: query },
+                        { field: "mobile", type: "like", value: query },
+                        { field: "balance", type: "like", value: query },
+                    ]);
+                });
 
-        document.getElementById('search-button').addEventListener('click', function () {
-            const query = document.getElementById('search-input').value;
-            table.setFilter([[
-                { field: "name", type: "like", value: query },
-                { field: "email", type: "like", value: query },
-                { field: "mobile", type: "like", value: query },
-                { field: "balance", type: "like", value: query },
-            ]]);
-        });
+                // Add event listener for save edit customer button
+                document.getElementById('saveEditCustomer').addEventListener('click', function() {
+                    var updatedData = {
+                        id: currentCustomerId, 
+                        name: document.getElementById('editAccountName').value,
+                        addressLine1: document.getElementById('editAddressLine1').value,
+                        // Add other fields as needed
+                    };
 
+                   
+                    var myModal = bootstrap.Modal.getInstance(document.getElementById('editCustomerModal'));
+                    myModal.hide();
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
 
-        
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        showData();
+    });
 
-document.getElementById('saveEditCustomer').addEventListener('click', function() {
-    var updatedData = {
-        id: currentCustomerId, 
-        name: document.getElementById('editAccountName').value,
-        addressLine1: document.getElementById('editAddressLine1').value,
-    };
-
-
-    var myModal = bootstrap.Modal.getInstance(document.getElementById('editCustomerModal'));
-    myModal.hide();
-
-});
 
     //add account
     function addAccount() {
@@ -354,7 +357,7 @@ document.getElementById('saveEditCustomer').addEventListener('click', function()
                 alert("Account created successfully!");
 
                 $('#createCustomerForm')[0].reset();
-                
+                showData();
                 
                 var addAccountModal = bootstrap.Modal.getInstance(document.getElementById('addAccountModal'));
                 addAccountModal.hide();
