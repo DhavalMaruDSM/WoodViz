@@ -34,7 +34,7 @@ include("components/header.php");
                     <option value="mobile">Mobile</option>
                     <option value="balance">Balance</option>
                 </select>
-                <input type="text" id="search-input" class="form-control w-50" placeholder="Search...">
+                <input type="text" id="search-input" name="search-input" class="form-control w-50" placeholder="Search...">
                 <button class="btn btn-outline-warning" type="button" id="search-button">Search</button>
             </div></div>    
             <button type="button" class="btn btn-warning col ms-3 me-3" data-bs-toggle="modal" data-bs-target="#addAccountModal">+ Add Account</button>
@@ -49,62 +49,62 @@ include("components/header.php");
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form id="createCustomerForm">
                                 <div class="row">
                                     <div class="mb-3 col-4">
                                         <label for="accountName" class="form-label">Account Name:</label>
-                                        <input type="text" class="form-control" id="accountName" required>
+                                        <input type="text" class="form-control" id="accountName" name="accountName" required>
                                     </div>
                                     <div class="mb-3 col-8">
                                         <label for="addressLine1" class="form-label">Address line 1:</label>
-                                        <input type="text" class="form-control" id="addressLine1" required>
+                                        <input type="text" class="form-control" id="addressLine1" name="addressLine1" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-4">
                                         <label for="mobile" class="form-label">Mobile:</label>
-                                        <input type="text" class="form-control" id="mobile" required>
+                                        <input type="text" class="form-control" id="mobile" name="mobile" required>
                                     </div>
                                     <div class="mb-3 col-8">
                                         <label for="addressLine2" class="form-label">Address line 2:</label>
-                                        <input type="text" class="form-control" id="addressLine2">
+                                        <input type="text" class="form-control" id="addressLine2" name="addressLine2">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-4">
                                         <label for="email" class="form-label">Email:</label>
-                                        <input type="email" class="form-control" id="email" required>
+                                        <input type="email" class="form-control" id="email" name="email" required>
                                     </div>
                                     <div class="mb-3 col-3">
                                         <label for="city" class="form-label">City:</label>
-                                        <input type="text" class="form-control" id="city" required>
+                                        <input type="text" class="form-control" id="city" name="city" required>
                                     </div>
                                     <div class="mb-3 col-3">
                                         <label for="state" class="form-label">State:</label>
-                                        <input type="text" class="form-control" id="state" required>
+                                        <input type="text" class="form-control" id="state" name="state" required>
                                     </div>
                                     <div class="mb-3 col">
                                         <label for="pincode" class="form-label">Pincode:</label>
-                                        <input type="text" class="form-control" id="pincode" required>
+                                        <input type="text" class="form-control" id="pincode" name="pincode" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-4">
                                         <label for="gst" class="form-label">GST:</label>
-                                        <input type="text" class="form-control" id="gst" required>
+                                        <input type="text" class="form-control" id="gst" name="gst" required>
                                     </div>
                                     <div class="mb-3 col-3">
                                         <label for="pan" class="form-label">PAN:</label>
-                                        <input type="text" class="form-control" id="pan" required>
+                                        <input type="text" class="form-control" id="pan" name="pan" required>
                                     </div>
                                 
                                     <div class="mb-3 col-3">
                                         <label for="bankAccount" class="form-label">Bank Account:</label>
-                                        <input type="text" class="form-control" id="bankAccount" required>
+                                        <input type="text" class="form-control" id="bankAccount" name="bankAccount" required>
                                     </div>
                                     <div class="mb-3 col">
                                         <label for="ifsc" class="form-label">IFSC:</label>
-                                        <input type="text" class="form-control" id="ifsc" required>
+                                        <input type="text" class="form-control" id="ifsc" name="ifsc" required>
                                     </div>
                                 </div>
                         
@@ -135,58 +135,58 @@ include("components/header.php");
                     <div class="row">
                         <div class="mb-3 col-4">
                             <label for="editAccountName" class="form-label">Account Name:</label>
-                            <input type="text" class="form-control" id="editAccountName" required>
+                            <input type="text" class="form-control" id="editAccountName" name="editAccountName" required>
                         </div>
                         <div class="mb-3 col-8">
                             <label for="editAddressLine1" class="form-label">Address line 1:</label>
-                            <input type="text" class="form-control" id="editAddressLine1" required>
+                            <input type="text" class="form-control" id="editAddressLine1" name="editAddressLine1" required>
                         </div>
                     </div>
                     <div class="row">
                                     <div class="mb-3 col-4">
                                         <label for="mobile" class="form-label">Mobile:</label>
-                                        <input type="text" class="form-control" id="editMobile" required>
+                                        <input type="text" class="form-control" id="editMobile" name="editMobile" required>
                                     </div>
                                     <div class="mb-3 col-8">
                                         <label for="addressLine2" class="form-label">Address line 2:</label>
-                                        <input type="text" class="form-control" id="editAddressLine2">
+                                        <input type="text" class="form-control" id="editAddressLine2" name="editAddressLine2">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-4">
                                         <label for="email" class="form-label">Email:</label>
-                                        <input type="email" class="form-control" id="editEmail" required>
+                                        <input type="email" class="form-control" id="editEmail" name="editEmail" required>
                                     </div>
                                     <div class="mb-3 col-3">
                                         <label for="city" class="form-label">City:</label>
-                                        <input type="text" class="form-control" id="editCity" required>
+                                        <input type="text" class="form-control" id="editCity" name="editCity" required>
                                     </div>
                                     <div class="mb-3 col-3">
                                         <label for="state" class="form-label">State:</label>
-                                        <input type="text" class="form-control" id="editState" required>
+                                        <input type="text" class="form-control" id="editState" name="editState" required>
                                     </div>
                                     <div class="mb-3 col">
                                         <label for="pincode" class="form-label">Pincode:</label>
-                                        <input type="text" class="form-control" id="editPincode" required>
+                                        <input type="text" class="form-control" id="editPincode" name="editPincode" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-4">
                                         <label for="gst" class="form-label">GST:</label>
-                                        <input type="text" class="form-control" id="editGst" required>
+                                        <input type="text" class="form-control" id="editGst" name="editGst" required>
                                     </div>
                                     <div class="mb-3 col-3">
                                         <label for="pan" class="form-label">PAN:</label>
-                                        <input type="text" class="form-control" id="editPan" required>
+                                        <input type="text" class="form-control" id="editPan" name="editPan" required>
                                     </div>
                                 
                                     <div class="mb-3 col-3">
                                         <label for="bankAccount" class="form-label">Bank Account:</label>
-                                        <input type="text" class="form-control" id="editBankAccount" required>
+                                        <input type="text" class="form-control" id="editBankAccount" name="editBankAccount" required>
                                     </div>
                                     <div class="mb-3 col">
                                         <label for="ifsc" class="form-label">IFSC:</label>
-                                        <input type="text" class="form-control" id="editIfsc" required>
+                                        <input type="text" class="form-control" id="editIfsc" name="editIfsc" required>
                                     </div>
                                 </div>
                 </form>
@@ -194,6 +194,24 @@ include("components/header.php");
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-warning" id="saveEditCustomer">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteCustomerModal" tabindex="-1" aria-labelledby="deleteCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCustomerModalLabel">Delete Customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteCustomerText">Are you sure you want to delete this customer?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteCustomer">Yes</button>
             </div>
         </div>
     </div>
@@ -247,11 +265,22 @@ include("components/header.php");
         myModal.show();
                         } else if (e.target.classList.contains('delete-button')) {
                             var data = cell.getRow().getData();
-        var customerId = data.id;
+        var currentCustomerId = data.id;
+        document.getElementById('deleteCustomerText').innerText = `Are you sure you want to delete customer ${data.name}?`;
 
-        if (confirm('Are you sure you want to delete this customer?')) {
-            table.deleteRow(customerId);
+        var myModal = new bootstrap.Modal(document.getElementById('deleteCustomerModal'));
+        myModal.show();
+
+        document.getElementById('confirmDeleteCustomer').addEventListener('click', function() {
+        if (currentCustomerId !== null) {
+            table.deleteRow(currentCustomerId);
+
+            var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteCustomerModal'));
+            deleteModal.hide();
+
+            currentCustomerId = null;
         }
+        });
                         }
                     }
                 }
