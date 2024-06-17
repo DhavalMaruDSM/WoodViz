@@ -40,7 +40,7 @@ include("components/header.php");
             <button type="button" class="btn btn-warning col ms-3 me-3" data-bs-toggle="modal" data-bs-target="#addAccountModal">+ Add Account</button>
         </div>
         
-                    <!-- Modal -->  
+                <!-- Add Account Modal -->  
             <div class="modal fade" id="addAccountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl" >
                     <div class="modal-content">
