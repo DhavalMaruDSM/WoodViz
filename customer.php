@@ -211,7 +211,7 @@ include("components/header.php");
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteCustomer">Yes</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteCustomer" >Yes</button>
             </div>
         </div>
     </div>
@@ -260,30 +260,42 @@ include("components/header.php");
                                     document.getElementById('editEmail').value = data.email; 
                                     var myModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
                                     myModal.show();
-                                } else if (e.target.classList.contains('delete-button')) {
-                                    var data = cell.getRow().getData();
-                                    var currentCustomerId = data.id;
-                                    document.getElementById('deleteCustomerText').innerText = `Are you sure you want to delete customer ${data.name}?`;
+                                }  else if (e.target.classList.contains('delete-button')) {
+                                var data = cell.getRow().getData();
+                                var currentCustomerId = data.id;
+                                document.getElementById('deleteCustomerText').innerText = `Are you sure you want to delete customer ${data.name}?`;
+                                var myModal = new bootstrap.Modal(document.getElementById('deleteCustomerModal'));
+                                myModal.show();
 
-                                    var myModal = new bootstrap.Modal(document.getElementById('deleteCustomerModal'));
-                                    myModal.show();
-
-                                    document.getElementById('confirmDeleteCustomer').addEventListener('click', function() {
-                                        if (currentCustomerId !== null) {
-                                            table.deleteRow(currentCustomerId);
-
-                                            var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteCustomerModal'));
-                                            deleteModal.hide();
-
-                                            currentCustomerId = null;
-                                        }
-                                    });
-                                }
+                                document.getElementById('confirmDeleteCustomer').addEventListener('click', function confirmDeleteHandler() {
+                                    if (currentCustomerId !== null) {
+                                        fetch('php/delete-customer.php', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({ id: currentCustomerId })
+                                        })
+                                        .then(response => response.json())
+                                        .then(result => {
+                                            if (result.success) {
+                                                table.deleteRow(currentCustomerId);
+                                                var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteCustomerModal'));
+                                                deleteModal.hide();
+                                                currentCustomerId = null;
+                                            } else {
+                                                console.error('Error deleting customer:', result.message);
+                                            }
+                                        })
+                                        .catch(error => console.error('Error:', error));
+                                    }
+                                    document.getElementById('confirmDeleteCustomer').removeEventListener('click', confirmDeleteHandler); // Remove the handler to avoid multiple bindings
+                                });
                             }
                         }
-                    ]
-                });
-
+                    }
+                ]
+            });
                 // Add event listener for search button
                 document.getElementById('search-button').addEventListener('click', function () {
                     const query = document.getElementById('search-input').value;
@@ -301,7 +313,7 @@ include("components/header.php");
                         id: currentCustomerId, 
                         name: document.getElementById('editAccountName').value,
                         addressLine1: document.getElementById('editAddressLine1').value,
-                        // Add other fields as needed
+                       
                     };
 
                    
