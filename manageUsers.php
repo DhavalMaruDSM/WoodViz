@@ -77,7 +77,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                             <!--Email-->
                             <div class="mb-3 col-md-6">
                                 <label for="email" class="form-label">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter the Email" required>
+                                <input type="email" class="form-control" id="email_id" name="email" placeholder="Enter the Email" required>
                                 <div class="invalid-feedback">Please enter a valid Email address!</div>
                             </div>
                             <!--Mobile-->
@@ -109,7 +109,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                             <!--Role-->
                             <div class="mb-3 col-md-6">
                                 <label for="role" class="form-label">Role:</label>
-                                <select class="form-select" id="role" required>
+                                <select class="form-select" id="role" name="role" required>
                                     <option value="" disabled selected>Select a role</option>
                                     <option value="admin">Admin</option>
                                     <option value="limited">Limited</option>
@@ -124,31 +124,31 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                                 <label for="permissions" class="form-label">Permissions:</label>
                                 <div class="d-flex flex-wrap">
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="admin">
+                                        <input class="form-check-input" type="checkbox" value="admin" id="admin" name="permissions[]">
                                         <label class="form-check-label" for="admin">Admin</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="product">
+                                        <input class="form-check-input" type="checkbox" value="Product" id="product" name="permissions[]">
                                         <label class="form-check-label" for="product">Product</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="purchase">
+                                        <input class="form-check-input" type="checkbox" value="purchase" id="purchase" name="permissions[]">
                                         <label class="form-check-label" for="purchase">Purchase</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="production">
+                                        <input class="form-check-input" type="checkbox" value="Production" id="production" name="permissions[]">
                                         <label class="form-check-label" for="production">Production</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="billing">
+                                        <input class="form-check-input" type="checkbox" value="Billing" id="billing" name="permissions[]">
                                         <label class="form-check-label" for="billing">Billing</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="customer">
+                                        <input class="form-check-input" type="checkbox" value="Customer" id="customer" name="permissions[]">
                                         <label class="form-check-label" for="customer">Customer</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="report">
+                                        <input class="form-check-input" type="checkbox" value="Report" id="report" name="permissions[]">
                                         <label class="form-check-label" for="report">Report</label>
                                     </div>
                                 </div>
@@ -186,11 +186,28 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="assets/js/js/tabulator.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="assets/js/manageUsers.js"></script>
+    <script>
+    $(document).ready(function(){
+    $("#createAccountBtn").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "php/create-user.php",
+            data: $("#form").serialize(),
+            success: function(response){
+                alert("User created successfully!"); // Show success message
+                window.location.href = "manageUsers.php"; // Redirect to manageuser.php
+            }
+        });
+    });
+});
+
+
+</script>
 </body>
 
 </html>

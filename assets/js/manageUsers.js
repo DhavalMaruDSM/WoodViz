@@ -1,4 +1,5 @@
 // Add User
+let table;
 document.getElementById('addUserBtn').addEventListener('click', function () {
     document.getElementById('userForm').classList.toggle('d-none');
     this.classList.add('d-none');
@@ -95,6 +96,7 @@ document.querySelectorAll(".form-control").forEach(function (input) {
     });
 });
 
+
 //Table
 document.addEventListener("DOMContentLoaded", function () {
     table = new Tabulator("#user-table", {
@@ -104,11 +106,11 @@ document.addEventListener("DOMContentLoaded", function () {
         hozAlign: "center",
         responsiveLayout: true,
         columns: [
-            { title: "#", field: "srNo", sorter: "number", headerHozAlign: "center", width: 50 },
+            { title: "#", field: "User_id", sorter: "number", headerHozAlign: "center", width: 50 },
             { title: "Username", field: "username", sorter: "string", headerHozAlign: "center", width: 200 },
             { title: "Fullname", field: "fullname", sorter: "string", headerHozAlign: "center", width: 250 },
-            { title: "Email", field: "email", sorter: "string", headerHozAlign: "center", width: 330 },
-            { title: "Mobile", field: "mobile", sorter: "string", headerHozAlign: "center", width: 180 },
+            { title: "Email", field: "email_id", sorter: "string", headerHozAlign: "center", width: 330 },
+            { title: "Mobile", field: "mobile_number", sorter: "string", headerHozAlign: "center", width: 180 },
             {
                 title: "Actions",
                 field: "actions",
@@ -120,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Edit Button
                     let editButton = document.createElement("button");
                     editButton.className = "btn btn-sm btn-primary me-2 p-2";
-                    editButton.innerHTML = "<i class='bi bi-pencil-fill'></i><style='font-size:18px;'> Edit";
+                    editButton.innerHTML = "<i class='bi bi-pencil-fill'></i> Edit";
                     editButton.onclick = function () {
                         let rowData = cell.getRow().getData();
                         fillForm(rowData);
@@ -133,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     deleteButton.innerHTML = "<i class='bi bi-trash-fill'></i> Delete";
                     deleteButton.onclick = function () {
                         let rowData = cell.getRow().getData();
-                        showDeleteConfirmation(rowData.id);
+                        showDeleteConfirmation(rowData.User_id);
                     };
                     div.appendChild(deleteButton);
 
@@ -142,22 +144,63 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         ]
     });
+
+    fetchUsers();
     window.addEventListener("resize", function () {
         table.redraw();
     });
 });
 
+function fetchUsers() {
+    $.ajax({
+        url: 'php/fetchUsers.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            console.log("Data fetched from server:", data);
+            data.forEach((user, index) => {
+                user.srNo = index + 1;
+            });
+            table.setData(data);
+        },
+        error: function (xhr, status, error) {
+            console.error('AJAX Error:', status, error);
+        }
+    });
+}
 //Delete
 function showDeleteConfirmation(rowId) {
     let modal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
     modal.show();
 
     document.getElementById('confirmDeleteButton').onclick = function () {
-        table.deleteRow(rowId);
-        modal.hide();
+        $.ajax({
+            url: 'php/deleteUser.php',
+            type: 'POST',
+            data: { id: rowId },
+            success: function (response) {
+                try {
+                    let res = typeof response === "string" ? JSON.parse(response) : response; // Parse the JSON response
+                    if (res.success) {
+                        console.log("User deleted successfully");
+                        modal.hide();
+                        fetchUsers();  // Refresh the data in the table
+                    } else {
+                        console.error('Error deleting user:', res.error);
+                        alert("Error deleting user. Please try again. " + res.error);
+                    }
+                } catch (error) {
+                    console.error('Error parsing JSON response:', error);
+                    alert("Error deleting user. Please try again. " + error.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('AJAX Error:', status, error);
+                alert("Error deleting user. Check console for details.");
+            }
+        });
     };
 }
-
 //Edit
 function fillForm(data) {
 
