@@ -49,7 +49,7 @@ include("components/header.php");
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="createCustomerForm">
+                        <form id="createCustomerForm" action="php/create-customer.php" method="post">
                                 <div class="row">
                                     <div class="mb-3 col-4">
                                         <label for="accountName" class="form-label">Account Name:</label>
@@ -114,7 +114,7 @@ include("components/header.php");
                         </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-warning">Create Account</button>
+                        <button type="button" class="btn btn-warning" onclick="addAccount()">Create Account</button>
             
                     </div>
                 </div>
@@ -315,7 +315,62 @@ document.getElementById('saveEditCustomer').addEventListener('click', function()
 
 });
 
-        </script>
+    //add account
+    function addAccount() {
+    var account_name = $('#accountName').val();
+    var address_line1 = $('#addressLine1').val();
+    var address_line2 = $('#addressLine2').val();
+    var mobile = $('#mobile').val();
+    var email = $('#email').val();
+    var city = $('#city').val();
+    var state = $('#state').val();
+    var pincode = $('#pincode').val();
+    var gst = $('#gst').val();
+    var pan = $('#pan').val();
+    var bank_account = $('#bankAccount').val();
+    var ifsc = $('#ifsc').val();
+
+    $.ajax({
+        url: "php/create-customer.php",
+        type: "POST",
+        data: {
+            account_name: account_name,
+            address_line1: address_line1,
+            address_line2: address_line2,
+            mobile: mobile,
+            email: email,
+            city: city,
+            state: state,
+            pincode: pincode,
+            gst: gst,
+            pan: pan,
+            bank_account: bank_account,
+            ifsc: ifsc
+        },
+        success: function(response) {
+            
+            if (response.includes("Account created successfully")) {
+                
+                alert("Account created successfully!");
+
+                $('#createCustomerForm')[0].reset();
+                
+                
+                var addAccountModal = bootstrap.Modal.getInstance(document.getElementById('addAccountModal'));
+                addAccountModal.hide();
+            } else {
+                console.error("Failed to create account:", response);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX error:", status, error);
+        }
+    });
+}
+
+
+
+</script>
 </div>
                 
 <?php
