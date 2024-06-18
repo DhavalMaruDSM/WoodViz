@@ -11,7 +11,7 @@ $(document).ready(function() {
                 var categorySelect = $('#categoryselect');
                 categorySelect.empty().append('<option disabled selected>Select a Category</option>');
                 categories.forEach(function(category) {
-                    categorySelect.append('<option value="' + category.id + '">' + category.description + '</option>');
+                    categorySelect.append('<option value="' + category.category_id + '">' + category.description + '</option>');
                 });
             }
         });
@@ -30,8 +30,37 @@ $(document).ready(function() {
                 var subcategorySelect = $('#subcategoryselect');
                 subcategorySelect.empty().append('<option disabled selected>Select a Sub-Category</option>');
                 subcategories.forEach(function(subcategory) {
-                    subcategorySelect.append('<option value="' + subcategory.id + '">' + subcategory.description + '</option>');
+                    subcategorySelect.append('<option value="' + subcategory.sub_category_id + '">' + subcategory.description + '</option>');
                 });
+            }
+        });
+    });
+    $('#productform').submit(function(event) {
+        event.preventDefault(); 
+        
+        var formData = {
+            productname: $('#productname').val(),
+            category: $('#categoryselect').val(),
+            subcategory: $('#subcategoryselect').val(),
+            inventory: $('#inventory').val(),
+            cgst: $('#cgst').val(),
+            sgst: $('#sgst').val(),
+            igst: $('#igst').val(),
+            price: $('#price').val()
+        };
+        
+        $.ajax({
+            url: 'php/create-product.php',
+            method: 'POST',
+            data: formData,
+            success: function(response) {
+                alert('Product submitted successfully!');
+
+                $('#productform')[0].reset();
+                location.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('Failed to submit product: ' + textStatus);
             }
         });
     });
