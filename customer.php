@@ -49,7 +49,7 @@ include("components/header.php");
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="createCustomerForm">
+                        <form id="createCustomerForm" action="php/create-customer.php" method="post">
                                 <div class="row">
                                     <div class="mb-3 col-4">
                                         <label for="accountName" class="form-label">Account Name:</label>
@@ -119,7 +119,7 @@ include("components/header.php");
                         </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-warning">Create Account</button>
+                        <button type="button" class="btn btn-warning" onclick="addAccount()">Create Account</button>
             
                     </div>
                 </div>
@@ -220,111 +220,181 @@ include("components/header.php");
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteCustomer">Yes</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteCustomer" >Yes</button>
             </div>
         </div>
     </div>
 </div>
-    <script src="https://unpkg.com/tabulator-tables@5.3.2/dist/js/tabulator.min.js"></script>
-    <script>
-        const tableData = [
-            { id: 1, name: "A", email: "a@mail.com", mobile: "9876543210", balance: 100 },
-            { id: 2, name: "B", email: "b@mail.com", mobile: "7968543210", balance: -50 },
-            { id: 3, name: "C", email: "c@mail.com", mobile: "7954832610", balance: 200 },
-            { id: 4, name: "D", email: "d@mail.com", mobile: "9128076354", balance: -150 },
-            { id: 5, name: "E", email: "e@mail.com", mobile: "9238476510", balance: 300 },
-        ];
+<script src="https://unpkg.com/tabulator-tables@5.3.2/dist/js/tabulator.min.js"></script>
+<script>
+    
+    function showData() {
+        fetch('php/get-customer.php')
+            .then(response => response.json())
+            .then(data => {
+                
+                const table = new Tabulator("#customer-table", {
+                    data: data,
+                    layout: "fitColumns",
+                    columns: [
+                        { title: "#", field: "id", width: 50 },
+                        { title: "Full Name", field: "name" },
+                        { title: "Email", field: "email" },
+                        { title: "Mobile", field: "mobile" },
+                        {
+                            title: "Balance",
+                            field: "balance",
+                            formatter: function (cell, formatterParams, onRendered) {
+                                const value = cell.getValue();
+                                const className = value < 0 ? 'balance-negative' : 'balance-positive';
+                                return `<span class="${className}">${value}</span>`;
+                            }
+                        },
+                        {
+                            title: "Action",
+                            formatter: function (cell, formatterParams, onRendered) {
+                                return `
+                                    <button class="btn btn-sm btn-primary edit-button">Edit</button>
+                                    <button class="btn btn-sm btn-danger delete-button">Delete</button>
+                                `;
+                            },
+                            width: 150,
+                            hozAlign: "center",
+                            cellClick: function (e, cell) {
+                                if (e.target.classList.contains('edit-button')) {
+                                    var data = cell.getRow().getData();
+                                    // Populate the modal with the customer's data
+                                    document.getElementById('editAccountName').value = data.name;
+                                    document.getElementById('editMobile').value = data.mobile; 
+                                    document.getElementById('editEmail').value = data.email; 
+                                    var myModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
+                                    myModal.show();
+                                }  else if (e.target.classList.contains('delete-button')) {
+                                var data = cell.getRow().getData();
+                                var currentCustomerId = data.id;
+                                document.getElementById('deleteCustomerText').innerText = `Are you sure you want to delete customer ${data.name}?`;
+                                var myModal = new bootstrap.Modal(document.getElementById('deleteCustomerModal'));
+                                myModal.show();
 
-        const table = new Tabulator("#customer-table", {
-            data: tableData,
-            layout: "fitColumns",
-            columns: [
-                { title: "#", field: "id", width: 50 },
-                { title: "Full Name", field: "name"},
-                { title: "Email", field: "email"},
-                { title: "Mobile", field: "mobile"},
-                {
-                    title: "Balance",
-                    field: "balance",
-                    formatter: function (cell, formatterParams, onRendered) {
-                        const value = cell.getValue();
-                        const className = value < 0 ? 'balance-negative' : 'balance-positive';
-                        return `<span class="${className}">${value}</span>`;
-                    }
-                },
-                {
-                    title: "Action",
-                    formatter: function (cell, formatterParams, onRendered) {
-                        return `
-                            <button class="btn btn-sm btn-primary edit-button">Edit</button>
-                            <button class="btn btn-sm btn-danger delete-button">Delete</button>
-                        `;
-                    },
-                    width: 150,
-                    hozAlign: "center",
-                    cellClick: function (e, cell) {
-                        if (e.target.classList.contains('edit-button')) {
-
-                            var data = cell.getRow().getData();
-        // Populate the modal with the customer's data
-        document.getElementById('editAccountName').value = data.name;
-        document.getElementById('editMobile').value = data.mobile; 
-        document.getElementById('editEmail').value = data.email; 
-        var myModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
-        myModal.show();
-                        } else if (e.target.classList.contains('delete-button')) {
-                            var data = cell.getRow().getData();
-        var currentCustomerId = data.id;
-        document.getElementById('deleteCustomerText').innerText = `Are you sure you want to delete customer ${data.name}?`;
-
-        var myModal = new bootstrap.Modal(document.getElementById('deleteCustomerModal'));
-        myModal.show();
-
-        document.getElementById('confirmDeleteCustomer').addEventListener('click', function() {
-        if (currentCustomerId !== null) {
-            table.deleteRow(currentCustomerId);
-
-            var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteCustomerModal'));
-            deleteModal.hide();
-
-            currentCustomerId = null;
-        }
-        });
+                                document.getElementById('confirmDeleteCustomer').addEventListener('click', function confirmDeleteHandler() {
+                                    if (currentCustomerId !== null) {
+                                        fetch('php/delete-customer.php', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({ id: currentCustomerId })
+                                        })
+                                        .then(response => response.json())
+                                        .then(result => {
+                                            if (result.success) {
+                                                table.deleteRow(currentCustomerId);
+                                                var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteCustomerModal'));
+                                                deleteModal.hide();
+                                                currentCustomerId = null;
+                                            } else {
+                                                console.error('Error deleting customer:', result.message);
+                                            }
+                                        })
+                                        .catch(error => console.error('Error:', error));
+                                    }
+                                    document.getElementById('confirmDeleteCustomer').removeEventListener('click', confirmDeleteHandler); // Remove the handler to avoid multiple bindings
+                                });
+                            }
                         }
                     }
-                }
-            ]
-        });
+                ]
+            });
+                // Add event listener for search button
+                document.getElementById('search-button').addEventListener('click', function () {
+                    const query = document.getElementById('search-input').value;
+                    table.setFilter([
+                        { field: "name", type: "like", value: query },
+                        { field: "email", type: "like", value: query },
+                        { field: "mobile", type: "like", value: query },
+                        { field: "balance", type: "like", value: query },
+                    ]);
+                });
 
-        
+                // Add event listener for save edit customer button
+                document.getElementById('saveEditCustomer').addEventListener('click', function() {
+                    var updatedData = {
+                        id: currentCustomerId, 
+                        name: document.getElementById('editAccountName').value,
+                        addressLine1: document.getElementById('editAddressLine1').value,
+                       
+                    };
 
-        document.getElementById('search-button').addEventListener('click', function () {
-            const query = document.getElementById('search-input').value;
-            table.setFilter([[
-                { field: "name", type: "like", value: query },
-                { field: "email", type: "like", value: query },
-                { field: "mobile", type: "like", value: query },
-                { field: "balance", type: "like", value: query },
-            ]]);
-        });
+                   
+                    var myModal = bootstrap.Modal.getInstance(document.getElementById('editCustomerModal'));
+                    myModal.hide();
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        showData();
+    });
 
 
-        
+    //add account
+    function addAccount() {
+    var account_name = $('#accountName').val();
+    var address_line1 = $('#addressLine1').val();
+    var address_line2 = $('#addressLine2').val();
+    var mobile = $('#mobile').val();
+    var email = $('#email').val();
+    var city = $('#city').val();
+    var state = $('#state').val();
+    var pincode = $('#pincode').val();
+    var gst = $('#gst').val();
+    var pan = $('#pan').val();
+    var bank_account = $('#bankAccount').val();
+    var ifsc = $('#ifsc').val();
 
-document.getElementById('saveEditCustomer').addEventListener('click', function() {
-    var updatedData = {
-        id: currentCustomerId, 
-        name: document.getElementById('editAccountName').value,
-        addressLine1: document.getElementById('editAddressLine1').value,
-    };
+    $.ajax({
+        url: "php/create-customer.php",
+        type: "POST",
+        data: {
+            account_name: account_name,
+            address_line1: address_line1,
+            address_line2: address_line2,
+            mobile: mobile,
+            email: email,
+            city: city,
+            state: state,
+            pincode: pincode,
+            gst: gst,
+            pan: pan,
+            bank_account: bank_account,
+            ifsc: ifsc
+        },
+        success: function(response) {
+            
+            if (response.includes("Account created successfully")) {
+                
+                alert("Account created successfully!");
+
+                $('#createCustomerForm')[0].reset();
+                showData();
+                
+                var addAccountModal = bootstrap.Modal.getInstance(document.getElementById('addAccountModal'));
+                addAccountModal.hide();
+            } else {
+                console.error("Failed to create account:", response);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX error:", status, error);
+        }
+    });
+}
 
 
-    var myModal = bootstrap.Modal.getInstance(document.getElementById('editCustomerModal'));
-    myModal.hide();
 
-});
-
-        </script>
+</script>
 </div>
                 
 <?php
