@@ -9,6 +9,7 @@ include("components/header.php");
     <title>categories</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="main" style="background-color: 	#F5F5F5;">
@@ -129,6 +130,7 @@ include("components/header.php");
     <link href="https://unpkg.com/tabulator-tables@6.2.1/dist/css/tabulator.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.2.1/dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="assets/js/js/tabulator.min.js"></script>
+    <script src="assets/js/product_backend.js"></script>
     <script src="assets/js/product.js"></script>
 </body>
 </html>

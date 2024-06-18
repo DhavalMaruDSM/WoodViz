@@ -3,7 +3,7 @@ var table=new Tabulator("#product-table",{
     layout: "fitColumns",
     columns: [{
         title: "#",
-        field: "id",
+        field: "product_id",
         sorter: "number",
     },
     {
@@ -13,12 +13,12 @@ var table=new Tabulator("#product-table",{
     },
     {
         title: "Category",
-        field: "category",
+        field: "description",
         sorter: "string",
     },
     {
         title: "Sub-Category",
-        field: "subcategory",
+        field: "s_description",
         sorter: "string",
     },
     {
@@ -57,6 +57,22 @@ var table=new Tabulator("#product-table",{
     }
     ]
 });
+
+function fetchProducts() {
+    $.ajax({
+        url: 'php/get-product.php',
+        method: 'GET',
+        success: function(data) {
+            var products = JSON.parse(data);
+            table.setData(products);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching data:', error);
+        }
+    });
+}
+
+fetchProducts();
 function fillForm(rowData) {
     document.getElementById('productname').value = rowData.name;
     document.getElementById('categoryselect').value = rowData.category;
