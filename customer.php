@@ -136,7 +136,7 @@ include("components/header.php");
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editCustomerForm">
+                <form id="editCustomerForm" action="edit-customer.php" method="post">
                     <div class="row">
                         <div class="mb-3 col-4">
                             <label for="editAccountName" class="form-label">Account Name:</label>
@@ -154,7 +154,7 @@ include("components/header.php");
                                     </div>
                                     <div class="mb-3 col-2">
                                         <label for="ifsc" class="form-label">IFSC:</label>
-                                        <input type="text" class="form-control" id="ifsc" name="ifsc" required>
+                                        <input type="text" class="form-control" id="editIfsc" name="editIfsc" required>
                                     </div>
                                     <div class="mb-3 col-8">
                                         <label for="addressLine2" class="form-label">Address line 2:</label>
@@ -202,7 +202,7 @@ include("components/header.php");
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-warning" id="saveEditCustomer">Save changes</button>
+                <button type="button" class="btn btn-warning" id="saveEditCustomer" onclick="editAccount()">Save changes</button>
             </div>
         </div>
     </div>
@@ -227,6 +227,7 @@ include("components/header.php");
 </div>
 <script src="https://unpkg.com/tabulator-tables@5.3.2/dist/js/tabulator.min.js"></script>
 <script>
+     var currentCustomerId = null;
     
     function showData() {
         fetch('php/get-customer.php')
@@ -263,15 +264,18 @@ include("components/header.php");
                             cellClick: function (e, cell) {
                                 if (e.target.classList.contains('edit-button')) {
                                     var data = cell.getRow().getData();
+                                    currentCustomerId = data.id;
                                     // Populate the modal with the customer's data
                                     document.getElementById('editAccountName').value = data.name;
                                     document.getElementById('editMobile').value = data.mobile; 
                                     document.getElementById('editEmail').value = data.email; 
                                     var myModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
                                     myModal.show();
-                                }  else if (e.target.classList.contains('delete-button')) {
+                                } 
+                                 else if (e.target.classList.contains('delete-button')) {
+
                                 var data = cell.getRow().getData();
-                                var currentCustomerId = data.id;
+                                currentCustomerId = data.id;
                                 document.getElementById('deleteCustomerText').innerText = `Are you sure you want to delete customer ${data.name}?`;
                                 var myModal = new bootstrap.Modal(document.getElementById('deleteCustomerModal'));
                                 myModal.show();
@@ -318,12 +322,22 @@ include("components/header.php");
 
                 // Add event listener for save edit customer button
                 document.getElementById('saveEditCustomer').addEventListener('click', function() {
-                    var updatedData = {
-                        id: currentCustomerId, 
-                        name: document.getElementById('editAccountName').value,
-                        addressLine1: document.getElementById('editAddressLine1').value,
+                    // var updatedData = {
+                    //     id: currentCustomerId, 
+                    //     name: document.getElementById('editAccountName').value,
+                    //     addressLine1: document.getElementById('editAddressLine1').value,
+                    //     addressLine2:document.getElementById('editAddressLine2').value,
+                    //     mobile:getElementById('editMobile').value,
+                    //     ifsc:getElementById('editIfsc').value,
+                    //     email:getElementById('editEmail').value,
+                    //     state:getElementById('editState').value,
+                    //     pincode:getElementById('editPincode').value,
+                    //     gst:getElementById('editGst').value,
+                    //     pan:getElementById('editPan').value,
+                    //     bankAccount:getElementById('editBankAccount').value,
+                    //     balance:getElementById('editbalance').value
                        
-                    };
+                    // };
 
                    
                     var myModal = bootstrap.Modal.getInstance(document.getElementById('editCustomerModal'));
@@ -338,6 +352,58 @@ include("components/header.php");
         showData();
     });
 
+
+    function editAccount() {
+    var id = currentCustomerId; 
+    var name = $('#editAccountName').val();
+    var addressLine1 = $('#editAddressLine1').val();
+    var addressLine2 = $('#editAddressLine2').val();
+    var city = $('#editCity').val();
+    var state = $('#editState').val();
+    var pincode = $('#editPincode').val();
+    var mobile = $('#editMobile').val();
+    var ifsc = $('#editIfsc').val();
+    var email = $('#editEmail').val();
+    var gst = $('#editGst').val();
+    var pan = $('#editPan').val();
+    var bankAccount = $('#editBankAccount').val();
+    var balance = $('#editbalance').val(); 
+    $.ajax({
+        url: "php/edit-customer.php",
+        type: "POST",
+        data: {
+            id: id,
+            name: name,
+            addressLine1: addressLine1,
+            addressLine2: addressLine2,
+            city: city,
+            state: state,
+            pincode: pincode,
+            mobile: mobile,
+            ifsc: ifsc,
+            email: email,
+            gst: gst,
+            pan: pan,
+            bankAccount: bankAccount,
+            balance: balance
+        },
+        success: function(response) {
+            console.log(response);
+            response = JSON.parse(response);
+            if (response.success) {
+                alert("Customer updated successfully!");
+                $('#editCustomerModal').modal('hide');
+                showData(); 
+            } else {
+                alert("Failed to update customer: " + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX error:", status, error);
+            alert("Failed to update customer due to a server error.");
+        }
+    });
+}
 
     //add account
     function addAccount() {
