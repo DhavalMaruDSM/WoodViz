@@ -61,9 +61,13 @@ include("components/header.php");
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="mb-3 col-4">
+                                    <div class="mb-3 col-2">
                                         <label for="mobile" class="form-label">Mobile:</label>
                                         <input type="text" class="form-control" id="mobile" name="mobile" required>
+                                    </div>
+                                    <div class="mb-3 col-2">
+                                        <label for="ifsc" class="form-label">IFSC:</label>
+                                        <input type="text" class="form-control" id="ifsc" name="ifsc" required>
                                     </div>
                                     <div class="mb-3 col-8">
                                         <label for="addressLine2" class="form-label">Address line 2:</label>
@@ -102,10 +106,11 @@ include("components/header.php");
                                         <label for="bankAccount" class="form-label">Bank Account:</label>
                                         <input type="text" class="form-control" id="bankAccount" name="bankAccount" required>
                                     </div>
-                                    <div class="mb-3 col">
-                                        <label for="ifsc" class="form-label">IFSC:</label>
-                                        <input type="text" class="form-control" id="ifsc" name="ifsc" required>
+                                    <div class="mb-3 col-2">
+                                        <label for="mobile" class="form-label">Balance:</label>
+                                        <input type="text" class="form-control" id="balance" name="balance" required>
                                     </div>
+                                    
                                 </div>
                         
                             </form>
@@ -143,9 +148,13 @@ include("components/header.php");
                         </div>
                     </div>
                     <div class="row">
-                                    <div class="mb-3 col-4">
+                                    <div class="mb-3 col-2">
                                         <label for="mobile" class="form-label">Mobile:</label>
                                         <input type="text" class="form-control" id="editMobile" name="editMobile" required>
+                                    </div>
+                                    <div class="mb-3 col-2">
+                                        <label for="ifsc" class="form-label">IFSC:</label>
+                                        <input type="text" class="form-control" id="ifsc" name="ifsc" required>
                                     </div>
                                     <div class="mb-3 col-8">
                                         <label for="addressLine2" class="form-label">Address line 2:</label>
@@ -184,9 +193,9 @@ include("components/header.php");
                                         <label for="bankAccount" class="form-label">Bank Account:</label>
                                         <input type="text" class="form-control" id="editBankAccount" name="editBankAccount" required>
                                     </div>
-                                    <div class="mb-3 col">
-                                        <label for="ifsc" class="form-label">IFSC:</label>
-                                        <input type="text" class="form-control" id="editIfsc" name="editIfsc" required>
+                                    <div class="mb-3 col-2">
+                                        <label for="mobile" class="form-label">Balance:</label>
+                                        <input type="text" class="form-control" id="editbalance" name="editbalance" required>
                                     </div>
                                 </div>
                 </form>
@@ -313,7 +322,7 @@ include("components/header.php");
                         id: currentCustomerId, 
                         name: document.getElementById('editAccountName').value,
                         addressLine1: document.getElementById('editAddressLine1').value,
-
+                       
                     };
 
                    
@@ -339,6 +348,7 @@ include("components/header.php");
     var email = $('#email').val();
     var city = $('#city').val();
     var state = $('#state').val();
+    var balance = $('#balance').val();
     var pincode = $('#pincode').val();
     var gst = $('#gst').val();
     var pan = $('#pan').val();
@@ -359,6 +369,7 @@ include("components/header.php");
             pincode: pincode,
             gst: gst,
             pan: pan,
+            balance:balance,
             bank_account: bank_account,
             ifsc: ifsc
         },

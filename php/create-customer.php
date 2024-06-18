@@ -12,13 +12,15 @@ $pincode = $_POST['pincode'];
 $gst = $_POST['gst'];
 $pan = $_POST['pan'];
 $ifsc = $_POST['ifsc'];
+$balance= $_POST['balance'];
+$bank_account= $_POST['bank_account'];
 
 
 
 $created_at = date('Y-m-d H:i:s'); 
 
 
-$sql = "INSERT INTO Customers (name, address_line_1, address_line_2, city, state, pincode, phone, email, gst, pan, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO Customers (name, address_line_1, address_line_2, city, state, pincode, phone, email, gst, pan, created_at,balance,bank_account,ifsc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
 $stmt = $conn->prepare($sql);
 
 if (!$stmt) {
@@ -26,7 +28,7 @@ if (!$stmt) {
     exit();
 }
 
-$stmt->bind_param("sssssssssss", $account_name, $address_line1, $address_line2, $city, $state, $pincode, $mobile, $email, $gst, $pan, $created_at);
+$stmt->bind_param("ssssssssssssds", $account_name, $address_line1, $address_line2, $city, $state, $pincode, $mobile, $email, $gst, $pan, $created_at,$balance,$bank_account,$ifsc);
 
 if ($stmt->execute()) {
     echo "Account created successfully";
