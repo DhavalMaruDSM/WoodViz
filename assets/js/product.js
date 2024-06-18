@@ -74,11 +74,7 @@ function fetchProducts() {
 
 fetchProducts();
 function fillForm(rowData) {
-    document.getElementById('productname').value = rowData.name;
-    document.getElementById('categoryselect').value = rowData.category;
-    document.getElementById('subcategoryselect').value = rowData.subcategory;
-    document.getElementById('inventory').value = rowData.inventory;
-    var modal = new bootstrap.Modal(document.getElementById('productFormModal'));
+    var modal = new bootstrap.Modal(document.getElementById('editproductFormModal'));
     modal.show();
 }
 

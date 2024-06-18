@@ -108,6 +108,73 @@ include("components/header.php");
             </div>
         </div>
     </div>
+    <div class="modal fade" id="editproductFormModal" tabindex="-1" aria-labelledby="editproductFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editproductFormModalLabel">Edit Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ms-2 me-2">
+                    <form id="editproductform">
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label for="editproductname" class="form-label">Name:</label>
+                                <input type="text" class="form-control" id="editproductname" name="editproductname" placeholder="Enter Product Name" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label for="editcategoryselect" class="form-label">Category:</label>
+                                <select class="form-select" id="editcategoryselect" required>
+                                    <option disabled selected>Select a Category</option>
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="editsubcategoryselect" class="form-label">Sub Category:</label>
+                                <select class="form-select" id="editsubcategoryselect" required>
+                                    <option disabled selected>Select a Sub-Category</option>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label for="editinventory" class="form-label">Inventory:</label>
+                                <input type="number" class="form-control" value="0" id="editinventory" name="editinventory" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-4">
+                                <label for="editcgst" class="form-label">CGST:</label>
+                                <input type="number" class="form-control" value="0" id="editcgst" name="editcgst"  required>
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label for="editsgst" class="form-label">SGST:</label>
+                                <input type="number" class="form-control" value="0" id="editsgst" name="editsgst"  required>
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label for="editigst" class="form-label">IGST:</label>
+                                <input type="number" class="form-control" value="0" id="editigst" name="editigst"  required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label for="editprice" class="form-label">Price:</label>
+                                <input type="number" class="form-control" value="0" id="editprice" name="editprice" required>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn button-color" id="editaddproductButton">Add Product</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
