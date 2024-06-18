@@ -265,14 +265,28 @@ include("components/header.php");
                                 if (e.target.classList.contains('edit-button')) {
                                     var data = cell.getRow().getData();
                                     currentCustomerId = data.id;
-                                    // Populate the modal with the customer's data
-                                    document.getElementById('editAccountName').value = data.name;
-                                    document.getElementById('editMobile').value = data.mobile; 
-                                    document.getElementById('editEmail').value = data.email; 
-                                    var myModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
-                                    myModal.show();
-                                } 
-                                 else if (e.target.classList.contains('delete-button')) {
+                                   
+                                $.post("php/edit-customer.php", { id:  currentCustomerId}, function(data, status){
+                                    var customer = JSON.parse(data);
+                                    $('#editAccountName').val(customer.name);
+                                    $('#editMobile').val(customer.phone);
+                                    $('#editAddressLine1').val(customer.address_line_1);
+                                    $('#editAddressLine2').val(customer.address_line_2);
+                                    $('#editIfsc').val(customer.ifsc);
+                                    $('#editCity').val(customer.city);
+                                    $('#editState').val(customer.state);
+                                    $('#editbalance').val(customer.balance);
+                                    $('#editGst').val(customer.gst);
+                                    $('#editEmail').val(customer.email);
+                                    $('#editPan').val(customer.pan);
+                                    $('#editPincode').val(customer.pincode);
+                                    $('#editBankAccount').val(customer.bank_account);
+                                
+                                });
+                              var myModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
+                              myModal.show();
+                            } 
+                            else if (e.target.classList.contains('delete-button')) {
 
                                 var data = cell.getRow().getData();
                                 currentCustomerId = data.id;
@@ -321,25 +335,7 @@ include("components/header.php");
                 });
 
                 // Add event listener for save edit customer button
-                document.getElementById('saveEditCustomer').addEventListener('click', function() {
-                    // var updatedData = {
-                    //     id: currentCustomerId, 
-                    //     name: document.getElementById('editAccountName').value,
-                    //     addressLine1: document.getElementById('editAddressLine1').value,
-                    //     addressLine2:document.getElementById('editAddressLine2').value,
-                    //     mobile:getElementById('editMobile').value,
-                    //     ifsc:getElementById('editIfsc').value,
-                    //     email:getElementById('editEmail').value,
-                    //     state:getElementById('editState').value,
-                    //     pincode:getElementById('editPincode').value,
-                    //     gst:getElementById('editGst').value,
-                    //     pan:getElementById('editPan').value,
-                    //     bankAccount:getElementById('editBankAccount').value,
-                    //     balance:getElementById('editbalance').value
-                       
-                    // };
-
-                   
+                document.getElementById('saveEditCustomer').addEventListener('click', function() {                   
                     var myModal = bootstrap.Modal.getInstance(document.getElementById('editCustomerModal'));
                     myModal.hide();
                 });
@@ -353,6 +349,7 @@ include("components/header.php");
     });
 
 
+    //edit account
     function editAccount() {
     var id = currentCustomerId; 
     var name = $('#editAccountName').val();
