@@ -63,6 +63,31 @@ include("components/header.php");
             </div>
         </div>
     </div>
+    <div class="modal fade" id="editsubcategoryFormModal" tabindex="-1" aria-labelledby="editsubcategoryFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editsubcategoryFormModalLabel">Edit Sub-Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ms-2 me-2">
+                    <form id="editsubcategoryform">
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label for="editsubcategoryname" class="form-label">Name:</label>
+                                <input type="text" class="form-control" id="editsubcategoryname" name="editsubcategoryname" placeholder="Enter Sub-Category Name" required>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn button-color" id="editaddsubcategoryBtn">Edit Sub-Category</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

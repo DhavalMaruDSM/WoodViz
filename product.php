@@ -58,14 +58,14 @@ include("components/header.php");
                         </div>
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <label for="category" class="form-label">Category:</label>
+                                <label for="categoryselect" class="form-label">Category:</label>
                                 <select class="form-select" id="categoryselect" required>
                                     <option disabled selected>Select a Category</option>
                                     <option></option>
                                 </select>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="sub-category" class="form-label">Sub Category:</label>
+                                <label for="subcategoryselect" class="form-label">Sub Category:</label>
                                 <select class="form-select" id="subcategoryselect" required>
                                     <option disabled selected>Select a Sub-Category</option>
                                     <option></option>
@@ -168,7 +168,7 @@ include("components/header.php");
                         <hr>
                         <div class="d-flex justify-content-between">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn button-color" id="editaddproductButton">Add Product</button>
+                            <button type="submit" class="btn button-color" id="editaddproductButton">Edit Product</button>
                         </div>
                     </form>
                 </div>
