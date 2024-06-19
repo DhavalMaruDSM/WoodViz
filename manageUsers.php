@@ -16,36 +16,39 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
 </head>
 
 <body>
-
-    <div class="main-content">
-        <div class="container">
-            <div class="row mb-3">
-                <div id="user-searchbar" class="col-md-12">
-                    <div class="input-group searchinput">
-                        <i class="bi bi-search bg-light"></i>
-                        <select class="form-select" id="searchDropdown" required>
-                            <option value="username">Username</option>
-                            <option value="fullname">Fullname</option>
-                            <option value="email">Email</option>
-                            <option value="mobile">Mobile</option>
-                        </select>
-                        <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="usersearchBtn">
-                        <button class="btn btn-success" type="button" id="usersearchBtn">Search</button>
-                    </div>
-                    <button class="btn ms-2" id="addUserBtn" data-bs-toggle="modal" data-bs-target="#userFormModal">
-                        <i class="bi bi-plus-circle-fill"></i> ADD USER
-                    </button>
+<div class="main-content">
+    <div class="container">
+        <div class="row mb-3 align-items-center">
+            <div id="user-searchbar" class="col-md-12 d-flex align-items-center p-3">
+                <div class="input-group search-input flex-grow-1">
+                    <span class="input-group-text bg-light">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <select class="form-select" id="searchDropdown" required>
+                        <option value="username">Username</option>
+                        <option value="fullname">Fullname</option>
+                        <option value="email">Email</option>
+                        <option value="mobile">Mobile</option>
+                    </select>
+                    <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="usersearchBtn">
                 </div>
+                <button class="btn btn-success search-button" type="submit" id="usersearchBtn">Search</button>
+                <button class="btn ms-2" id="addUserBtn" data-bs-toggle="modal" data-bs-target="#userFormModal">
+                    <i class="bi bi-plus-circle-fill"></i> ADD USER
+                </button>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="user-table-container" class="p-3">
-                        <div id="user-table"></div>
-                    </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="user-table-container" class="p-3">
+                    <div id="user-table"></div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+    <!--User Form Modal-->
     <div class="modal fade" id="userFormModal" tabindex="-1" aria-labelledby="userFormModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
