@@ -326,11 +326,9 @@ include("components/header.php");
                 // Add event listener for search button
                 document.getElementById('search-button').addEventListener('click', function () {
                     const query = document.getElementById('search-input').value;
+                    const field = document.getElementById('search-field').value;
                     table.setFilter([
-                        { field: "name", type: "like", value: query },
-                        { field: "email", type: "like", value: query },
-                        { field: "mobile", type: "like", value: query },
-                        { field: "balance", type: "like", value: query },
+                        { field: field, type: "like", value: query },
                     ]);
                 });
 
