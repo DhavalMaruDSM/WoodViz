@@ -152,17 +152,17 @@ li {
     width: 100%;
 }
 
-.search-input{
+.search-input {
     display: flex;
     width: 80%;
     font-size: 18px;
+    height: 64px;
 }
 
 .search-input .input-group-text {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    max-height: 64px;
-    max-width:fit-content;
+    height: 64px;
 }
 
 .search-input .form-select {
@@ -190,16 +190,72 @@ li {
 #addUserBtn {
     max-width: 20%;
     max-height: 64px;
-    padding: 20px;
     font-size: 18px;
+    padding: 20px;
     background: #FF7A00;
     color: #fff;
 }
 
-@media (min-width: 576px) {
+@media(max-width:1480px) {
+    #addUserBtn {
+        max-width: 20%;
+        max-height: 64px;
+        font-size: 16px;
+        padding: 15px;
+    }
+
+    .search-input {
+        display: flex;
+        width: 80%;
+        font-size: 16px;
+        height: 64px;
+    }
+
+    .search-input .input-group-text {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        height: 64px;
+    }
+
+    .search-button {
+        white-space: nowrap;
+        max-height: 64px;
+        padding: 20px;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+}
+
+@media (max-width: 770px) {
 
     #addUserBtn {
-        max-width: 200px;
+        max-width: fit-content;
+        max-height: 48px;
+        font-size: 14px;
+        padding: 5px;
+    }
+
+    .search-input {
+        display: flex;
+        max-width: fit-content;
+        font-size: 14px;
+        height: 48px;
+    }
+
+    .search-input .input-group-text {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        height: 48px;
+    }
+
+    .search-button {
+        white-space: nowrap;
+        max-height: 48px;
+        max-width: fit-content;
+        padding: 10px;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
     }
 }
 
@@ -236,15 +292,15 @@ li {
 
 @media (max-width: 576px) {
     .tabulator .tabulator-headers {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .tabulator .tabulator-col {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .tabulator .tabulator-cell {
         padding: 5px;
-        font-size: 14px;
+        font-size: 12px;
     }
 }
