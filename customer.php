@@ -307,11 +307,12 @@ include("components/header.php");
                                         .then(result => {
                                             if (result.success) {
                                                 table.deleteRow(currentCustomerId);
+                                                callToast('success', 'Customer Deleted successfully!');
                                                 var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteCustomerModal'));
                                                 deleteModal.hide();
                                                 currentCustomerId = null;
                                             } else {
-                                                console.error('Error deleting customer:', result.message);
+                                                callToast('danger', 'Failed to update customer: ' + response.message);
                                             }
                                         })
                                         .catch(error => console.error('Error:', error));
@@ -383,19 +384,18 @@ include("components/header.php");
             balance: balance
         },
         success: function(response) {
-            console.log(response);
             response = JSON.parse(response);
             if (response.success) {
-                alert("Customer updated successfully!");
+                callToast('success', 'Customer updated successfully!');
                 $('#editCustomerModal').modal('hide');
-                showData(); 
+                showData();
             } else {
-                alert("Failed to update customer: " + response.message);
+                callToast('danger', 'Failed to update customer: ' + response.message);
             }
         },
         error: function(xhr, status, error) {
             console.error("AJAX error:", status, error);
-            alert("Failed to update customer due to a server error.");
+            callToast('danger', 'Failed to update customer due to a server error.');
         }
     });
 }
@@ -435,22 +435,19 @@ include("components/header.php");
             ifsc: ifsc
         },
         success: function(response) {
-            
             if (response.includes("Account created successfully")) {
-                
-                alert("Account created successfully!");
-
+                callToast('success', 'Account created successfully!');
                 $('#createCustomerForm')[0].reset();
                 showData();
-                
                 var addAccountModal = bootstrap.Modal.getInstance(document.getElementById('addAccountModal'));
                 addAccountModal.hide();
             } else {
-                console.error("Failed to create account:", response);
+                callToast('danger', 'Failed to create account: ' + response);
             }
         },
         error: function(xhr, status, error) {
             console.error("AJAX error:", status, error);
+            callToast('danger', 'Failed to create account due to a server error.');
         }
     });
 }
@@ -463,3 +460,4 @@ include("components/header.php");
 <?php
 include("components/footer.php");
 ?>
+
