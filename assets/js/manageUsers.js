@@ -195,12 +195,14 @@ function showDeleteConfirmation(rowId) {
                 }
             },
             error: function (xhr, status, error) {
-                console.error('AJAX Error:', status, error);
+                console.error('AJAX Error:', xhr.responseText, status, error);
                 alert("Error deleting user. Check console for details.");
             }
         });
     };
 }
+
+
 //Edit
 function fillForm(data) {
 

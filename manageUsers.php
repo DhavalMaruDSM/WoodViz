@@ -128,7 +128,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                                         <label class="form-check-label" for="admin">Admin</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="Product" id="product" name="permissions[]">
+                                        <input class="form-check-input" type="checkbox" value="product" id="product" name="permissions[]">
                                         <label class="form-check-label" for="product">Product</label>
                                     </div>
                                     <div class="form-check me-3">
@@ -136,19 +136,19 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                                         <label class="form-check-label" for="purchase">Purchase</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="Production" id="production" name="permissions[]">
+                                        <input class="form-check-input" type="checkbox" value="production" id="production" name="permissions[]">
                                         <label class="form-check-label" for="production">Production</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="Billing" id="billing" name="permissions[]">
+                                        <input class="form-check-input" type="checkbox" value="billing" id="billing" name="permissions[]">
                                         <label class="form-check-label" for="billing">Billing</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="Customer" id="customer" name="permissions[]">
+                                        <input class="form-check-input" type="checkbox" value="customer" id="customer" name="permissions[]">
                                         <label class="form-check-label" for="customer">Customer</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="Report" id="report" name="permissions[]">
+                                        <input class="form-check-input" type="checkbox" value="report" id="report" name="permissions[]">
                                         <label class="form-check-label" for="report">Report</label>
                                     </div>
                                 </div>
@@ -191,6 +191,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
     <script type="text/javascript" src="assets/js/js/tabulator.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="assets/js/manageUsers.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
     $(document).ready(function(){
     $("#createAccountBtn").click(function(){

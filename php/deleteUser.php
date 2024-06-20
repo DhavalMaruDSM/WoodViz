@@ -1,31 +1,43 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 include 'db.php';
+session_start();
 
 header('Content-Type: application/json'); // Ensure the response is JSON
 
-$response = array();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
-    $userId = $_POST['id'];
-
-    $stmt = $conn->prepare("DELETE FROM users WHERE User_id = ?");
-    $stmt->bind_param("i", $userId);
-
-    if ($stmt->execute()) {
-        $response = array("success" => true, "message" => "User deleted successfully", "userId" => $userId);
-    } else {
-        $response = array("success" => false, "error" => "Error deleting user");
-    }
-
-    $stmt->close();
-    $conn->close();
-} else {
-    $response = array("success" => false, "error" => "Invalid request");
+if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
+    echo json_encode(['success' => false, 'error' => 'Access denied.']);
+    exit();
 }
 
-echo json_encode($response);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['id'])) {
+        $id = intval($_POST['id']);
+        
+        $sql = "DELETE FROM users WHERE user_id = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) {
+            echo json_encode(['success' => false, 'error' => 'Prepare failed: ' . $conn->error]);
+            exit();
+        }
+        $stmt->bind_param('i', $id);
+
+        if ($stmt->execute()) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Execute failed: ' . $stmt->error]);
+        }
+
+        $stmt->close();
+    } else {
+        echo json_encode(['success' => false, 'error' => 'No ID provided.']);
+    }
+} else {
+    echo json_encode(['success' => false, 'error' => 'Invalid request method.']);
+}
+
+$conn->close();
 ?>
