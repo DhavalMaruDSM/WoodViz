@@ -1,106 +1,7 @@
-//Add User Button Click
-document.getElementById('addUserBtn').addEventListener('click', function () {
-    document.getElementById('userForm').classList.toggle('d-none');
-    this.classList.add('d-none');
-});
-
-//Close Modal Event
-document.getElementById('userFormModal').addEventListener('hidden.bs.modal', function () {
-    document.getElementById('form').reset();
-
-    form.classList.remove('was-validated');
-    const inputs = form.querySelectorAll('.form-control, .form-select, .form-check-input');
-    inputs.forEach(input => {
-        input.classList.remove('is-valid');
-        input.classList.remove('is-invalid');
-    });
-});
-//Form Submit Event
-document.getElementById("form").addEventListener("submit", function (event) {
-    event.preventDefault();
-    const form = event.target;
-    let isValid = form.checkValidity();
-    form.classList.add("was-validated");
-
-    // Validate password confirmation
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-
-    if (password !== confirmPassword) {
-        document.getElementById('confirmPassword').setCustomValidity("Passwords do not match!");
-        isValid = false;
-    } else {
-        document.getElementById('confirmPassword').setCustomValidity("");
-    }
-
-    if (isValid) {
-        return;
-    }
-    //Add data to the Table
-    let username = document.getElementById('username').value;
-    let fullname = document.getElementById('fullname').value;
-    let email = document.getElementById('email').value;
-    let mobile = document.getElementById('mobile').value;
-    let role = document.getElementById('role').value;
-    let permissions = Array.from(document.querySelectorAll('.form-check-input:checked')).map(checkbox => checkbox.id);
-
-    let newRow = {
-        srNo: table.getDataCount() + 1,
-        username,
-        fullname,
-        email,
-        mobile,
-        role,
-        permissions
-    };
-
-    table.addData([newRow]);
-    bootstrap.Modal.getInstance(document.getElementById('userFormModal')).hide();
-    form.reset();
-    form.classList.remove('was-validated');
-
-    //Role
-    if (!role) {
-        document.getElementById('role').classList.add("is-invalid");
-        document.getElementById('role').nextElementSibling.textContent = "Please select a Role!";
-        event.preventDefault();
-    } else {
-        document.getElementById('role').classList.remove("is-invalid");
-        document.getElementById('role').nextElementSibling.textContent = "";
-    }
-});
-
-//Permissions
-document.getElementById('role').addEventListener('change', function () {
-    var role = this.value;
-    var checkboxes = document.querySelectorAll('.form-check-input');
-
-    checkboxes.forEach(function (checkbox) {
-        checkbox.checked = (role === "admin");
-    });
-});
-
-
-//Form Validation
-document.querySelectorAll(".form-control").forEach(function (input) {
-    input.addEventListener("input", function () {
-        if (this.checkValidity()) {
-            this.classList.remove("is-invalid");
-            this.nextElementSibling.textContent = "";
-        } else {
-            this.classList.add("is-invalid");
-            this.nextElementSibling.textContent = this.validationMessage;
-        }
-    });
-});
 document.addEventListener("DOMContentLoaded", function () {
-    // Existing table data
+    // Sample data for demonstration (replace this with your actual data)
     const tableData = [
-        { srNo: 1, username: "A", fullname: "A", email: "a@gmail.com", mobile: "9876543210" },
-        { srNo: 2, username: "B", fullname: "B", email: "b@gmail.com", mobile: "9876543211" },
-        { srNo: 3, username: "C", fullname: "C", email: "c@gmail.com", mobile: "9876543212" },
-        { srNo: 4, username: "D", fullname: "D", email: "d@gmail.com", mobile: "9876543213" },
-        { srNo: 5, username: "E", fullname: "E", email: "e@gmail.com", mobile: "9876543214" },
+       
     ];
 
     // Initialize Tabulator table
@@ -153,18 +54,84 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         ]
     });
-    // Role
-    if (!role) {
-        document.getElementById('editRole').classList.add("is-invalid");
-        document.getElementById('editRole').nextElementSibling.textContent = "Please select a Role!";
+
+    // Add User Button Click
+    document.getElementById('addUserBtn').addEventListener('click', function () {
+        document.getElementById('userForm').classList.toggle('d-none');
+        this.classList.add('d-none');
+    });
+
+    // Close Modal Event
+    document.getElementById('userFormModal').addEventListener('hidden.bs.modal', function () {
+        const form = document.getElementById('form');
+        form.reset();
+        form.classList.remove('was-validated');
+
+        const inputs = form.querySelectorAll('.form-control, .form-select, .form-check-input');
+        inputs.forEach(input => {
+            input.classList.remove('is-valid');
+            input.classList.remove('is-invalid');
+        });
+    });
+
+    // Form Submit Event
+    document.getElementById("form").addEventListener("submit", function (event) {
         event.preventDefault();
-    } else {
-        document.getElementById('editRole').classList.remove("is-invalid");
-        document.getElementById('editRole').nextElementSibling.textContent = "";
-    }
+        const form = event.target;
+        let isValid = form.checkValidity();
+        form.classList.add("was-validated");
+
+        // Validate password confirmation
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (password !== confirmPassword) {
+            document.getElementById('confirmPassword').setCustomValidity("Passwords do not match!");
+            isValid = false;
+        } else {
+            document.getElementById('confirmPassword').setCustomValidity("");
+        }
+
+        if (!isValid) {
+            return;
+        }
+
+        // Add data to the Table
+        let username = document.getElementById('username').value;
+        let fullname = document.getElementById('fullname').value;
+        let email = document.getElementById('email').value;
+        let mobile = document.getElementById('mobile').value;
+        let role = document.getElementById('role').value;
+        let permissions = Array.from(document.querySelectorAll('.form-check-input:checked')).map(checkbox => checkbox.id);
+
+        let newRow = {
+            srNo: table.getDataCount() + 1,
+            username,
+            fullname,
+            email,
+            mobile,
+            role,
+            permissions
+        };
+
+        table.addData([newRow]);
+        bootstrap.Modal.getInstance(document.getElementById('userFormModal')).hide();
+        form.reset();
+        form.classList.remove('was-validated');
+
+        // Role validation
+        if (!role) {
+            document.getElementById('role').classList.add("is-invalid");
+            document.getElementById('role').nextElementSibling.textContent = "Please select a Role!";
+            event.preventDefault();
+        } else {
+            document.getElementById('role').classList.remove("is-invalid");
+            document.getElementById('role').nextElementSibling.textContent = "";
+        }
+    });
 
     // Permissions
-    document.getElementById('editRole').addEventListener('change', function () {
+    document.getElementById('role').addEventListener('change', function () {
         var role = this.value;
         var checkboxes = document.querySelectorAll('.form-check-input');
 
@@ -173,7 +140,30 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    //Confirm Delete Button Event
+    // Form Validation
+    document.querySelectorAll(".form-control").forEach(function (input) {
+        input.addEventListener("input", function () {
+            if (this.checkValidity()) {
+                this.classList.remove("is-invalid");
+                this.nextElementSibling.textContent = "";
+            } else {
+                this.classList.add("is-invalid");
+                this.nextElementSibling.textContent = this.validationMessage;
+            }
+        });
+    });
+
+    // Search functionality
+    document.getElementById('usersearchBtn').addEventListener('click', function () {
+        const searchField = document.getElementById('searchDropdown').value;
+        const searchValue = document.getElementById('searchInput').value.toLowerCase();
+
+        table.setFilter(function(data) {
+            return data[searchField].toLowerCase().includes(searchValue);
+        });
+    });
+
+    // Confirm Delete Button Event
     document.getElementById('confirmDeleteButton').addEventListener('click', function () {
         var rowId = this.dataset.rowId;
         var row = table.getRow(rowId);
