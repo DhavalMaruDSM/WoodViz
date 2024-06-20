@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="assets/css/main.css" type="text/css">
 </head>
 <?php
+
 require 'vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();

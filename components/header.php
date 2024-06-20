@@ -14,6 +14,13 @@
 </head>
 
 <body class="bodycolor">
+    <?php
+        session_start();
+
+        if(!isset($_SESSION['User_id'])){
+            header("Location: login.php");
+        }
+    ?>
     <div>
         <div class="bgcolor py-2">
             <nav class="navbar navbar-expand-lg p-0">
