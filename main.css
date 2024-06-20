@@ -1,117 +1,4 @@
 /* // WoodViz */
-<<<<<<< HEAD
-/*Login Page CSS*/
-
-#login {
-    background: url('../resources/background.jpeg') no-repeat center center fixed;
-    background-size: cover;
-    font-family: 'Inter', sans-serif;
-    padding-top: 100px;
-}
-
-.login-container {
-    padding: 40px 60px 10px 60px;
-}
-
-.login-card {
-    background-color: white;
-    border-radius: 30px;
-    padding: 50px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 500px;
-
-}
-
-.rounded-field {
-    border-radius: 13px;
-    padding: 10px 30px;
-    font-size: 1.1rem;
-}
-
-.rounded-btn {
-    border-radius: 13px;
-    padding: 10px 30px;
-}
-
-.signin-btn {
-    background-color: #fbb58d;
-    border: 1px solid #808080;
-    padding: 15px;
-    font-size: 18px;
-}
-
-.signin-btn:hover {
-    background-color: #faae82;
-    border: 0px #ddd;
-}
-
-.google-btn {
-    background-color: #ffffff;
-    border: 1px solid #808080;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-}
-
-.google-btn img {
-    width: 40px;
-    height: 40px;
-    margin-right: 5px;
-}
-
-.google-btn:hover {
-    background-color: #f0f0f0;
-    border: 0px #ddd;
-}
-
-@media (max-width: 576px) {
-    .container {
-        padding: 20px;
-    }
-}
-@media (min-width: 576px) and (max-width: 768px) {
-    .login-card {
-        max-width: 400px;
-    }
-}
-@media (min-width: 768px) {
-    .login-card {
-        max-width: 500px;
-        max-height: 1300px;
-    }
-}
-
-/*Manage Users CSS*/
-#manageUsers-body {
-    font-family: 'Inter', sans-serif;
-}
-
-.main-content {
-    display: flex;
-    height: 100vh;
-    padding: 15px;
-}
-
-.input-group i {
-    padding: 20px;
-    border-radius: 10px;
-}
-
-#searchbar {
-    display: flex;
-    width: 100%;
-}
-
-#searchbar .input-group {
-    width: 90%;
-    flex: 1;
-    flex-wrap: nowrap;
-}
-
-#searchDropdown {
-    text-align: left;
-=======
 /*Header CSS*/
 .bodycolor {
     background-image: url('https://img.freepik.com/free-photo/sand-textures-background_74190-1330.jpg?size=626&ext=jpg&ga=GA1.1.1141335507.1718064000&semt=ais_user');
@@ -257,7 +144,7 @@ li {
 }
 
 /*Manage Users CSS*/
-.main-content {
+/* .main-content {
     display: flex;
     height: 100%;
     padding: 15px;
@@ -298,30 +185,17 @@ li {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
->>>>>>> d19f87eb8e88afe6d6a3445c1b85f552bcc64428
 }
 
 #addUserBtn {
     max-width: 20%;
-<<<<<<< HEAD
-    font-size: 18px;
-=======
     max-height: 64px;
     font-size: 18px;
     padding: 20px;
->>>>>>> d19f87eb8e88afe6d6a3445c1b85f552bcc64428
     background: #FF7A00;
     color: #fff;
 }
 
-<<<<<<< HEAD
-@media (min-width: 576px) {
-    #searchbar .input-group {
-        max-width: 90%;
-    }
-    #addUserBtn {
-        max-width: 200px;
-=======
 @media(max-width:1480px) {
     #addUserBtn {
         max-width: 20%;
@@ -382,7 +256,6 @@ li {
         padding: 10px;
         border-bottom-left-radius: 0;
         border-top-left-radius: 0;
->>>>>>> d19f87eb8e88afe6d6a3445c1b85f552bcc64428
     }
 }
 
@@ -410,11 +283,7 @@ li {
 }
 
 .tabulator .tabulator-cell {
-<<<<<<< HEAD
-    padding: 10px; /* Reduce padding for smaller screens */
-=======
     padding: 10px;
->>>>>>> d19f87eb8e88afe6d6a3445c1b85f552bcc64428
     box-sizing: border-box;
     text-align: center;
     font-size: 16px;
@@ -423,29 +292,15 @@ li {
 
 @media (max-width: 576px) {
     .tabulator .tabulator-headers {
-<<<<<<< HEAD
-        font-size: 14px;
-    }
-
-    .tabulator .tabulator-col {
-        font-size: 14px;
-=======
         font-size: 12px;
     }
 
     .tabulator .tabulator-col {
         font-size: 12px;
->>>>>>> d19f87eb8e88afe6d6a3445c1b85f552bcc64428
     }
 
     .tabulator .tabulator-cell {
         padding: 5px;
-<<<<<<< HEAD
-        font-size: 14px;
-    }
-}
-=======
         font-size: 12px;
     }
-}
->>>>>>> d19f87eb8e88afe6d6a3445c1b85f552bcc64428
+} */
