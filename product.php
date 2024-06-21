@@ -21,10 +21,10 @@ include("components/header.php");
                         <select class="form-select" id="productselect" required>
                             <option disabled selected>Select Search</option>
                             <option value="name">Product Name</option>
-                            <option value="category">Category</option>
-                            <option value="subcategory">Sub-Category</option>
+                            <option value="description">Category</option>
+                            <option value="s_description">Sub-Category</option>
                         </select>
-                        <input type="search" class="form-control" placeholder="Search here..">
+                        <input type="search" class="form-control" id="searchInput" placeholder="Search here..">
                         <button class="btn btn-outline-warning" id="searchbtnproduct">Search</button>
                     </div>
                 </div>
