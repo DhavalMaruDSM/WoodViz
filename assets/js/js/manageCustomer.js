@@ -1,5 +1,9 @@
 var currentCustomerId = null;
 
+function removeExistingToasts() {
+    const existingToasts = document.querySelectorAll('.toast');
+    existingToasts.forEach(toast => toast.remove());
+}
 function showData() {
     fetch('php/get-customer.php')
         .then(response => response.json())
@@ -77,11 +81,13 @@ function showData() {
                                         .then(result => {
                                             if (result.success) {
                                                 table.deleteRow(currentCustomerId);
+                                                removeExistingToasts(); 
                                                 callToast('success', 'Customer Deleted successfully!');
                                                 var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteCustomerModal'));
                                                 deleteModal.hide();
                                                 currentCustomerId = null;
                                             } else {
+                                                removeExistingToasts(); 
                                                 callToast('danger', 'Failed to delete customer: ' + result.message);
                                             }
                                         })
@@ -162,10 +168,12 @@ function editAccount() {
         success: function(response) {
             response = JSON.parse(response);
             if (response.success) {
+                removeExistingToasts(); 
                 callToast('success', 'Customer updated successfully!');
                 $('#editCustomerModal').modal('hide');
                 showData();
             } else {
+                removeExistingToasts(); 
                 callToast('danger', 'Failed to update customer: ' + response.message);
             }
         },
@@ -212,17 +220,20 @@ function addAccount() {
         },
         success: function(response) {
             if (response.includes("Account created successfully")) {
+                removeExistingToasts(); 
                 callToast('success', 'Account created successfully!');
                 $('#createCustomerForm')[0].reset();
                 showData();
                 var addAccountModal = bootstrap.Modal.getInstance(document.getElementById('addAccountModal'));
                 addAccountModal.hide();
             } else {
+                removeExistingToasts(); 
                 callToast('danger', 'Failed to create account: ' + response);
             }
         },
         error: function(xhr, status, error) {
             console.error("AJAX error:", status, error);
+            removeExistingToasts(); 
             callToast('danger', 'Failed to create account due to a server error.');
         }
     });
