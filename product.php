@@ -197,7 +197,6 @@ include("components/header.php");
     <link href="https://unpkg.com/tabulator-tables@6.2.1/dist/css/tabulator.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.2.1/dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="assets/js/js/tabulator.min.js"></script>
-    <script src="assets/js/product_backend.js"></script>
     <script src="assets/js/product.js"></script>
 </body>
 </html>
