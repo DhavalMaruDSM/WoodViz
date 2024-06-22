@@ -4,6 +4,7 @@ function removeExistingToasts() {
     const existingToasts = document.querySelectorAll('.toast');
     existingToasts.forEach(toast => toast.remove());
 }
+
 function showData() {
     fetch('php/get-customer.php')
         .then(response => response.json())

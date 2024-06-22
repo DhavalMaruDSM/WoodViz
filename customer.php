@@ -5,6 +5,10 @@ include("components/header.php");
 
 <!-- ---------------------------------- -->
 <div class="container mt-4">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
 <link href="https://unpkg.com/tabulator-tables@5.3.2/dist/css/tabulator.min.css" rel="stylesheet">
     <style>
         .tabulator .tabulator-cell .balance-positive {
