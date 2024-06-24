@@ -3,19 +3,8 @@ include("components/header.php");
 ?>
 <div class="main" style="background-color: 	#F5F5F5;">
 
-<!-- ---------------------------------- -->
-<div class="container mt-4">
-<link href="https://unpkg.com/tabulator-tables@5.3.2/dist/css/tabulator.min.css" rel="stylesheet">
-    <style>
-        .tabulator .tabulator-cell .balance-positive {
-            color: green;
-        }
-
-        .tabulator .tabulator-cell .balance-negative {
-            color: red;
-        }
-        
-    </style>
+    <!-- ---------------------------------- -->
+    <div class="container mt-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -23,33 +12,34 @@ include("components/header.php");
             </ol>
         </nav>
         <div class="container">
-        <h3 class="mt-4">Customer</h3>
-        <div class="row ">
-            <div class="col-10 ">
-            <div class="input-group">
-            <span class="input-group-text" id="basic-addon1"><i class="bi bi-search "></i></span>
-            <select class="form-select" id="search-field">
-                    <option value="name" selected>Name</option>
-                    <option value="email">Email</option>
-                    <option value="mobile">Mobile</option>
-                    <option value="balance">Balance</option>
-                </select>
-                <input type="text" id="search-input" name="search-input" class="form-control w-50" placeholder="Search...">
-                <button class="btn btn-outline-warning" type="button" id="search-button">Search</button>
-            </div></div>    
-            <button type="button" class="btn btn-warning col ms-3 me-3" data-bs-toggle="modal" data-bs-target="#addAccountModal">+ Add Account</button>
-        </div>
-        
-                <!-- Add Account Modal -->  
+            <h3 class="mt-4">Customer</h3>
+            <div class="row ">
+                <div class="col-10 ">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-search "></i></span>
+                        <select class="form-select" id="search-field">
+                            <option value="name" selected>Name</option>
+                            <option value="email">Email</option>
+                            <option value="mobile">Mobile</option>
+                            <option value="balance">Balance</option>
+                        </select>
+                        <input type="text" id="search-input" name="search-input" class="form-control w-50" placeholder="Search...">
+                        <button class="btn btn-outline-warning" type="button" id="search-button">Search</button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-warning col ms-3 me-3" data-bs-toggle="modal" data-bs-target="#addAccountModal">+ Add Account</button>
+            </div>
+
+            <!-- Add Account Modal -->
             <div class="modal fade" id="addAccountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl" >
+                <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Add Account</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                        <form id="createCustomerForm" action="php/create-customer.php" method="post">
+                            <form id="createCustomerForm" action="php/create-customer.php" method="post">
                                 <div class="row">
                                     <div class="mb-3 col-4">
                                         <label for="accountName" class="form-label">Account Name:</label>
@@ -101,7 +91,7 @@ include("components/header.php");
                                         <label for="pan" class="form-label">PAN:</label>
                                         <input type="text" class="form-control" id="pan" name="pan" required>
                                     </div>
-                                
+
                                     <div class="mb-3 col-3">
                                         <label for="bankAccount" class="form-label">Bank Account:</label>
                                         <input type="text" class="form-control" id="bankAccount" name="bankAccount" required>
@@ -110,354 +100,124 @@ include("components/header.php");
                                         <label for="mobile" class="form-label">Balance:</label>
                                         <input type="text" class="form-control" id="balance" name="balance" required>
                                     </div>
-                                    
+
                                 </div>
-                        
+
                             </form>
-                
+
                             <!-- form ends here -->
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-warning" onclick="addAccount()">Create Account</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="customer-table" class="mt-3 me-1"></div>
+        </div>
+        <!-- Edit Customer Modal -->
+        <div class="modal fade" id="editCustomerModal" tabindex="-1" aria-labelledby="editCustomerModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editCustomerModalLabel">Edit Customer</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editCustomerForm" action="edit-customer.php" method="post">
+                            <div class="row">
+                                <div class="mb-3 col-4">
+                                    <label for="editAccountName" class="form-label">Account Name:</label>
+                                    <input type="text" class="form-control" id="editAccountName" name="editAccountName" required>
+                                </div>
+                                <div class="mb-3 col-8">
+                                    <label for="editAddressLine1" class="form-label">Address line 1:</label>
+                                    <input type="text" class="form-control" id="editAddressLine1" name="editAddressLine1" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-2">
+                                    <label for="mobile" class="form-label">Mobile:</label>
+                                    <input type="text" class="form-control" id="editMobile" name="editMobile" required>
+                                </div>
+                                <div class="mb-3 col-2">
+                                    <label for="ifsc" class="form-label">IFSC:</label>
+                                    <input type="text" class="form-control" id="editIfsc" name="editIfsc" required>
+                                </div>
+                                <div class="mb-3 col-8">
+                                    <label for="addressLine2" class="form-label">Address line 2:</label>
+                                    <input type="text" class="form-control" id="editAddressLine2" name="editAddressLine2">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-4">
+                                    <label for="email" class="form-label">Email:</label>
+                                    <input type="email" class="form-control" id="editEmail" name="editEmail" required>
+                                </div>
+                                <div class="mb-3 col-3">
+                                    <label for="city" class="form-label">City:</label>
+                                    <input type="text" class="form-control" id="editCity" name="editCity" required>
+                                </div>
+                                <div class="mb-3 col-3">
+                                    <label for="state" class="form-label">State:</label>
+                                    <input type="text" class="form-control" id="editState" name="editState" required>
+                                </div>
+                                <div class="mb-3 col">
+                                    <label for="pincode" class="form-label">Pincode:</label>
+                                    <input type="text" class="form-control" id="editPincode" name="editPincode" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-4">
+                                    <label for="gst" class="form-label">GST:</label>
+                                    <input type="text" class="form-control" id="editGst" name="editGst" required>
+                                </div>
+                                <div class="mb-3 col-3">
+                                    <label for="pan" class="form-label">PAN:</label>
+                                    <input type="text" class="form-control" id="editPan" name="editPan" required>
+                                </div>
+
+                                <div class="mb-3 col-3">
+                                    <label for="bankAccount" class="form-label">Bank Account:</label>
+                                    <input type="text" class="form-control" id="editBankAccount" name="editBankAccount" required>
+                                </div>
+                                <div class="mb-3 col-2">
+                                    <label for="mobile" class="form-label">Balance:</label>
+                                    <input type="text" class="form-control" id="editbalance" name="editbalance" required>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-warning" onclick="addAccount()">Create Account</button>
-            
+                        <button type="button" class="btn btn-warning" id="saveEditCustomer" onclick="editAccount()">Save changes</button>
                     </div>
                 </div>
             </div>
         </div>
-    <div id="customer-table" class="mt-3 me-1"></div>
-    </div>
-    <!-- Edit Customer Modal -->
-<div class="modal fade" id="editCustomerModal" tabindex="-1" aria-labelledby="editCustomerModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editCustomerModalLabel">Edit Customer</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editCustomerForm" action="edit-customer.php" method="post">
-                    <div class="row">
-                        <div class="mb-3 col-4">
-                            <label for="editAccountName" class="form-label">Account Name:</label>
-                            <input type="text" class="form-control" id="editAccountName" name="editAccountName" required>
-                        </div>
-                        <div class="mb-3 col-8">
-                            <label for="editAddressLine1" class="form-label">Address line 1:</label>
-                            <input type="text" class="form-control" id="editAddressLine1" name="editAddressLine1" required>
-                        </div>
+
+        <div class="modal fade" id="deleteCustomerModal" tabindex="-1" aria-labelledby="deleteCustomerModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteCustomerModalLabel">Delete Customer</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="row">
-                                    <div class="mb-3 col-2">
-                                        <label for="mobile" class="form-label">Mobile:</label>
-                                        <input type="text" class="form-control" id="editMobile" name="editMobile" required>
-                                    </div>
-                                    <div class="mb-3 col-2">
-                                        <label for="ifsc" class="form-label">IFSC:</label>
-                                        <input type="text" class="form-control" id="editIfsc" name="editIfsc" required>
-                                    </div>
-                                    <div class="mb-3 col-8">
-                                        <label for="addressLine2" class="form-label">Address line 2:</label>
-                                        <input type="text" class="form-control" id="editAddressLine2" name="editAddressLine2">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="mb-3 col-4">
-                                        <label for="email" class="form-label">Email:</label>
-                                        <input type="email" class="form-control" id="editEmail" name="editEmail" required>
-                                    </div>
-                                    <div class="mb-3 col-3">
-                                        <label for="city" class="form-label">City:</label>
-                                        <input type="text" class="form-control" id="editCity" name="editCity" required>
-                                    </div>
-                                    <div class="mb-3 col-3">
-                                        <label for="state" class="form-label">State:</label>
-                                        <input type="text" class="form-control" id="editState" name="editState" required>
-                                    </div>
-                                    <div class="mb-3 col">
-                                        <label for="pincode" class="form-label">Pincode:</label>
-                                        <input type="text" class="form-control" id="editPincode" name="editPincode" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="mb-3 col-4">
-                                        <label for="gst" class="form-label">GST:</label>
-                                        <input type="text" class="form-control" id="editGst" name="editGst" required>
-                                    </div>
-                                    <div class="mb-3 col-3">
-                                        <label for="pan" class="form-label">PAN:</label>
-                                        <input type="text" class="form-control" id="editPan" name="editPan" required>
-                                    </div>
-                                
-                                    <div class="mb-3 col-3">
-                                        <label for="bankAccount" class="form-label">Bank Account:</label>
-                                        <input type="text" class="form-control" id="editBankAccount" name="editBankAccount" required>
-                                    </div>
-                                    <div class="mb-3 col-2">
-                                        <label for="mobile" class="form-label">Balance:</label>
-                                        <input type="text" class="form-control" id="editbalance" name="editbalance" required>
-                                    </div>
-                                </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-warning" id="saveEditCustomer" onclick="editAccount()">Save changes</button>
+                    <div class="modal-body">
+                        <p id="deleteCustomerText">Are you sure you want to delete this customer?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-danger" id="confirmDeleteCustomer">Yes</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="deleteCustomerModal" tabindex="-1" aria-labelledby="deleteCustomerModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteCustomerModalLabel">Delete Customer</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p id="deleteCustomerText">Are you sure you want to delete this customer?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteCustomer" >Yes</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="https://unpkg.com/tabulator-tables@5.3.2/dist/js/tabulator.min.js"></script>
-<script>
-     var currentCustomerId = null;
-    
-    function showData() {
-        fetch('php/get-customer.php')
-            .then(response => response.json())
-            .then(data => {
-                
-                const table = new Tabulator("#customer-table", {
-                    data: data,
-                    layout: "fitColumns",
-                    columns: [
-                        { title: "#", field: "id", width: 50 },
-                        { title: "Full Name", field: "name" },
-                        { title: "Email", field: "email" },
-                        { title: "Mobile", field: "mobile" },
-                        {
-                            title: "Balance",
-                            field: "balance",
-                            formatter: function (cell, formatterParams, onRendered) {
-                                const value = cell.getValue();
-                                const className = value < 0 ? 'balance-negative' : 'balance-positive';
-                                return `<span class="${className}">${value}</span>`;
-                            }
-                        },
-                        {
-                            title: "Action",
-                            formatter: function (cell, formatterParams, onRendered) {
-                                return `
-                                    <button class="btn btn-sm btn-primary edit-button">Edit</button>
-                                    <button class="btn btn-sm btn-danger delete-button">Delete</button>
-                                `;
-                            },
-                            width: 150,
-                            hozAlign: "center",
-                            cellClick: function (e, cell) {
-                                if (e.target.classList.contains('edit-button')) {
-                                    var data = cell.getRow().getData();
-                                    currentCustomerId = data.id;
-                                   
-                                $.post("php/edit-customer.php", { id:  currentCustomerId}, function(data, status){
-                                    var customer = JSON.parse(data);
-                                    $('#editAccountName').val(customer.name);
-                                    $('#editMobile').val(customer.phone);
-                                    $('#editAddressLine1').val(customer.address_line_1);
-                                    $('#editAddressLine2').val(customer.address_line_2);
-                                    $('#editIfsc').val(customer.ifsc);
-                                    $('#editCity').val(customer.city);
-                                    $('#editState').val(customer.state);
-                                    $('#editbalance').val(customer.balance);
-                                    $('#editGst').val(customer.gst);
-                                    $('#editEmail').val(customer.email);
-                                    $('#editPan').val(customer.pan);
-                                    $('#editPincode').val(customer.pincode);
-                                    $('#editBankAccount').val(customer.bank_account);
-                                
-                                });
-                              var myModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
-                              myModal.show();
-                            } 
-                            else if (e.target.classList.contains('delete-button')) {
-
-                                var data = cell.getRow().getData();
-                                currentCustomerId = data.id;
-                                document.getElementById('deleteCustomerText').innerText = `Are you sure you want to delete customer ${data.name}?`;
-                                var myModal = new bootstrap.Modal(document.getElementById('deleteCustomerModal'));
-                                myModal.show();
-
-                                document.getElementById('confirmDeleteCustomer').addEventListener('click', function confirmDeleteHandler() {
-                                    if (currentCustomerId !== null) {
-                                        fetch('php/delete-customer.php', {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json'
-                                            },
-                                            body: JSON.stringify({ id: currentCustomerId })
-                                        })
-                                        .then(response => response.json())
-                                        .then(result => {
-                                            if (result.success) {
-                                                table.deleteRow(currentCustomerId);
-                                                callToast('success', 'Customer Deleted successfully!');
-                                                var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteCustomerModal'));
-                                                deleteModal.hide();
-                                                currentCustomerId = null;
-                                            } else {
-                                                callToast('danger', 'Failed to update customer: ' + response.message);
-                                            }
-                                        })
-                                        .catch(error => console.error('Error:', error));
-                                    }
-                                    document.getElementById('confirmDeleteCustomer').removeEventListener('click', confirmDeleteHandler); // Remove the handler to avoid multiple bindings
-                                });
-                            }
-                        }
-                    }
-                ]
-            });
-                // Add event listener for search button
-                document.getElementById('search-button').addEventListener('click', function () {
-                    const query = document.getElementById('search-input').value;
-                    const field = document.getElementById('search-field').value;
-                    table.setFilter([
-                        { field: field, type: "like", value: query },
-                    ]);
-                });
-
-                // Add event listener for save edit customer button
-                document.getElementById('saveEditCustomer').addEventListener('click', function() {                   
-                    var myModal = bootstrap.Modal.getInstance(document.getElementById('editCustomerModal'));
-                    myModal.hide();
-                });
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    }
-
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        showData();
-    });
-
-
-    //edit account
-    function editAccount() {
-    var id = currentCustomerId; 
-    var name = $('#editAccountName').val();
-    var addressLine1 = $('#editAddressLine1').val();
-    var addressLine2 = $('#editAddressLine2').val();
-    var city = $('#editCity').val();
-    var state = $('#editState').val();
-    var pincode = $('#editPincode').val();
-    var mobile = $('#editMobile').val();
-    var ifsc = $('#editIfsc').val();
-    var email = $('#editEmail').val();
-    var gst = $('#editGst').val();
-    var pan = $('#editPan').val();
-    var bankAccount = $('#editBankAccount').val();
-    var balance = $('#editbalance').val(); 
-    $.ajax({
-        url: "php/edit-customer.php",
-        type: "POST",
-        data: {
-            id: id,
-            name: name,
-            addressLine1: addressLine1,
-            addressLine2: addressLine2,
-            city: city,
-            state: state,
-            pincode: pincode,
-            mobile: mobile,
-            ifsc: ifsc,
-            email: email,
-            gst: gst,
-            pan: pan,
-            bankAccount: bankAccount,
-            balance: balance
-        },
-        success: function(response) {
-            response = JSON.parse(response);
-            if (response.success) {
-                callToast('success', 'Customer updated successfully!');
-                $('#editCustomerModal').modal('hide');
-                showData();
-            } else {
-                callToast('danger', 'Failed to update customer: ' + response.message);
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("AJAX error:", status, error);
-            callToast('danger', 'Failed to update customer due to a server error.');
-        }
-    });
-}
-
-    //add account
-    function addAccount() {
-    var account_name = $('#accountName').val();
-    var address_line1 = $('#addressLine1').val();
-    var address_line2 = $('#addressLine2').val();
-    var mobile = $('#mobile').val();
-    var email = $('#email').val();
-    var city = $('#city').val();
-    var state = $('#state').val();
-    var balance = $('#balance').val();
-    var pincode = $('#pincode').val();
-    var gst = $('#gst').val();
-    var pan = $('#pan').val();
-    var bank_account = $('#bankAccount').val();
-    var ifsc = $('#ifsc').val();
-
-    $.ajax({
-        url: "php/create-customer.php",
-        type: "POST",
-        data: {
-            account_name: account_name,
-            address_line1: address_line1,
-            address_line2: address_line2,
-            mobile: mobile,
-            email: email,
-            city: city,
-            state: state,
-            pincode: pincode,
-            gst: gst,
-            pan: pan,
-            balance:balance,
-            bank_account: bank_account,
-            ifsc: ifsc
-        },
-        success: function(response) {
-            if (response.includes("Account created successfully")) {
-                callToast('success', 'Account created successfully!');
-                $('#createCustomerForm')[0].reset();
-                showData();
-                var addAccountModal = bootstrap.Modal.getInstance(document.getElementById('addAccountModal'));
-                addAccountModal.hide();
-            } else {
-                callToast('danger', 'Failed to create account: ' + response);
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("AJAX error:", status, error);
-            callToast('danger', 'Failed to create account due to a server error.');
-        }
-    });
-}
-
-
-
-</script>
-</div>
-                
+<script src="assets/js/customer.js"></script>
 <?php
 include("components/footer.php");
 ?>
-

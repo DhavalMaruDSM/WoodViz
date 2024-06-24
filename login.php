@@ -8,24 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css" type="text/css">
 </head>
-<?php
 
-require 'vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-$clientID = $_ENV['clientID'];
-$clientSecret = $_ENV['clientSecret'];
-$redirectUri = $_ENV['redirectUri'];
-// create Client Request to access Google API
-$client = new Google_Client();
-$client->setClientId($clientID);
-$client->setClientSecret($clientSecret);
-$client->setRedirectUri($redirectUri);
-$client->addScope('email');
-$client->addScope('profile');
-
-$loginUrl = $client->createAuthUrl();
-?>
 
 <body id="login-body">
     <div class="container d-flex align-items-center justify-content-center login-container">
