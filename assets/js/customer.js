@@ -327,6 +327,7 @@ function editAccount() {
         showData();
       } else {
         removeExistingToasts();
+        hideEditModal();
         callToast("danger", "Failed to update customer: " + response.message);
       }
     },
@@ -456,6 +457,7 @@ function addAccount() {
         callToast("success", "Account created successfully!");
         $("#createCustomerForm")[0].reset();
       } else {
+        hideAddAccountModal();
         removeExistingToasts();
         callToast("danger", "Failed to create account: " + response);
       }
