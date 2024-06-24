@@ -1,4 +1,5 @@
 var currentCustomerId = null;
+var table; 
 
 function removeExistingToasts() {
     const existingToasts = document.querySelectorAll('.toast');
@@ -9,7 +10,7 @@ function showData() {
     fetch('php/get-customer.php')
         .then(response => response.json())
         .then(data => {
-            const table = new Tabulator("#customer-table", {
+            table = new Tabulator("#customer-table", {
                 data: data,
                 layout: "fitColumns",
                 columns: [
@@ -37,26 +38,7 @@ function showData() {
                             editButton.addEventListener('click', function () {
                                 var data = cell.getRow().getData();
                                 currentCustomerId = data.id;
-                                
-                                $.post("php/edit-customer.php", { id: currentCustomerId }, function(data, status) {
-                                    var customer = JSON.parse(data);
-                                    $('#editAccountName').val(customer.name);
-                                    $('#editMobile').val(customer.phone);
-                                    $('#editAddressLine1').val(customer.address_line_1);
-                                    $('#editAddressLine2').val(customer.address_line_2);
-                                    $('#editIfsc').val(customer.ifsc);
-                                    $('#editCity').val(customer.city);
-                                    $('#editState').val(customer.state);
-                                    $('#editbalance').val(customer.balance);
-                                    $('#editGst').val(customer.gst);
-                                    $('#editEmail').val(customer.email);
-                                    $('#editPan').val(customer.pan);
-                                    $('#editPincode').val(customer.pincode);
-                                    $('#editBankAccount').val(customer.bank_account);
-                                });
-
-                                var myModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
-                                myModal.show();
+                                editCustomer(currentCustomerId);
                             });
 
                             const deleteButton = document.createElement('button');
@@ -65,37 +47,7 @@ function showData() {
                             deleteButton.addEventListener('click', function () {
                                 var data = cell.getRow().getData();
                                 currentCustomerId = data.id;
-                                document.getElementById('deleteCustomerText').innerText = `Are you sure you want to delete customer ${data.name}?`;
-                                var myModal = new bootstrap.Modal(document.getElementById('deleteCustomerModal'));
-                                myModal.show();
-
-                                document.getElementById('confirmDeleteCustomer').addEventListener('click', function confirmDeleteHandler() {
-                                    if (currentCustomerId !== null) {
-                                        fetch('php/delete-customer.php', {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json'
-                                            },
-                                            body: JSON.stringify({ id: currentCustomerId })
-                                        })
-                                        .then(response => response.json())
-                                        .then(result => {
-                                            if (result.success) {
-                                                table.deleteRow(currentCustomerId);
-                                                removeExistingToasts(); 
-                                                callToast('success', 'Customer Deleted successfully!');
-                                                var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteCustomerModal'));
-                                                deleteModal.hide();
-                                                currentCustomerId = null;
-                                            } else {
-                                                removeExistingToasts(); 
-                                                callToast('danger', 'Failed to delete customer: ' + result.message);
-                                            }
-                                        })
-                                        .catch(error => console.error('Error:', error));
-                                    }
-                                    document.getElementById('confirmDeleteCustomer').removeEventListener('click', confirmDeleteHandler); // Remove the handler to avoid multiple bindings
-                                });
+                                deleteCustomer(currentCustomerId, data.name);
                             });
 
                             container.appendChild(editButton);
@@ -117,20 +69,97 @@ function showData() {
                 ]);
             });
 
-            // Add event listener for save edit customer button
-            document.getElementById('saveEditCustomer').addEventListener('click', function() {                   
-                var myModal = bootstrap.Modal.getInstance(document.getElementById('editCustomerModal'));
-                myModal.hide();
+                document.getElementById('saveEditCustomer').addEventListener('click', function() {
+                hideEditModal();
             });
         })
         .catch(error => console.error('Error fetching data:', error));
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    showData();
-});
 
-//edit account
+function editCustomer(id) {
+    $.post("php/edit-customer.php", { id: id }, function(data, status) {
+        var customer = JSON.parse(data);
+        populateEditModal(customer);
+        showEditModal();
+    });
+}
+
+//  delete customer
+function deleteCustomer(id, name) {
+    document.getElementById('deleteCustomerText').innerText = `Are you sure you want to delete customer ${name}?`;
+    showDeleteModal();
+
+    document.getElementById('confirmDeleteCustomer').addEventListener('click', function confirmDeleteHandler() {
+        if (currentCustomerId !== null) {
+            fetch('php/delete-customer.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: currentCustomerId })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    table.deleteRow(currentCustomerId);
+                    removeExistingToasts(); 
+                    callToast('success', 'Customer deleted successfully!');
+                    hideDeleteModal();
+                    currentCustomerId = null;
+                } else {
+                    removeExistingToasts(); 
+                    callToast('danger', 'Failed to delete customer: ' + result.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        document.getElementById('confirmDeleteCustomer').removeEventListener('click', confirmDeleteHandler);
+    });
+}
+
+// populate edit modal with customer data
+function populateEditModal(customer) {
+    $('#editAccountName').val(customer.name);
+    $('#editMobile').val(customer.phone);
+    $('#editAddressLine1').val(customer.address_line_1);
+    $('#editAddressLine2').val(customer.address_line_2);
+    $('#editIfsc').val(customer.ifsc);
+    $('#editCity').val(customer.city);
+    $('#editState').val(customer.state);
+    $('#editbalance').val(customer.balance);
+    $('#editGst').val(customer.gst);
+    $('#editEmail').val(customer.email);
+    $('#editPan').val(customer.pan);
+    $('#editPincode').val(customer.pincode);
+    $('#editBankAccount').val(customer.bank_account);
+}
+
+
+function showEditModal() {
+    var myModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
+    myModal.show();
+}
+
+
+function hideEditModal() {
+    var myModal = bootstrap.Modal.getInstance(document.getElementById('editCustomerModal'));
+    myModal.hide();
+}
+
+
+function showDeleteModal() {
+    var myModal = new bootstrap.Modal(document.getElementById('deleteCustomerModal'));
+    myModal.show();
+}
+
+
+function hideDeleteModal() {
+    var myModal = bootstrap.Modal.getInstance(document.getElementById('deleteCustomerModal'));
+    myModal.hide();
+}
+
+// Function edit account
 function editAccount() {
     var id = currentCustomerId; 
     var name = $('#editAccountName').val();
@@ -171,7 +200,7 @@ function editAccount() {
             if (response.success) {
                 removeExistingToasts(); 
                 callToast('success', 'Customer updated successfully!');
-                $('#editCustomerModal').modal('hide');
+                hideEditModal();
                 showData();
             } else {
                 removeExistingToasts(); 
@@ -185,7 +214,7 @@ function editAccount() {
     });
 }
 
-//add account
+// Function to add account
 function addAccount() {
     var account_name = $('#accountName').val();
     var address_line1 = $('#addressLine1').val();
@@ -224,9 +253,8 @@ function addAccount() {
                 removeExistingToasts(); 
                 callToast('success', 'Account created successfully!');
                 $('#createCustomerForm')[0].reset();
+                hideAddAccountModal();
                 showData();
-                var addAccountModal = bootstrap.Modal.getInstance(document.getElementById('addAccountModal'));
-                addAccountModal.hide();
             } else {
                 removeExistingToasts(); 
                 callToast('danger', 'Failed to create account: ' + response);
@@ -239,3 +267,7 @@ function addAccount() {
         }
     });
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    showData();
+});
