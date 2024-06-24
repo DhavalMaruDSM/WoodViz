@@ -12,7 +12,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     </link>
     <link rel="stylesheet" href="assets/css/tabulator_bootstrap5.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/manageUsers.css">
 </head>
 
 <body>

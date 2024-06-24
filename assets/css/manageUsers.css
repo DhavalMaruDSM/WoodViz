@@ -1,9 +1,161 @@
+/*Manage Users CSS*/
 .main-content {
-    min-height: 100vh;
+    display: flex;
+    height: 100%;
+    padding: 15px;
+    display: flex;
+    width: 100%;
 }
+
+.search-input {
+    display: flex;
+    width: 80%;
+    font-size: 18px;
+    height: 64px;
+}
+
+.search-input .input-group-text {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    height: 64px;
+}
+
+.search-input .form-select {
+    border-radius: 0;
+}
+
+.search-input .form-control {
+    border-radius: 0;
+}
+
+.search-button {
+    white-space: nowrap;
+    max-height: 64px;
+    padding: 20px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+#user-searchbar {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+#addUserBtn {
+    max-width: 20%;
+    max-height: 64px;
+    font-size: 18px;
+    padding: 20px;
+    background: #FF7A00;
+    color: #fff;
+}
+
+@media(max-width:1480px) {
+    #addUserBtn {
+        max-width: 20%;
+        max-height: 64px;
+        font-size: 16px;
+        padding: 15px;
+    }
+
+    .search-input {
+        display: flex;
+        width: 80%;
+        font-size: 16px;
+        height: 64px;
+    }
+
+    .search-input .input-group-text {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        height: 64px;
+    }
+
+    .search-button {
+        white-space: nowrap;
+        max-height: 64px;
+        padding: 20px;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+}
+
+@media (max-width: 770px) {
+
+    #addUserBtn {
+        max-width: fit-content;
+        max-height: 48px;
+        font-size: 14px;
+        padding: 5px;
+    }
+
+    .search-input {
+        display: flex;
+        max-width: fit-content;
+        font-size: 14px;
+        height: 48px;
+    }
+
+    .search-input .input-group-text {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        height: 48px;
+    }
+
+    .search-button {
+        white-space: nowrap;
+        max-height: 48px;
+        max-width: fit-content;
+        padding: 10px;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+}
+
 .user-card {
     background: #fff;
-    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#user-table-container {
+    padding: 20px;
+    border: 1px solid #939FAF;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+
+.tabulator .tabulator-headers {
+    font-size: 16px;
+    text-align: center;
+}
+
+.tabulator .tabulator-col {
+    font-size: 16px;
+}
+
+.tabulator .tabulator-cell {
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 16px;
+    color: black;
+}
+
+@media (max-width: 576px) {
+    .tabulator .tabulator-headers {
+        font-size: 12px;
+    }
+
+    .tabulator .tabulator-col {
+        font-size: 12px;
+    }
+
+    .tabulator .tabulator-cell {
+        padding: 5px;
+        font-size: 12px;
+    }
 }

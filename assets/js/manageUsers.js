@@ -4,20 +4,17 @@ let table;
 document.addEventListener("DOMContentLoaded", function () {
     function fetchUsers() {
         $.ajax({
-            url: 'php/fetchUsers.php', // Adjust URL as per your server setup
+            url: 'php/fetchUsers.php',
             type: 'GET',
             dataType: 'json',
             success: function (data) {
                 console.log("Data fetched from server:", data);
 
-                // Initialize Tabulator table with fetched data
                 table = new Tabulator("#user-table", {
                     data: data,
                     layout: "fitDataFill",
                     pagination: "local",
                     paginationSize: 10,
-                    maxWidth: "100%",
-                    responsiveLayout: true,
                     columns: [
                         { title: "#", field: "user_id", sorter: "number", headerHozAlign: "center", width: 50 },
                         { title: "Username", field: "username", sorter: "string", headerHozAlign: "center", width: 200 },
@@ -48,26 +45,12 @@ document.addEventListener("DOMContentLoaded", function () {
                                 var data = cell.getRow().getData();
                                 if (e.target.closest('.edit-button')) {
                                     console.log("Populating edit modal with data:", data);
-                                    document.getElementById('editUserId').value = data.user_id;
-                                    document.getElementById('editUsername').value = data.username;
-                                    document.getElementById('editFullname').value = data.fullname;
-                                    document.getElementById('editEmail').value = data.email_id;
-                                    document.getElementById('editMobile').value = data.mobile_number;
-                                    document.getElementById('editRole').value = data.role;
-                                    document.getElementById('editPassword').value = data.password;
-                                    document.getElementById('editConfirmPassword').value = data.password;
-                                    
-                                    // Set the checkbox values
-                                    document.getElementById('editAdmin').checked = (data.admin == 1);
-                                    document.getElementById('editProduct').checked = (data.product == 1);
-                                    document.getElementById('editPurchase').checked = (data.purchase == 1);
-                                    document.getElementById('editProduction').checked = (data.production == 1);
-                                    document.getElementById('editBilling').checked = (data.billing == 1);
-                                    document.getElementById('editCustomer').checked = (data.customer == 1);
-                                    document.getElementById('editReport').checked = (data.report == 1);
-
-                                    var editModal = new bootstrap.Modal(document.getElementById('editUserModal'));
-                                    editModal.show();
+                                    populateEditModal(data);
+                                } else if (e.target.closest('.delete-button')) {
+                                    document.getElementById('confirmDeleteButton').dataset.rowId = data.srNo;
+            
+                                    var deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+                                    deleteModal.show();
                                 }
                             }
                         }
@@ -80,7 +63,28 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Call fetchUsers function on page load
+    function populateEditModal(data) {
+        document.getElementById('editUserId').value = data.user_id;
+        document.getElementById('editUsername').value = data.username;
+        document.getElementById('editFullname').value = data.fullname;
+        document.getElementById('editEmail').value = data.email_id;
+        document.getElementById('editMobile').value = data.mobile_number;
+        document.getElementById('editRole').value = data.role;
+        document.getElementById('editPassword').value = data.password;
+        document.getElementById('editConfirmPassword').value = data.password;
+
+        document.getElementById('editAdmin').checked = (data.admin == 1);
+        document.getElementById('editProduct').checked = (data.product == 1);
+        document.getElementById('editPurchase').checked = (data.purchase == 1);
+        document.getElementById('editProduction').checked = (data.production == 1);
+        document.getElementById('editBilling').checked = (data.billing == 1);
+        document.getElementById('editCustomer').checked = (data.customer == 1);
+        document.getElementById('editReport').checked = (data.report == 1);
+
+        var editModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+        editModal.show();
+    }
+
     fetchUsers();
 
     // Add User Button Click
@@ -108,7 +112,6 @@ document.addEventListener("DOMContentLoaded", function () {
         let isValid = form.checkValidity();
         form.classList.add("was-validated");
 
-        // Validate password confirmation
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
 
@@ -123,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Add data to the Table
         let username = document.getElementById('username').value;
         let fullname = document.getElementById('fullname').value;
         let email = document.getElementById('email').value;
@@ -132,11 +134,11 @@ document.addEventListener("DOMContentLoaded", function () {
         let permissions = Array.from(document.querySelectorAll('.form-check-input:checked')).map(checkbox => checkbox.id);
 
         let newRow = {
-            user_id: table.getDataCount() + 1, // Ensure 'user_id' matches the field in your data source
+            user_id: table.getDataCount() + 1,
             username,
             fullname,
-            email_id: email, // Ensure 'email_id' matches the field in your data source
-            mobile_number: mobile, // Ensure 'mobile_number' matches the field in your data source
+            email_id: email,
+            mobile_number: mobile,
             role,
             admin: permissions.includes('admin') ? 1 : 0,
             product: permissions.includes('product') ? 1 : 0,
@@ -152,7 +154,6 @@ document.addEventListener("DOMContentLoaded", function () {
         form.reset();
         form.classList.remove('was-validated');
 
-        // Role validation
         if (!role) {
             document.getElementById('role').classList.add("is-invalid");
             document.getElementById('role').nextElementSibling.textContent = "Please select a Role!";
@@ -163,7 +164,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Permissions based on Role
     document.getElementById('role').addEventListener('change', function () {
         var role = this.value;
         var checkboxes = document.querySelectorAll('.form-check-input');
@@ -173,7 +173,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Form Validation
     document.querySelectorAll(".form-control").forEach(function (input) {
         input.addEventListener("input", function () {
             if (this.checkValidity()) {
@@ -186,76 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Edit Button Event
-    document.getElementById('user-table').addEventListener('click', function (e) {
-        if (e.target.closest('.edit-button')) {
-            var cell = table.getCellFromEvent(e);
-            var data = cell.getRow().getData();
-
-            document.getElementById('editUserId').value = data.user_id; // Ensure 'editUserId' matches the id attribute of your input
-            document.getElementById('editUsername').value = data.username;
-            document.getElementById('editFullname').value = data.fullname;
-            document.getElementById('editEmail').value = data.email_id;
-            document.getElementById('editMobile').value = data.mobile_number;
-            document.getElementById('editRole').value = data.role;
-            document.getElementById('editPassword').value = data.password;
-            document.getElementById('editConfirmPassword').value = data.password;
-
-            // Set the checkbox values
-            document.getElementById('editAdmin').checked = (data.admin == 1);
-            document.getElementById('editProduct').checked = (data.product == 1);
-            document.getElementById('editPurchase').checked = (data.purchase == 1);
-            document.getElementById('editProduction').checked = (data.production == 1);
-            document.getElementById('editBilling').checked = (data.billing == 1);
-            document.getElementById('editCustomer').checked = (data.customer == 1);
-            document.getElementById('editReport').checked = (data.report == 1);
-
-            var editModal = new bootstrap.Modal(document.getElementById('editUserModal'));
-            editModal.show();
-        }
-    });
-
-    // Confirm Delete Button Event
-    document.getElementById('confirmDeleteButton').addEventListener('click', function () {
-        var rowId = this.dataset.rowId;
-        var row = table.getRow(rowId);
-        row.delete();
-
-        var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
-        deleteModal.hide();
-    });
-
-    // Role validation
-    document.getElementById('editRole').addEventListener('change', function () {
-        var role = this.value;
-        var checkboxes = document.querySelectorAll('.form-check-input');
-
-        checkboxes.forEach(function (checkbox) {
-            checkbox.checked = (role === "admin");
-        });
-    });
-
-    $(document).ready(function () {
-        $("#editForm").submit(function (event) {
-            event.preventDefault(); 
-            var formData = $(this).serialize(); 
-    
-            $.ajax({
-                type: "POST",
-                url: "php/updateUser.php",
-                data: formData,
-                success: function (response) {
-                    alert("User updated successfully!"+ response);
-                    $("#editUserModal").modal('hide');
-                    fetchUsers();
-                },
-                error: function (xhr, status, error) {
-                    alert("An error occurred: " + error);
-                    console.log(xhr.responseText); // Log detailed error message
-                }
-            });
-        });
-    }); 
+    // Delete button click handler
     document.getElementById('user-table').addEventListener('click', function (e) {
         if (e.target.closest('.delete-button')) {
             var cell = table.getCellFromEvent(e);
@@ -264,14 +194,15 @@ document.addEventListener("DOMContentLoaded", function () {
             showDeleteConfirmation(userId);
         }
     });
+
     function showDeleteConfirmation(userId) {
         if (confirm("Are you sure you want to delete this user?")) {
             $.ajax({
                 url: "php/deleteUser.php",
                 type: "POST",
-                data: { user_id: userId },
+                data: { id: userId },
                 success: function (response) {
-                    alert("User deleted successfully!" + response);
+                    alert("User deleted successfully!");
                     fetchUsers();
                 },
                 error: function (xhr, status, error) {
@@ -279,15 +210,38 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         }
-    }  
+    }
+
+    $(document).ready(function () {
+        $("#editForm").submit(function (event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: "POST",
+                url: "php/updateUser.php",
+                data: formData,
+                success: function (response) {
+                    alert("User updated successfully!");
+                    $("#editUserModal").modal('hide');
+                    fetchUsers();
+                },
+                error: function (xhr, status, error) {
+                    alert("An error occurred: " + error);
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    });
+
     $(document).on("click", "#createAccountBtn", function () {
         $.ajax({
             type: "POST",
             url: "php/create-user.php",
             data: $("#form").serialize(),
             success: function (response) {
-                alert("User created successfully!"); // Show success message
-                window.location.href = "manageUsers.php"; // Redirect to manageuser.php
+                alert("User created successfully!");
+                window.location.href = "manageUsers.php";
             },
             error: function (xhr, status, error) {
                 console.error("Error creating user:", error);
@@ -295,5 +249,41 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+    // Delete button click handler
+document.getElementById('user-table').addEventListener('click', function (e) {
+    if (e.target.closest('.delete-button')) {
+        var cell = table.getCellFromEvent(e);
+        var data = cell.getRow().getData();
+        var userId = data.user_id;
+        showDeleteConfirmation(userId);
+    }
+});
+
+function showDeleteConfirmation(userId) {
+    var deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+    deleteModal.show();
+
+    document.getElementById('confirmDeleteButton').setAttribute('data-row-id', userId);
+}
+
+document.getElementById('confirmDeleteButton').addEventListener('click', function () {
+    var userId = this.getAttribute('data-row-id');
+    $.ajax({
+        url: "php/deleteUser.php",
+        type: "POST",
+        data: { id: userId },
+        success: function (response) {
+            alert("User deleted successfully!");
+            fetchUsers(); 
+            var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
+            deleteModal.hide(); 
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+            alert("Failed to delete user. Please try again later.");
+        }
+    });
+});
 
 });
+
