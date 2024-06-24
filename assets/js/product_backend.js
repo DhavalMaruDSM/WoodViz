@@ -23,8 +23,7 @@ $(document).ready(function() {
             url: 'php/get-sub-category.php',
             method: 'GET',
             data: {
-                type: 'subcategories',
-                category_id: 'categoryId'
+                type: 'subcategories'
             },
             success: function(data) {
                 var subcategories = JSON.parse(data);
@@ -33,7 +32,6 @@ $(document).ready(function() {
                 subcategories.forEach(function(subcategory) {
                     subcategorySelect.append('<option value="' + subcategory.id + '">' + subcategory.description + '</option>');
                 });
-                console.log(categoryId);
             }
         });
     });
