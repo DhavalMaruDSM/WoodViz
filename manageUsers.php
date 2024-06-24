@@ -12,7 +12,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     </link>
     <link rel="stylesheet" href="assets/css/tabulator_bootstrap5.css">
-    <link rel="stylesheet" href="assets/css/manageUsers.css">
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
 
 <body>
@@ -27,8 +27,8 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                     <select class="form-select" id="searchDropdown" required>
                         <option value="username">Username</option>
                         <option value="fullname">Fullname</option>
-                        <option value="email">Email</option>
-                        <option value="mobile">Mobile</option>
+                        <option value="email_id">Email</option>
+                        <option value="mobile_number">Mobile</option>
                     </select>
                     <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="usersearchBtn">
                 </div>
@@ -310,4 +310,6 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="assets/js/manageUsers.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-</body>
+    <?php
+include("components/footer.php");
+?>

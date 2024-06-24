@@ -217,13 +217,14 @@ document.getElementById('usersearchBtn').addEventListener('click', function () {
                 url: "php/updateUser.php",
                 data: formData,
                 success: function (response) {
-                    alert("User updated successfully!");
                     $("#editUserModal").modal('hide');
                     fetchUsers();
+                    callToast("success", "User updated successfully!");
                 },
                 error: function (xhr, status, error) {
                     alert("An error occurred: " + error);
                     console.log(xhr.responseText);
+                    callToast("danger", "error in updating");
                 }
             });
         });
@@ -235,12 +236,13 @@ document.getElementById('usersearchBtn').addEventListener('click', function () {
             url: "php/create-user.php",
             data: $("#form").serialize(),
             success: function (response) {
-                alert("User created successfully!");
-                window.location.href = "manageUsers.php";
+                $("#userFormModal").modal('hide');
+                fetchUsers(); 
+                callToast("success", "User created successfully!");
             },
             error: function (xhr, status, error) {
                 console.error("Error creating user:", error);
-                alert("Error creating user. Please try again later.");
+                callToast("danger", "Error creating user. Please try again later.");
             }
         });
     });
@@ -253,7 +255,6 @@ document.getElementById('usersearchBtn').addEventListener('click', function () {
         if (searchField && searchText) {
             table.setFilter(searchField, "like", searchText);
         } else {
-            // If no search field or search text, clear filters
             table.clearFilter();
         }
     });
@@ -276,12 +277,12 @@ document.getElementById('usersearchBtn').addEventListener('click', function () {
                 type: "POST",
                 data: { id: userId },
                 success: function (response) {
-                    alert("User deleted successfully!");
-                    fetchUsers(); // Refresh table after deletion
+                    fetchUsers(); 
+                    callToast("success", "User deleted successfully!");
                 },
                 error: function (xhr, status, error) {
                     console.error("AJAX Error:", status, error);
-                    alert("Failed to delete user. Please try again later.");
+                    callToast("danger", "Failed to delete user. Please try again later.");
                 }
             });
         }
