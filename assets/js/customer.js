@@ -77,7 +77,7 @@ function editCustomer(id) {
   $.post("php/edit-customer.php", { id: id }, function (data, status) {
     var customer = JSON.parse(data);
     populateEditModal(customer);
-    showEditModal();
+    showModal("editCustomerModal");
   });
 }
 
@@ -86,7 +86,7 @@ function deleteCustomer(id, name) {
   document.getElementById(
     "deleteCustomerText"
   ).innerText = `Are you sure you want to delete customer ${name}?`;
-  showDeleteModal();
+  showModal("deleteCustomerModal");
 
   document
     .getElementById("confirmDeleteCustomer")
@@ -105,7 +105,7 @@ function deleteCustomer(id, name) {
               table.deleteRow(currentCustomerId);
               removeExistingToasts();
               callToast("success", "Customer deleted successfully!");
-              hideDeleteModal();
+              hideModal("deleteCustomerModal");
               currentCustomerId = null;
             } else {
               removeExistingToasts();
@@ -140,41 +140,15 @@ function populateEditModal(customer) {
   $("#editBankAccount").val(customer.bank_account);
 }
 
-function showEditModal() {
-  var myModal = new bootstrap.Modal(
-    document.getElementById("editCustomerModal")
-  );
-  myModal.show();
-}
-
-function hideEditModal() {
-  var myModal = bootstrap.Modal.getInstance(
-    document.getElementById("editCustomerModal")
-  );
-  myModal.hide();
-}
-
-function showDeleteModal() {
-  var myModal = new bootstrap.Modal(
-    document.getElementById("deleteCustomerModal")
-  );
-  myModal.show();
-}
-
-function hideDeleteModal() {
-  var myModal = bootstrap.Modal.getInstance(
-    document.getElementById("deleteCustomerModal")
-  );
-  myModal.hide();
-}
-
-function hideAddAccountModal() {
-  var myModal = bootstrap.Modal.getInstance(
-    document.getElementById("addAccountModal")
-  );
-  myModal.hide();
-}
-
+function showModal(modalId) {
+    var myModal = new bootstrap.Modal(document.getElementById(modalId));
+    myModal.show();
+  }
+  
+function hideModal(modalId) {
+    var myModal = bootstrap.Modal.getInstance(document.getElementById(modalId));
+    myModal.hide();
+  }
 // Function edit account
 function editAccount() {
   var id = currentCustomerId;
@@ -293,11 +267,11 @@ function editAccount() {
       if (response.success) {
         removeExistingToasts();
         callToast("success", "Customer updated successfully!");
-        hideEditModal();
+        hideModal("editCustomerModal");
         showData();
       } else {
         removeExistingToasts();
-        hideEditModal();
+        hideModal("editCustomerModal");
         callToast("danger", "Failed to update customer: " + response.message);
       }
     },
@@ -421,13 +395,13 @@ function addAccount() {
     },
     success: function (response) {
       if (response.includes("Account created successfully")) {
-        hideAddAccountModal();
+        hideModal("addAccountModal");
         showData();
         removeExistingToasts();
         callToast("success", "Account created successfully!");
         $("#createCustomerForm")[0].reset();
       } else {
-        hideAddAccountModal();
+        hideModal("addAccountModal");
         removeExistingToasts();
         callToast("danger", "Failed to create account: " + response);
       }
