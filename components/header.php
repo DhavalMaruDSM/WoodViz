@@ -94,163 +94,163 @@
             <aside id="sidebar">
                 <div class="div-height">
                 <ul class="list-unstyled ps-0">
-                    <li class="mb-1">
+                    <li class="sidebar-item mb-1">
                         <a href="index.php"
-                            class="btn d-inline-flex align-items-center rounded border-0 "
-                        >
-                            Dashboard
+                            class="btn d-inline-flex align-items-center rounded border-0 ">
+                            <i class="bi bi-columns-gap p-3"></i>
+                            <span class="sidebar-span-style">Dashboard</span>
                         </a>    
                     </li>
-                    <li class="mb-1">
+                    <li class="sidebar-item mb-1">
                         <button
                             class="btn d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse"
                             data-bs-target="#product-collapse"
-                            aria-expanded="false"
-                        >
-                            Product
+                            aria-expanded="false">
+                            <i class="bi bi-box-seam p-3"></i>
+                            <span class="sidebar-span-style">Product</span>
                         </button>
                         <div class="collapse" id="product-collapse">
                             <ul
-                                class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
+                                class="sidebar-sub-item btn-toggle-nav list-unstyled fw-normal pb-1 small"
                             >
                                 <li>
                                     <a
                                         href="category.php"
                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                                        >Category</a
+                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">Category</span></a
                                     >
                                 </li>
                                 <li>
                                     <a
                                         href="sub-category.php"
                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                                        >Sub Category</a
+                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">Sub Category</span></a
                                     >
                                 </li>
                                 <li>
                                     <a
                                         href="product.php"
                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                                        >Products</a
+                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">Products</span></a
                                     >
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li class="mb-1">
+                    <li class="sidebar-item mb-1">
                         <button
-                            class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            class="btn d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse"
                             data-bs-target="#purchase-collapse"
                             aria-expanded="false"
-                        >
-                            Purchase
+                        ><i class="bi bi-bag-fill p-3"></i>
+                        <span class="sidebar-span-style">Purchase</span>
                         </button>
                         <div class="collapse" id="purchase-collapse">
                             <ul
-                                class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
+                                class="sidebar-sub-item btn-toggle-nav list-unstyled fw-normal pb-1 small"
                             >
                                 <li>
                                     <a
                                         href="#"
                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                                        >New</a
+                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">New</span></a
                                     >
                                 </li>
                                
                             </ul>
                         </div>
                     </li>
-                    <li class="mb-1">
+                    <li class="sidebar-item mb-1">
                         <button
-                            class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            class="btn d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse"
                             data-bs-target="#production-collapse"
                             aria-expanded="false"
-                        >
-                            Prduction
+                        ><i class="bi bi-database-fill p-3"></i>
+                        <span class="sidebar-span-style">Production</span>
                         </button>
                         <div class="collapse" id="production-collapse">
                             <ul
-                                class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
+                                class="sidebar-sub-item btn-toggle-nav list-unstyled fw-normal pb-1 small"
                             >
                                 <li>
                                     <a
                                         href="#"
                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                                        >New...</a
+                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">New...</span></a
                                     >
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li class="mb-1">
+                    <li class="sidebar-item mb-1">
                         <button
-                            class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            class="btn d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse"
                             data-bs-target="#billing-collapse"
                             aria-expanded="false"
-                        >
-                            Billing
+                        ><i class="bi bi-receipt p-3"></i>
+                        <span class="sidebar-span-style">Billing</span>
                         </button>
                         <div class="collapse" id="billing-collapse">
                             <ul
-                                class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
+                                class="sidebar-sub-item btn-toggle-nav list-unstyled fw-normal pb-1 small"
                             >
                                 <li>
                                     <a
                                         href="#"
                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                                        >New...</a
+                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">New...</span></a
                                     >
                                 </li>
                                 
                             </ul>
                         </div>
                     </li>
-                    <li class="mb-1">
+                    <li class="sidebar-item mb-1">
                         <button
-                            class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            class="btn d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse"
                             data-bs-target="#customer-collapse"
                             aria-expanded="false"
-                        >
-                            Customer
+                        ><i class="bi bi-people-fill p-3"></i>
+                        <span class="sidebar-span-style">Customer</span>
                         </button>
                         <div class="collapse" id="customer-collapse">
                             <ul
-                                class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
+                                class="sidebar-sub-item btn-toggle-nav list-unstyled fw-normal pb-1 small"
                             >
                                 <li>
                                     <a
                                         href="customer.php"
                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                                        >Customer List</a
+                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">Customer List</span></a
                                     >
                                 </li>
                                 
                             </ul>
                         </div>
                     </li>
-                    <li class="mb-1">
+                    <li class="sidebar-item mb-1">
                         <button
-                            class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            class="btn d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse"
                             data-bs-target="#admin-collapse"
                             aria-expanded="false"
-                        >
-                            Admin
+                        ><i class="bi bi-person-circle p-3 icon-b"></i>
+                        <span class="sidebar-span-style">Admin</span>
                         </button>
                         <div class="collapse" id="admin-collapse">
                             <ul
-                                class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
+                                class="sidebar-sub-item btn-toggle-nav list-unstyled fw-normal pb-1 small"
                             >
                                 <li>
                                     <a
                                         href="manageUsers.php"
                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                                        >Users</a
+                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">Users</span></a
                                     >
                                 </li>
                                 
