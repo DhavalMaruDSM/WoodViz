@@ -43,9 +43,8 @@ var table=new Tabulator("#sub-category-table",{
     ]
     });
     function fillForm(rowData) {
-    document.getElementById('subcategoryname').value = rowData.subcategory;
-    var modal = new bootstrap.Modal(document.getElementById('subcategoryFormModal'));
-    modal.show();
+        var modal = new bootstrap.Modal(document.getElementById('editsubcategoryFormModal'));
+        modal.show();
     }
     function showDeleteConfirmation(rowId) {
         let modal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));

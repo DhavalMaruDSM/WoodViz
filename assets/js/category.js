@@ -43,8 +43,7 @@ var table=new Tabulator("#category-table",{
     ]
 });
 function fillForm(rowData) {
-    document.getElementById('categoryname').value = rowData.category;
-    var modal = new bootstrap.Modal(document.getElementById('categoryFormModal'));
+    var modal = new bootstrap.Modal(document.getElementById('editcategoryFormModal'));
     modal.show();
 }
 function showDeleteConfirmation(rowId) {
