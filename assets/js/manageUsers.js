@@ -47,10 +47,10 @@ document.addEventListener("DOMContentLoaded", function () {
                                     console.log("Populating edit modal with data:", data);
                                     populateEditModal(data);
                                 } else if (e.target.closest('.delete-button')) {
-                                    document.getElementById('confirmDeleteButton').dataset.rowId = data.srNo;
-            
-                                    var deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
-                                    deleteModal.show();
+                                    var row = cell.getRow();
+                                    var data = row.getData();
+                                    var userId = data.user_id;
+                                    showDeleteConfirmation(userId);
                                 }
                             }
                         }
@@ -86,6 +86,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     fetchUsers();
+    // Search Button Click Event
+document.getElementById('usersearchBtn').addEventListener('click', function () {
+    var searchField = document.getElementById('searchDropdown').value;
+    var searchText = document.querySelector('.search-input input[type="text"]').value.trim().toLowerCase();
+
+    if (searchField && searchText !== '') {
+        table.setFilter(function (data) {h
+            var fieldValue = data[searchField].toString().toLowerCase();
+
+            if (searchField === "email_id" || searchField === "mobile_number") {
+                return fieldValue === searchText;
+            } else {
+                
+                return fieldValue.includes(searchText);
+            }
+        });
+    } else {
+        // Clear filters if either search field or text is empty
+        table.clearFilter();
+    }
+});
+
 
     // Add User Button Click
     document.getElementById('addUserBtn').addEventListener('click', function () {
@@ -185,33 +207,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Delete button click handler
-    document.getElementById('user-table').addEventListener('click', function (e) {
-        if (e.target.closest('.delete-button')) {
-            var cell = table.getCellFromEvent(e);
-            var data = cell.getRow().getData();
-            var userId = data.user_id;
-            showDeleteConfirmation(userId);
-        }
-    });
-
-    function showDeleteConfirmation(userId) {
-        if (confirm("Are you sure you want to delete this user?")) {
-            $.ajax({
-                url: "php/deleteUser.php",
-                type: "POST",
-                data: { id: userId },
-                success: function (response) {
-                    alert("User deleted successfully!");
-                    fetchUsers();
-                },
-                error: function (xhr, status, error) {
-                    console.error("AJAX Error:", status, error);
-                }
-            });
-        }
-    }
-
     $(document).ready(function () {
         $("#editForm").submit(function (event) {
             event.preventDefault();
@@ -249,41 +244,47 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-    // Delete button click handler
-document.getElementById('user-table').addEventListener('click', function (e) {
-    if (e.target.closest('.delete-button')) {
-        var cell = table.getCellFromEvent(e);
-        var data = cell.getRow().getData();
-        var userId = data.user_id;
-        showDeleteConfirmation(userId);
-    }
-});
 
-function showDeleteConfirmation(userId) {
-    var deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
-    deleteModal.show();
+    // Search Button Click Event
+    document.getElementById('usersearchBtn').addEventListener('click', function () {
+        var searchField = document.getElementById('searchDropdown').value;
+        var searchText = document.querySelector('.search-input input[type="text"]').value;
 
-    document.getElementById('confirmDeleteButton').setAttribute('data-row-id', userId);
-}
-
-document.getElementById('confirmDeleteButton').addEventListener('click', function () {
-    var userId = this.getAttribute('data-row-id');
-    $.ajax({
-        url: "php/deleteUser.php",
-        type: "POST",
-        data: { id: userId },
-        success: function (response) {
-            alert("User deleted successfully!");
-            fetchUsers(); 
-            var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
-            deleteModal.hide(); 
-        },
-        error: function (xhr, status, error) {
-            console.error("AJAX Error:", status, error);
-            alert("Failed to delete user. Please try again later.");
+        if (searchField && searchText) {
+            table.setFilter(searchField, "like", searchText);
+        } else {
+            // If no search field or search text, clear filters
+            table.clearFilter();
         }
     });
-});
+
+    // Add event listener to the delete buttons in the Tabulator table
+    document.getElementById('user-table').addEventListener('click', function (e) {
+        if (e.target.closest('.delete-button')) {
+            var row = table.getRowFromEvent(e);
+            var data = row.getData();
+            var userId = data.user_id;
+            showDeleteConfirmation(userId);
+        }
+    });
+
+    // Function to show delete confirmation modal
+    function showDeleteConfirmation(userId) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            $.ajax({
+                url: "php/deleteUser.php",
+                type: "POST",
+                data: { id: userId },
+                success: function (response) {
+                    alert("User deleted successfully!");
+                    fetchUsers(); // Refresh table after deletion
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                    alert("Failed to delete user. Please try again later.");
+                }
+            });
+        }
+    }
 
 });
-
