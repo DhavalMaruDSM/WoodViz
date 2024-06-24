@@ -36,7 +36,7 @@ include("components/header.php");
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Add Account</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="removeaddValidationErrors()"></button>
                         </div>
                         <div class="modal-body">
                             <form id="createCustomerForm" >
@@ -119,7 +119,7 @@ include("components/header.php");
                             <!-- form ends here -->
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="removeaddValidationErrors()">Close</button>
                             <button type="button" class="btn btn-warning" onclick="addAccount()">Create Account</button>
 
                         </div>
@@ -134,7 +134,7 @@ include("components/header.php");
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editCustomerModalLabel">Edit Customer</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="removeValidationErrors()"></button>
                     </div>
                     <div class="modal-body">
                         <form id="editCustomerForm">
@@ -213,7 +213,7 @@ include("components/header.php");
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="removeValidationErrors()">Close</button>
                         <button type="button" class="btn btn-warning" id="saveEditCustomer" onclick="editAccount()">Save changes</button>
                     </div>
                 </div>

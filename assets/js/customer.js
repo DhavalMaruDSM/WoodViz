@@ -73,6 +73,32 @@ function showData() {
     .catch((error) => console.error("Error fetching data:", error));
 }
 
+function removeValidationErrors() {
+  $("#editAccountNameError").text("");
+  $("#editAddressLine1Error").text("");
+  $("#editAddressLine2Error").text("");
+  $("#editMobileError").text("");
+  $("#editEmailError").text("");
+  $("#editCityError").text("");
+  $("#editStateError").text("");
+  $("#editPincodeError").text("");
+  $("#editGstError").text("");
+  $("#editPanError").text("");
+}
+
+function removeaddValidationErrors() {
+  $("#accountNameError").text("");
+  $("#addressLine1Error").text("");
+  $("#addressLine2Error").text("");
+  $("#mobileError").text("");
+  $("#emailError").text("");
+  $("#cityError").text("");
+  $("#stateError").text("");
+  $("#pincodeError").text("");
+  $("#gstError").text("");
+  $("#panError").text("");
+}
+
 function editCustomer(id) {
   $.post("php/edit-customer.php", { id: id }, function (data, status) {
     var customer = JSON.parse(data);
@@ -249,7 +275,10 @@ function editAccount() {
   if (!pincode) {
     $("#editPincodeError").text("Pincode is required.");
     isEValid = false;
+  } else {
+    $("#editPincodeError").text("");
   }
+
   if (gst.length > 0 && gst.length !== 15) {
     $("#editGstError").text("GST number must be 15 characters long.");
     isEValid = false;
@@ -293,6 +322,7 @@ function editAccount() {
       if (response.success) {
         removeExistingToasts();
         callToast("success", "Customer updated successfully!");
+        removeValidationErrors();
         hideEditModal();
         showData();
       } else {
