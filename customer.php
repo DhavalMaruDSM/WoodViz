@@ -39,7 +39,7 @@ include("components/header.php");
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="createCustomerForm" action="php/create-customer.php" method="post">
+                            <form id="createCustomerForm" >
                                 <div class="row">
                                     <div class="mb-3 col-4">
                                         <label for="accountName" class="form-label">Account Name:</label>
@@ -126,7 +126,7 @@ include("components/header.php");
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="editCustomerForm" action="edit-customer.php" method="post">
+                        <form id="editCustomerForm">
                             <div class="row">
                                 <div class="mb-3 col-4">
                                     <label for="editAccountName" class="form-label">Account Name:</label>
