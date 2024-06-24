@@ -69,12 +69,6 @@ function showData() {
           const field = document.getElementById("search-field").value;
           table.setFilter([{ field: field, type: "like", value: query }]);
         });
-
-      document
-        .getElementById("saveEditCustomer")
-        .addEventListener("click", function () {
-          hideEditModal();
-        });
     })
     .catch((error) => console.error("Error fetching data:", error));
 }
