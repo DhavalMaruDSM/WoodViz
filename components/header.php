@@ -103,7 +103,7 @@
                     </li>
                     <li class="sidebar-item mb-1">
                         <button
-                            class="btn d-inline-flex align-items-center rounded border-0 collapsed"
+                            class="btn d-inline-flex align-items-center rounded active border-0 collapsed"
                             data-bs-toggle="collapse"
                             data-bs-target="#product-collapse"
                             aria-expanded="false">
