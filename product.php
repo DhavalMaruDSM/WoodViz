@@ -1,6 +1,16 @@
 <?php
 include("components/header.php");
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>product</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body></body>
 <div class="main" style="background-color: 	#F5F5F5;">
         <div class="container mb-3 mt-5">
             <div class="row">
