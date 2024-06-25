@@ -96,14 +96,14 @@
                 <ul class="list-unstyled ps-0">
                     <li class="sidebar-item mb-1">
                         <a href="index.php"
-                            class="btn d-inline-flex align-items-center rounded border-0 ">
+                            class="btn width1 d-inline-flex align-items-center rounded border-0">
                             <i class="bi bi-columns-gap p-3"></i>
                             <span class="sidebar-span-style">Dashboard</span>
                         </a>    
                     </li>
                     <li class="sidebar-item mb-1">
                         <button
-                            class="btn d-inline-flex align-items-center rounded active border-0 collapsed"
+                            class="btn width1 d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse"
                             data-bs-target="#product-collapse"
                             aria-expanded="false">
@@ -140,7 +140,7 @@
                     </li>
                     <li class="sidebar-item mb-1">
                         <button
-                            class="btn d-inline-flex align-items-center rounded border-0 collapsed"
+                            class="btn width1 d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse"
                             data-bs-target="#purchase-collapse"
                             aria-expanded="false"
@@ -164,7 +164,7 @@
                     </li>
                     <li class="sidebar-item mb-1">
                         <button
-                            class="btn d-inline-flex align-items-center rounded border-0 collapsed"
+                            class="btn width1 d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse"
                             data-bs-target="#production-collapse"
                             aria-expanded="false"
@@ -187,7 +187,7 @@
                     </li>
                     <li class="sidebar-item mb-1">
                         <button
-                            class="btn d-inline-flex align-items-center rounded border-0 collapsed"
+                            class="btn width1 d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse"
                             data-bs-target="#billing-collapse"
                             aria-expanded="false"
@@ -211,7 +211,7 @@
                     </li>
                     <li class="sidebar-item mb-1">
                         <button
-                            class="btn d-inline-flex align-items-center rounded border-0 collapsed"
+                            class="btn width1 d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse"
                             data-bs-target="#customer-collapse"
                             aria-expanded="false"
@@ -235,7 +235,7 @@
                     </li>
                     <li class="sidebar-item mb-1">
                         <button
-                            class="btn d-inline-flex align-items-center rounded border-0 collapsed"
+                            class="btn width1 d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse"
                             data-bs-target="#admin-collapse"
                             aria-expanded="false"

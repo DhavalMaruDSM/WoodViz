@@ -1,17 +1,8 @@
 <?php
-
 include 'db.php';
 session_start();
 
-header('Content-Type: application/json'); // Ensure the response is JSON
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
-    echo json_encode(['success' => false, 'error' => 'Access denied.']);
-    exit();
-}
+header('Content-Type: application/json');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['id'])) {

@@ -2,7 +2,6 @@
 let table;
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Function to fetch users data via AJAX
     function fetchUsers() {
         $.ajax({
             url: 'php/fetchUsers.php', // Adjust URL as per your server setup
@@ -256,5 +255,45 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         });
-    });   
+    }); 
+    document.getElementById('user-table').addEventListener('click', function (e) {
+        if (e.target.closest('.delete-button')) {
+            var cell = table.getCellFromEvent(e);
+            var data = cell.getRow().getData();
+            var userId = data.user_id;
+            showDeleteConfirmation(userId);
+        }
+    });
+    function showDeleteConfirmation(userId) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            $.ajax({
+                url: "php/deleteUser.php",
+                type: "POST",
+                data: { user_id: userId },
+                success: function (response) {
+                    alert("User deleted successfully!" + response);
+                    fetchUsers();
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                }
+            });
+        }
+    }  
+    $(document).on("click", "#createAccountBtn", function () {
+        $.ajax({
+            type: "POST",
+            url: "php/create-user.php",
+            data: $("#form").serialize(),
+            success: function (response) {
+                alert("User created successfully!"); // Show success message
+                window.location.href = "manageUsers.php"; // Redirect to manageuser.php
+            },
+            error: function (xhr, status, error) {
+                console.error("Error creating user:", error);
+                alert("Error creating user. Please try again later.");
+            }
+        });
+    });
+
 });
