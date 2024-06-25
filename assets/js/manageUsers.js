@@ -9,9 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
             dataType: 'json',
             success: function (data) {
                 console.log("Data fetched from server:", data);
-                data.forEach((user, index) => {
-                    user.id = index + 1;
-                });
 
                 table = new Tabulator("#user-table", {
                     data: data,
@@ -19,8 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     pagination: "local",
                     paginationSize: 10,
                     columns: [
-                        { title: "#", field: "user_id", sorter: "number", headerHozAlign: "center", width: 50, visible: false },
-                        { title: "#", field: "id", sorter: "number", headerHozAlign: "center", width: 50 },
+                        { title: "#", field: "user_id", sorter: "number", headerHozAlign: "center", width: 50 },
                         { title: "Username", field: "username", sorter: "string", headerHozAlign: "center", width: 200 },
                         { title: "Fullname", field: "fullname", sorter: "string", headerHozAlign: "center", width: 250 },
                         { title: "Email", field: "email_id", sorter: "string", headerHozAlign: "center", width: 330 },
@@ -90,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     fetchUsers();
-
     // Search Button Click Event
     document.getElementById('usersearchBtn').addEventListener('click', function () {
         var searchField = document.getElementById('searchDropdown').value;
@@ -98,18 +93,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (searchField && searchText !== '') {
             table.setFilter(function (data) {
+                h
                 var fieldValue = data[searchField].toString().toLowerCase();
 
                 if (searchField === "email_id" || searchField === "mobile_number") {
                     return fieldValue === searchText;
                 } else {
+
                     return fieldValue.includes(searchText);
                 }
             });
         } else {
+            // Clear filters if either search field or text is empty
             table.clearFilter();
         }
     });
+
 
     // Add User Button Click
     document.getElementById('addUserBtn').addEventListener('click', function () {
@@ -229,31 +228,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 error: function (xhr, status, error) {
                     alert("An error occurred: " + error);
                     console.log(xhr.responseText);
-                    callToast("danger", "Error in updating user");
+                    callToast("danger", "error in updating");
                 }
             });
         });
     });
 
     $(document).on("click", "#createAccountBtn", function () {
-        const form = document.getElementById("form");
-        let isValid = form.checkValidity();
-        form.classList.add("was-validated");
-
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-
-        if (password !== confirmPassword) {
-            document.getElementById('confirmPassword').setCustomValidity("Passwords do not match!");
-            isValid = false;
-        } else {
-            document.getElementById('confirmPassword').setCustomValidity("");
-        }
-
-        if (!isValid) {
-            return;
-        }
-
         $.ajax({
             type: "POST",
             url: "php/create-user.php",
@@ -270,8 +251,21 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    // Search Button Click Event
+    document.getElementById('usersearchBtn').addEventListener('click', function () {
+        var searchField = document.getElementById('searchDropdown').value;
+        var searchText = document.querySelector('.search-input input[type="text"]').value;
+
+        if (searchField && searchText) {
+            table.setFilter(searchField, "like", searchText);
+        } else {
+            table.clearFilter();
+        }
+    });
+
     // Add event listener to the delete buttons in the Tabulator table
     document.getElementById('user-table').addEventListener('click', function (e) {
+        
         if (e.target.closest('.delete-button')) {
             var row = table.getRowFromEvent(e);
             var data = row.getData();
@@ -280,27 +274,37 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    function showDeleteConfirmation(userId) {
-        var deleteConfirmationModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
-
-        deleteConfirmationModal.show();
+    // Function to show delete confirmation modal
+    function showDeleteConfirmation(rowId) {
+        let modal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+        modal.show();
     
-        document.getElementById('deleteUserBtn').addEventListener('click', function () {
+        document.getElementById('confirmDeleteButton').onclick = function () {
             $.ajax({
-                url: "php/deleteUser.php",
-                type: "POST",
-                data: { id: userId },
+                url: 'php/deleteUser.php',
+                type: 'POST',
+                data: { id: rowId },
                 success: function (response) {
-                    fetchUsers(); 
-                    deleteConfirmationModal.hide(); 
-                    callToast("success", "User deleted successfully!");
+                    try {
+                        let res = typeof response === "string" ? JSON.parse(response) : response; // Parse the JSON response
+                        if (res.success) {
+                            console.log("User deleted successfully");
+                            modal.hide();
+                            fetchUsers();  // Refresh the data in the table
+                        } else {
+                            console.error('Error deleting user:', res.error);
+                            alert("Error deleting user. Please try again. " + res.error);
+                        }
+                    } catch (error) {
+                        console.error('Error parsing JSON response:', error);
+                        alert("Error deleting user. Please try again. " + error.message);
+                    }
                 },
                 error: function (xhr, status, error) {
-                    console.error("AJAX Error:", status, error);
-                    callToast("danger", "Failed to delete user. Please try again later.");
+                    console.error('AJAX Error:', xhr.responseText, status, error);
+                    alert("Error deleting user. Check console for details.");
                 }
             });
-        });
+        };
     }
-    
 });
