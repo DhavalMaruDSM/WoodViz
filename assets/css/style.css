@@ -67,9 +67,19 @@ li {
     width: 200px;
     min-width: 200px;
 }
-
-.sidebar-item:hover {
+.width1{
+    width:100%;
+}
+.width1:hover {
     background-color: orange;
+}
+.width1:focus {
+    background-color: #E26310;
+}
+
+.active.collapsed{
+    border : 2px solid black;
+    background-color: white;
 }
 
 .sidebar-sub-link:hover {
