@@ -280,15 +280,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Function to show delete confirmation modal
     function showDeleteConfirmation(userId) {
-        if (confirm("Are you sure you want to delete this user?")) {
+        var deleteConfirmationModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+
+        deleteConfirmationModal.show();
+    
+        document.getElementById('deleteUserBtn').addEventListener('click', function () {
             $.ajax({
                 url: "php/deleteUser.php",
                 type: "POST",
                 data: { id: userId },
                 success: function (response) {
-                    fetchUsers();
+                    fetchUsers(); 
+                    deleteConfirmationModal.hide(); 
                     callToast("success", "User deleted successfully!");
                 },
                 error: function (xhr, status, error) {
@@ -296,6 +300,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     callToast("danger", "Failed to delete user. Please try again later.");
                 }
             });
-        }
+        });
     }
+    
 });
