@@ -36,69 +36,80 @@ include("components/header.php");
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Add Account</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="removeaddValidationErrors()"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="createCustomerForm" action="php/create-customer.php" method="post">
+                            <form id="createCustomerForm" >
                                 <div class="row">
                                     <div class="mb-3 col-4">
                                         <label for="accountName" class="form-label">Account Name:</label>
-                                        <input type="text" class="form-control" id="accountName" name="accountName" required>
+                                        <input type="text" class="form-control" id="accountName" name="accountName" >
+                                        <span id="accountNameError" class="text-danger"></span>
                                     </div>
                                     <div class="mb-3 col-8">
                                         <label for="addressLine1" class="form-label">Address line 1:</label>
-                                        <input type="text" class="form-control" id="addressLine1" name="addressLine1" required>
+                                        <input type="text" class="form-control" id="addressLine1" name="addressLine1" >
+                                        <span id="addressLine1Error" class="text-danger"></span>
+                                    
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-2">
                                         <label for="mobile" class="form-label">Mobile:</label>
-                                        <input type="text" class="form-control" id="mobile" name="mobile" required>
+                                        <input type="text" class="form-control" id="mobile" name="mobile" >
+                                        <span id="mobileError" class="text-danger"></span>
                                     </div>
                                     <div class="mb-3 col-2">
                                         <label for="ifsc" class="form-label">IFSC:</label>
-                                        <input type="text" class="form-control" id="ifsc" name="ifsc" required>
+                                        <input type="text" class="form-control" id="ifsc" name="ifsc" >
                                     </div>
                                     <div class="mb-3 col-8">
                                         <label for="addressLine2" class="form-label">Address line 2:</label>
                                         <input type="text" class="form-control" id="addressLine2" name="addressLine2">
+                                        <span id="addressLine2Error" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-4">
                                         <label for="email" class="form-label">Email:</label>
-                                        <input type="email" class="form-control" id="email" name="email" required>
+                                        <input type="email" class="form-control" id="email" name="email" >
+                                        <span id="emailError" class="text-danger"></span>
                                     </div>
                                     <div class="mb-3 col-3">
                                         <label for="city" class="form-label">City:</label>
-                                        <input type="text" class="form-control" id="city" name="city" required>
+                                        <input type="text" class="form-control" id="city" name="city" >
+                                        <span id="cityError" class="text-danger"></span>
                                     </div>
                                     <div class="mb-3 col-3">
                                         <label for="state" class="form-label">State:</label>
-                                        <input type="text" class="form-control" id="state" name="state" required>
+                                        <input type="text" class="form-control" id="state" name="state" >
+                                        <span id="stateError" class="text-danger"></span>
                                     </div>
                                     <div class="mb-3 col">
                                         <label for="pincode" class="form-label">Pincode:</label>
-                                        <input type="text" class="form-control" id="pincode" name="pincode" required>
+                                        <input type="text" class="form-control" id="pincode" name="pincode" >
+                                        <span id="pincodeError" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-4">
                                         <label for="gst" class="form-label">GST:</label>
-                                        <input type="text" class="form-control" id="gst" name="gst" required>
+                                        <input type="text" class="form-control" id="gst" name="gst" >
+                                        <span id="gstError" class="text-danger"></span>
                                     </div>
                                     <div class="mb-3 col-3">
                                         <label for="pan" class="form-label">PAN:</label>
-                                        <input type="text" class="form-control" id="pan" name="pan" required>
+                                        <input type="text" class="form-control" id="pan" name="pan" >
+                                        <span id="panError" class="text-danger"></span>
                                     </div>
 
                                     <div class="mb-3 col-3">
                                         <label for="bankAccount" class="form-label">Bank Account:</label>
-                                        <input type="text" class="form-control" id="bankAccount" name="bankAccount" required>
+                                        <input type="text" class="form-control" id="bankAccount" name="bankAccount" >
                                     </div>
                                     <div class="mb-3 col-2">
                                         <label for="mobile" class="form-label">Balance:</label>
-                                        <input type="text" class="form-control" id="balance" name="balance" required>
+                                        <input type="number" class="form-control" id="balance" name="balance" >
                                     </div>
 
                                 </div>
@@ -108,7 +119,7 @@ include("components/header.php");
                             <!-- form ends here -->
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="removeaddValidationErrors()">Close</button>
                             <button type="button" class="btn btn-warning" onclick="addAccount()">Create Account</button>
 
                         </div>
@@ -123,75 +134,86 @@ include("components/header.php");
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editCustomerModalLabel">Edit Customer</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="removeValidationErrors()"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="editCustomerForm" action="edit-customer.php" method="post">
+                        <form id="editCustomerForm">
                             <div class="row">
                                 <div class="mb-3 col-4">
                                     <label for="editAccountName" class="form-label">Account Name:</label>
-                                    <input type="text" class="form-control" id="editAccountName" name="editAccountName" required>
+                                    <input type="text" class="form-control" id="editAccountName" name="editAccountName" >
+                                    <span id="editAccountNameError" class="text-danger"></span>
+                                    
                                 </div>
                                 <div class="mb-3 col-8">
                                     <label for="editAddressLine1" class="form-label">Address line 1:</label>
-                                    <input type="text" class="form-control" id="editAddressLine1" name="editAddressLine1" required>
+                                    <input type="text" class="form-control" id="editAddressLine1" name="editAddressLine1" >
+                                    <span id="editAddressLine1Error" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="mb-3 col-2">
                                     <label for="mobile" class="form-label">Mobile:</label>
-                                    <input type="text" class="form-control" id="editMobile" name="editMobile" required>
+                                    <input type="text" class="form-control" id="editMobile" name="editMobile" >
+                                    <span id="editMobileError" class="text-danger"></span>
                                 </div>
                                 <div class="mb-3 col-2">
                                     <label for="ifsc" class="form-label">IFSC:</label>
-                                    <input type="text" class="form-control" id="editIfsc" name="editIfsc" required>
+                                    <input type="text" class="form-control" id="editIfsc" name="editIfsc" >
                                 </div>
                                 <div class="mb-3 col-8">
                                     <label for="addressLine2" class="form-label">Address line 2:</label>
                                     <input type="text" class="form-control" id="editAddressLine2" name="editAddressLine2">
+                                    <span id="editAddressLine2Error" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="mb-3 col-4">
                                     <label for="email" class="form-label">Email:</label>
-                                    <input type="email" class="form-control" id="editEmail" name="editEmail" required>
+                                    <input type="email" class="form-control" id="editEmail" name="editEmail" >
+                                    <span id="editEmailError" class="text-danger"></span>
                                 </div>
                                 <div class="mb-3 col-3">
                                     <label for="city" class="form-label">City:</label>
-                                    <input type="text" class="form-control" id="editCity" name="editCity" required>
+                                    <input type="text" class="form-control" id="editCity" name="editCity" >
+                                    <span id="editCityError" class="text-danger"></span>
                                 </div>
                                 <div class="mb-3 col-3">
                                     <label for="state" class="form-label">State:</label>
-                                    <input type="text" class="form-control" id="editState" name="editState" required>
+                                    <input type="text" class="form-control" id="editState" name="editState" >
+                                    <span id="editStateError" class="text-danger"></span>
                                 </div>
                                 <div class="mb-3 col">
                                     <label for="pincode" class="form-label">Pincode:</label>
-                                    <input type="text" class="form-control" id="editPincode" name="editPincode" required>
+                                    <input type="text" class="form-control" id="editPincode" name="editPincode" >
+                                    <span id="editPincodeError" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="mb-3 col-4">
                                     <label for="gst" class="form-label">GST:</label>
-                                    <input type="text" class="form-control" id="editGst" name="editGst" required>
+                                    <input type="text" class="form-control" id="editGst" name="editGst" >
+                                    <span id="editGstError" class="text-danger"></span>
                                 </div>
                                 <div class="mb-3 col-3">
                                     <label for="pan" class="form-label">PAN:</label>
-                                    <input type="text" class="form-control" id="editPan" name="editPan" required>
+                                    <input type="text" class="form-control" id="editPan" name="editPan" >
+                                    <span id="editPanError" class="text-danger"></span>
                                 </div>
 
                                 <div class="mb-3 col-3">
                                     <label for="bankAccount" class="form-label">Bank Account:</label>
-                                    <input type="text" class="form-control" id="editBankAccount" name="editBankAccount" required>
+                                    <input type="text" class="form-control" id="editBankAccount" name="editBankAccount" >
                                 </div>
                                 <div class="mb-3 col-2">
                                     <label for="mobile" class="form-label">Balance:</label>
-                                    <input type="text" class="form-control" id="editbalance" name="editbalance" required>
+                                    <input type="number" class="form-control" id="editbalance" name="editbalance" >
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="removeValidationErrors()">Close</button>
                         <button type="button" class="btn btn-warning" id="saveEditCustomer" onclick="editAccount()">Save changes</button>
                     </div>
                 </div>
