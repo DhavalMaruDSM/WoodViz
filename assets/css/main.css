@@ -169,15 +169,15 @@
 
 @media (max-width: 576px) {
     .tabulator .tabulator-headers {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .tabulator .tabulator-col {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .tabulator .tabulator-cell {
         padding: 5px;
-        font-size: 14px;
+        font-size: 12px;
     }
 }
