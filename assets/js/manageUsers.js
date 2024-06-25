@@ -87,26 +87,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetchUsers();
     // Search Button Click Event
-document.getElementById('usersearchBtn').addEventListener('click', function () {
-    var searchField = document.getElementById('searchDropdown').value;
-    var searchText = document.querySelector('.search-input input[type="text"]').value.trim().toLowerCase();
+    document.getElementById('usersearchBtn').addEventListener('click', function () {
+        var searchField = document.getElementById('searchDropdown').value;
+        var searchText = document.querySelector('.search-input input[type="text"]').value.trim().toLowerCase();
 
-    if (searchField && searchText !== '') {
-        table.setFilter(function (data) {h
-            var fieldValue = data[searchField].toString().toLowerCase();
+        if (searchField && searchText !== '') {
+            table.setFilter(function (data) {
+                h
+                var fieldValue = data[searchField].toString().toLowerCase();
 
-            if (searchField === "email_id" || searchField === "mobile_number") {
-                return fieldValue === searchText;
-            } else {
-                
-                return fieldValue.includes(searchText);
-            }
-        });
-    } else {
-        // Clear filters if either search field or text is empty
-        table.clearFilter();
-    }
-});
+                if (searchField === "email_id" || searchField === "mobile_number") {
+                    return fieldValue === searchText;
+                } else {
+
+                    return fieldValue.includes(searchText);
+                }
+            });
+        } else {
+            // Clear filters if either search field or text is empty
+            table.clearFilter();
+        }
+    });
 
 
     // Add User Button Click
@@ -170,6 +171,9 @@ document.getElementById('usersearchBtn').addEventListener('click', function () {
             customer: permissions.includes('customer') ? 1 : 0,
             report: permissions.includes('report') ? 1 : 0
         };
+
+        const backdrops = document.querySelectorAll('.modal-backdrop');
+        backdrops.forEach(backdrop => backdrop.remove());
 
         table.addData([newRow]);
         bootstrap.Modal.getInstance(document.getElementById('userFormModal')).hide();
@@ -237,8 +241,9 @@ document.getElementById('usersearchBtn').addEventListener('click', function () {
             data: $("#form").serialize(),
             success: function (response) {
                 $("#userFormModal").modal('hide');
-                fetchUsers(); 
+                fetchUsers();
                 callToast("success", "User created successfully!");
+                backdrop.remove();
             },
             error: function (xhr, status, error) {
                 console.error("Error creating user:", error);
@@ -277,7 +282,7 @@ document.getElementById('usersearchBtn').addEventListener('click', function () {
                 type: "POST",
                 data: { id: userId },
                 success: function (response) {
-                    fetchUsers(); 
+                    fetchUsers();
                     callToast("success", "User deleted successfully!");
                 },
                 error: function (xhr, status, error) {

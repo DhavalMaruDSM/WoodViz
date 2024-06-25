@@ -12,7 +12,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     </link>
     <link rel="stylesheet" href="assets/css/tabulator_bootstrap5.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/manageUsers.css">
 </head>
 
 <body>
@@ -111,7 +111,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                             <!--Role-->
                             <div class="mb-3 col-md-6">
                                 <label for="role" class="form-label">Role:</label>
-                                <select class="form-select" id="role" required>
+                                <select class="form-select" name ="role" id="role" required>
                                     <option value="" disabled selected>Select a role</option>
                                     <option value="admin">Admin</option>
                                     <option value="limited">Limited</option>
@@ -126,31 +126,31 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                                 <label for="permissions" class="form-label">Permissions:</label>
                                 <div class="d-flex flex-wrap">
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="admin">
+                                        <input class="form-check-input" type="checkbox" value="admin" id="admin">
                                         <label class="form-check-label" for="admin">Admin</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="product">
+                                        <input class="form-check-input" type="checkbox" value="product" id="product">
                                         <label class="form-check-label" for="product">Product</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="purchase">
+                                        <input class="form-check-input" type="checkbox" value="purchase" id="purchase">
                                         <label class="form-check-label" for="purchase">Purchase</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="production">
+                                        <input class="form-check-input" type="checkbox" value="production" id="production">
                                         <label class="form-check-label" for="production">Production</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="billing">
+                                        <input class="form-check-input" type="checkbox" value="billing" id="billing">
                                         <label class="form-check-label" for="billing">Billing</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="customer">
+                                        <input class="form-check-input" type="checkbox" value="customer" id="customer">
                                         <label class="form-check-label" for="customer">Customer</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="report">
+                                        <input class="form-check-input" type="checkbox" value="report" id="report">
                                         <label class="form-check-label" for="report">Report</label>
                                     </div>
                                 </div>
