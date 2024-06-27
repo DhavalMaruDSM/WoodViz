@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
             dataType: 'json',
             success: function (data) {
                 console.log("Data fetched from server:", data);
+                data.forEach((user, index) => {
+                    user.id = index + 1;
+                });
 
                 table = new Tabulator("#user-table", {
                     data: data,
@@ -16,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     pagination: "local",
                     paginationSize: 10,
                     columns: [
-                        { title: "#", field: "user_id", sorter: "number", headerHozAlign: "center", width: 50 },
+                        { title: "#", field: "user_id", sorter: "number", headerHozAlign: "center", width: 50, visible: false },
+                        { title: "#", field: "id", sorter: "number", headerHozAlign: "center", width: 50 },
                         { title: "Username", field: "username", sorter: "string", headerHozAlign: "center", width: 200 },
                         { title: "Fullname", field: "fullname", sorter: "string", headerHozAlign: "center", width: 250 },
                         { title: "Email", field: "email_id", sorter: "string", headerHozAlign: "center", width: 330 },
@@ -36,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             width: 200,
                             headerHozAlign: "center",
                             formatter: function (cell, formatterParams) {
-                                return `
+                                return ` 
                                     <button class="btn btn-sm btn-primary edit-button"><i class='bi bi-pencil-fill'></i> Edit</button>
                                     <button class="btn btn-sm btn-danger delete-button"><i class='bi bi-trash-fill'></i> Delete</button>
                                 `;
@@ -86,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     fetchUsers();
+
     // Search Button Click Event
     document.getElementById('usersearchBtn').addEventListener('click', function () {
         var searchField = document.getElementById('searchDropdown').value;
@@ -93,22 +98,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (searchField && searchText !== '') {
             table.setFilter(function (data) {
-                h
                 var fieldValue = data[searchField].toString().toLowerCase();
 
                 if (searchField === "email_id" || searchField === "mobile_number") {
                     return fieldValue === searchText;
                 } else {
-
                     return fieldValue.includes(searchText);
                 }
             });
         } else {
-            // Clear filters if either search field or text is empty
             table.clearFilter();
         }
     });
-
 
     // Add User Button Click
     document.getElementById('addUserBtn').addEventListener('click', function () {
@@ -228,13 +229,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 error: function (xhr, status, error) {
                     alert("An error occurred: " + error);
                     console.log(xhr.responseText);
-                    callToast("danger", "error in updating");
+                    callToast("danger", "Error in updating user");
                 }
             });
         });
     });
 
     $(document).on("click", "#createAccountBtn", function () {
+        const form = document.getElementById("form");
+        let isValid = form.checkValidity();
+        form.classList.add("was-validated");
+    
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+    
+        if (password !== confirmPassword) {
+            document.getElementById('confirmPassword').setCustomValidity("Passwords do not match!");
+            isValid = false;
+        } else {
+            document.getElementById('confirmPassword').setCustomValidity("");
+        }
+    
+        // Check if there's any validation feedback present
+        const feedbackElement = document.querySelector('.invalid-feedback');
+        if (feedbackElement && feedbackElement.innerHTML.trim() !== '') {
+            isValid = false;
+        }
+    
+        if (!isValid) {
+            return;
+        }
+    
         $.ajax({
             type: "POST",
             url: "php/create-user.php",
@@ -250,18 +275,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-
-    // Search Button Click Event
-    document.getElementById('usersearchBtn').addEventListener('click', function () {
-        var searchField = document.getElementById('searchDropdown').value;
-        var searchText = document.querySelector('.search-input input[type="text"]').value;
-
-        if (searchField && searchText) {
-            table.setFilter(searchField, "like", searchText);
-        } else {
-            table.clearFilter();
-        }
-    });
+    
 
     // Add event listener to the delete buttons in the Tabulator table
     document.getElementById('user-table').addEventListener('click', function (e) {

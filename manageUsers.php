@@ -49,7 +49,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
 </div>
 
     <!--User Form Modal-->
-    <div class="modal fade" id="userFormModal" tabindex="-1" aria-labelledby="userFormModalLabel" aria-hidden="true">
+    <div class="modal fade" id="userFormModal" data-backdrop="" tabindex="-1" aria-labelledby="userFormModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
