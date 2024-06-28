@@ -12,7 +12,17 @@ include("components/header.php");
 </head>
 <body>
     <div class="main" style="background-color: #F5F5F5;">
-    <div class="container">
+        <div class="container my-3">
+            <div class="row">
+                <div class="col-md-10">
+                    <span class="fw-bolder fs-3 ms-4">Invoices</span>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-warning" id="newInvoiceBtn">+ New Invoice</button>
+                </div>
+            </div>
+        </div>
+        <div class="container">
             <div class="row m-2">
                 <div class="col-md-3">
                     <div class="card m-2 p-3 border-0">
