@@ -11,7 +11,7 @@ include("components/header.php");
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-    <div class="main" style="background-color: 	#F5F5F5;">
+    <div class="main" style="background-color: #F5F5F5;">
         <div class="container mb-3 mt-5">
             <div class="card m-2 border-0">
                 <div class="card-header p-2 pt-0">
@@ -21,6 +21,7 @@ include("components/header.php");
                             class="nav-link active" 
                             id="allinvoice" 
                             data-bs-toggle="tab" 
+                            onclick="filterTable('')"
                             data-bs-target="#allinvoice-tab-pane"
                             type="button" 
                             role="tab" 
@@ -32,6 +33,7 @@ include("components/header.php");
                         <li class="nav-item" role="paidinvoice1">
                             <button 
                             class="nav-link" 
+                            onclick="filterTable('Paid')"
                             id="paidinvoice" 
                             data-bs-toggle="tab" 
                             data-bs-target="#paidinvoice-tab-pane"
@@ -48,11 +50,12 @@ include("components/header.php");
                             id="unpaidinvoice" 
                             data-bs-toggle="tab" 
                             data-bs-target="#unpaidinvoice-tab-pane"
+                            onclick="filterTable('Pending')"
                             type="button" 
                             role="tab" 
                             aria-controls="unpaidinvoice-tab-pane" 
                             aria-selected="false">
-                                Unpaid Invoices
+                                Pending Invoices
                             </button>
                         </li>
                         <li class="nav-item" role="cancelled1">
@@ -62,6 +65,7 @@ include("components/header.php");
                             data-bs-toggle="tab" 
                             data-bs-target="#cancelled-tab-pane"
                             type="button" 
+                            onclick="filterTable('Cancelled')"
                             role="tab" 
                             aria-controls="cancelled-tab-pane" 
                             aria-selected="false">
@@ -74,9 +78,7 @@ include("components/header.php");
                     <div class="tab-content" id="myTabContent">
                         <div 
                         class="tab-pane fade show active" 
-                        id="allinvoice-tab-pane"
                         role="tabpanel"
-                        aria-labelledby="allinvoice"
                         tabindex="0">
                             <div class="container">
                                 <div class="row justify-content-center">
@@ -86,49 +88,6 @@ include("components/header.php");
                                 </div>
                             </div>
                         </div>
-                        <div 
-                        class="tab-pane fade" 
-                        id="paidinvoice-tab-pane"
-                        role="tabpanel"
-                        aria-labelledby="paidinvoice"
-                        tabindex="0">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-12">
-                                        <div id="paidinvoice-table"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div 
-                        class="tab-pane fade" 
-                        id="unpaidinvoice-tab-pane"
-                        role="tabpanel"
-                        aria-labelledby="unpaidinvoice"
-                        tabindex="0">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-12">
-                                        <div id="unpaidinvoice-table"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div 
-                        class="tab-pane fade" 
-                        id="cancelled-tab-pane"
-                        role="tabpanel"
-                        aria-labelledby="cancelled"
-                        tabindex="0">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-12">
-                                        <div id="cancelled-table"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -137,7 +96,7 @@ include("components/header.php");
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://unpkg.com/tabulator-tables@6.2.1/dist/css/tabulator.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.2.1/dist/js/tabulator.min.js"></script>
-    <script type="text/javascript" src="assets/js/js/tabulator.min.js"></script>
+    <script type="text/javascript" src="assets/js/tabulator.min.js"></script>
     <script src="assets/js/invoiceList.js"></script>
 </body>
 </html>
