@@ -6,8 +6,59 @@ include("components/header.php");
 
 <div class="container mt-5">
         <h1>Create Invoice</h1>
+
+        <form id="invoice-form">
+            <div class="row">
+                <div class="mb-3 col-3">
+                    <label for="invoice-number" class="form-label">Invoice Number</label>
+                    <input type="text" class="form-control" id="invoice-number" value="0624001" readonly>
+                </div>
+                <div class="mb-3 col-3">
+                    <label for="customer-name" class="form-label">Customer Name</label>
+                    <select class="form-select" id="customer-name">
+                        <option value="">Select a Customer</option>
+                        <option value="customer1">Customer 1</option>
+                        <option value="customer2">Customer 2</option>
+                        <option value="customer3">Customer 3</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-6">
+                    <label for="customer-address" class="form-label">Customer Address</label>
+                    <input type="text" class="form-control" id="customer-address" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-3">
+                    <label for="gst" class="form-label">GST Number</label>
+                    <input type="text" class="form-control" id="gst" readonly>
+                </div>
+                <div class="mb-3 col-3">
+                    <label for="pan" class="form-label">PAN NUmber</label>
+                    <input type="text" class="form-control" id="pan" readonly>
+                </div>
+            
+                <div class="mb-3 col-3">
+                    <label for="invoice-date" class="form-label">Invoice Date</label>
+                    <input type="date" class="form-control" id="invoice-date">
+                </div>
+                <div class="mb-3 col-3">
+                    <label for="due-date" class="form-label">Due Date</label>
+                    <input type="date" class="form-control" id="due-date">
+                </div>
+            </div>
+            
+
         <button class="btn btn-warning mb-3" id="add-row">Add Row</button>
         <div id="invoice-table"></div>
+        <div class="row">
+            <div class="mb-3 col-6">
+                <label for="note" class="form-label">Note</label>
+                <textarea class="form-control" id="note" rows="2"></textarea>
+            </div>
+            <div class="col-3"></div>
+            <button type="submit" class="btn btn-warning col-2 m-4 mt-5">Create Invoice</button>
+        </div>
+    </form>
     </div>
     <script src="https://unpkg.com/tabulator-tables@5.3.2/dist/js/tabulator.min.js"></script>
     
