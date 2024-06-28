@@ -36,14 +36,14 @@ include("components/header.php");
                                         <small class="text-dark text-opacity-75">&nbsp;Total Invoice</small>
                                     </div>
                                     <div class="col-md-12">
-                                        <p class="fw-bold fs-4"><i class="bi bi-currency-rupee"></i>20000</p>
+                                        <p class="fw-bold fs-4" id="totalIncome"><i class="bi bi-currency-rupee"></i>20000</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div><span class="text-dark text-opacity-50">No of Invoice:&nbsp;</span><span class="fw-bold">32</span></div>
+                                <div><span class="text-dark text-opacity-50">No of Invoice:&nbsp;</span><span class="fw-bold" id="invcount">32</span></div>
                             </div>
                         </div>
                     </div>
@@ -60,14 +60,14 @@ include("components/header.php");
                                         <small class="text-dark text-opacity-75">&nbsp;Paid Invoices</small>
                                     </div>
                                     <div class="col-md-12">
-                                        <p class="fw-bold fs-4"><i class="bi bi-currency-rupee"></i>30000</p>
+                                        <p class="fw-bold fs-4" id="totalPaid"><i class="bi bi-currency-rupee"></i>30000</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div><span class="text-dark text-opacity-50">No of Invoice:&nbsp;</span><span class="fw-bold">12</span></div>
+                                <div><span class="text-dark text-opacity-50">No of Invoice:&nbsp;</span><span class="fw-bold" id="paidcount">12</span></div>
                             </div>
                         </div>
                     </div>
@@ -84,14 +84,14 @@ include("components/header.php");
                                         <small class="text-dark text-opacity-75">&nbsp;Unpaid Invoices</small>
                                     </div>
                                     <div class="col-md-12">
-                                        <p class="fw-bold fs-4"><i class="bi bi-currency-rupee"></i>2000</p>
+                                        <p class="fw-bold fs-4" id="totalPending"><i class="bi bi-currency-rupee"></i>2000</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div><span class="text-dark text-opacity-50">No of Invoice:&nbsp;</span><span class="fw-bold">2</span></div>
+                                <div><span class="text-dark text-opacity-50">No of Invoice:&nbsp;</span><span class="fw-bold" id="unpaidctn">2</span></div>
                             </div>
                         </div>
                     </div>
@@ -108,14 +108,14 @@ include("components/header.php");
                                         <small class="text-dark text-opacity-75">&nbsp;Cancelled</small>
                                     </div>
                                     <div class="col-md-12">
-                                        <p class="fw-bold fs-4"><i class="bi bi-currency-rupee"></i>10000</p>
+                                        <p class="fw-bold fs-4" id="totalCancelled"><i class="bi bi-currency-rupee"></i>10000</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div><span class="text-dark text-opacity-50">No of Invoice:&nbsp;</span><span class="fw-bold">10</span></div>
+                                <div><span class="text-dark text-opacity-50">No of Invoice:&nbsp;</span><span class="fw-bold" id="calctn">10</span></div>
                             </div>
                         </div>
                     </div>

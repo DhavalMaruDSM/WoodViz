@@ -92,3 +92,41 @@ function filterTable(status) {
         table.clearFilter();
     }
 }
+
+function calculateTotals() {
+    let totalIncome = 0;
+    let totalIncome_count = 0;
+    let totalPaid = 0;
+    let totalPaid_count = 0;
+    let totalPending = 0;
+    let totalPending_count = 0;
+    let totalCancelled = 0;
+    let totalCancelled_count = 0;
+
+    invoiceData.forEach(invoice => {
+        totalIncome += invoice.totalAmt;
+        totalIncome_count++;
+        if (invoice.status === 'Paid') {
+            totalPaid += invoice.totalAmt;
+            totalPaid_count++;
+        } else if (invoice.status === 'Pending') {
+            totalPending += invoice.totalAmt;
+            totalPending_count++;
+        } else if (invoice.status === 'Cancelled') {
+            totalCancelled += invoice.totalAmt;
+            totalCancelled_count++;
+        }
+    });
+
+    document.getElementById('totalIncome').textContent = `₹${totalIncome}`;
+    document.getElementById('invcount').textContent = `${totalIncome_count}`;
+    document.getElementById('totalPaid').textContent = `₹${totalPaid}`;
+    document.getElementById('paidcount').textContent = `${totalPaid_count}`;
+    document.getElementById('totalPending').textContent = `₹${totalPending}`;
+    document.getElementById('unpaidctn').textContent = `${totalPending_count}`;
+    document.getElementById('totalCancelled').textContent = `₹${totalCancelled}`;
+    document.getElementById('calctn').textContent = `${totalCancelled_count}`;
+}
+
+// Call the function to calculate totals on page load
+window.onload = calculateTotals;
