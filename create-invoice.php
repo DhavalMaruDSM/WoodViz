@@ -33,7 +33,7 @@ include("components/header.php");
                     <input type="text" class="form-control" id="gst" readonly>
                 </div>
                 <div class="mb-3 col-3">
-                    <label for="pan" class="form-label">PAN NUmber</label>
+                    <label for="pan" class="form-label">PAN Number</label>
                     <input type="text" class="form-control" id="pan" readonly>
                 </div>
             
