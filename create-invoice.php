@@ -51,7 +51,6 @@ include("components/header.php");
         ]
     });
 
-    // Add row function
     document.getElementById("add-row").addEventListener("click", function() {
         table.addRow({});
     });
