@@ -185,6 +185,18 @@ include("components/header.php");
                     </ul>
                 </div>
                 <div class="card-body">
+                    <div class="m-3">
+                        <div class="input-group" style="padding: 1px;">
+                            <i class="bi bi-search p-2" style="color: orange; -webkit-text-stroke: 1px;"></i>
+                            <select class="form-select" id="searchSelect" required>
+                                <option disabled selected>Select Search</option>
+                                <option value="invoiceNo">Invoice Number</option>
+                                <option value="customerName">Customer Name</option>
+                            </select>
+                            <input type="search" class="form-control" id="searchInput" placeholder="Search here..">
+                            <button class="btn btn-outline-warning" id="searchbtninvoice">Search</button>
+                        </div>
+                    </div>
                     <div class="tab-content" id="myTabContent">
                         <div 
                         class="tab-pane fade show active" 
