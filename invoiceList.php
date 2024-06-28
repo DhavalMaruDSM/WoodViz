@@ -12,7 +12,107 @@ include("components/header.php");
 </head>
 <body>
     <div class="main" style="background-color: #F5F5F5;">
-        <div class="container mb-3 mt-5">
+    <div class="container">
+            <div class="row m-2">
+                <div class="col-md-3">
+                    <div class="card m-2 p-3 border-0">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="m-1 p-2 pe-3 bg-info bg-opacity-25 rounded"><i class="text-info bi bi-file-earmark-text h3"></i></div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row justify-content center">
+                                    <div class="col-md-12">
+                                        <small class="text-dark text-opacity-75">&nbsp;Total Invoice</small>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p class="fw-bold fs-4"><i class="bi bi-currency-rupee"></i>20000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div><span class="text-dark text-opacity-50">No of Invoice:&nbsp;</span><span class="fw-bold">32</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card m-2 p-3 border-0">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="m-1 p-2 pe-3 bg-warning bg-opacity-25 rounded"><i class="text-warning bi bi-file-earmark-check h3"></i></div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row justify-content center">
+                                    <div class="col-md-12">
+                                        <small class="text-dark text-opacity-75">&nbsp;Paid Invoices</small>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p class="fw-bold fs-4"><i class="bi bi-currency-rupee"></i>30000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div><span class="text-dark text-opacity-50">No of Invoice:&nbsp;</span><span class="fw-bold">12</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card m-2 p-3 border-0">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="m-1 p-2 pe-3 bg-success bg-opacity-10 rounded"><i class="text-success bi bi-file-earmark-arrow-up h3"></i></div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row justify-content center">
+                                    <div class="col-md-12">
+                                        <small class="text-dark text-opacity-75">&nbsp;Unpaid Invoices</small>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p class="fw-bold fs-4"><i class="bi bi-currency-rupee"></i>2000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div><span class="text-dark text-opacity-50">No of Invoice:&nbsp;</span><span class="fw-bold">2</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card m-2 p-3 border-0">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="m-1 p-2 pe-3 bg-danger bg-opacity-25 rounded"><i class="text-danger bi bi-file-earmark-x h3"></i></div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row justify-content center">
+                                    <div class="col-md-12">
+                                        <small class="text-dark text-opacity-75">&nbsp;Cancelled</small>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p class="fw-bold fs-4"><i class="bi bi-currency-rupee"></i>10000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div><span class="text-dark text-opacity-50">No of Invoice:&nbsp;</span><span class="fw-bold">10</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mb-3">
             <div class="card m-2 border-0">
                 <div class="card-header p-2 pt-0">
                     <ul class="nav nav-tabs card-header-tabs" id="mytab" role="tablist">
@@ -88,6 +188,7 @@ include("components/header.php");
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
