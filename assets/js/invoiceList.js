@@ -130,3 +130,10 @@ function calculateTotals() {
 
 // Call the function to calculate totals on page load
 window.onload = calculateTotals;
+
+function searchfun()
+{
+    let dr=document.getElementById("searchSelect").value;
+    let sbox=document.getElementById("searchInput").value;
+    table.setFilter(dr,'like',sbox);
+}

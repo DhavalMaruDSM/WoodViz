@@ -194,7 +194,7 @@ include("components/header.php");
                                 <option value="customerName">Customer Name</option>
                             </select>
                             <input type="search" class="form-control" id="searchInput" placeholder="Search here..">
-                            <button class="btn btn-outline-warning" id="searchbtninvoice">Search</button>
+                            <button class="btn btn-outline-warning" onclick="searchfun()" id="searchbtninvoice">Search</button>
                         </div>
                     </div>
                     <div class="tab-content" id="myTabContent">
@@ -219,7 +219,7 @@ include("components/header.php");
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://unpkg.com/tabulator-tables@6.2.1/dist/css/tabulator.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.2.1/dist/js/tabulator.min.js"></script>
-    <script type="text/javascript" src="assets/js/tabulator.min.js"></script>
+    <script type="text/javascript" src="assets/js/js/tabulator.min.js"></script>
     <script src="assets/js/invoiceList.js"></script>
 </body>
 </html>
