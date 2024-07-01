@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $product_id = $_POST['product_id'];
     $name = $_POST['name'];
     $category_id = $_POST['category_id'];
-    $subcategory_id = $_POST['subcategory_id'];
+    $subcategory_id = $_POST['sub_category_id'];
     $inventory = $_POST['inventory'];
     $cgst = $_POST['cgst'];
     $sgst = $_POST['sgst'];

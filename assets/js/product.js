@@ -1,10 +1,19 @@
 var table=new Tabulator("#product-table",{
     height: 600,
     layout: "fitColumns",
-    columns: [{
+    columns: [
+        {
+        title: "#",
+            formatter: function (cell) {
+                return cell.getRow().getPosition(true);
+            },
+            sorter:"number",
+        },
+        {
         title: "#",
         field: "product_id",
         sorter: "number",
+        visible :false,
     },
     {
         title: "Name",
@@ -109,7 +118,7 @@ function fetchProducts() {
 fetchProducts();
 function fillForm(rowData) {
     var modal = new bootstrap.Modal(document.getElementById('editproductFormModal'));
-    
+
     $('#editproductname').val(rowData.name);
     $('#editinventory').val(rowData.inventory);
     $('#editcgst').val(rowData.cgst);
@@ -117,72 +126,81 @@ function fillForm(rowData) {
     $('#editigst').val(rowData.igst);
     $('#editprice').val(rowData.price);
     $('#editproductform').data('product_id', rowData.product_id);
-    modal.show();
-}
-
-
-$('#editproductFormModal').on('shown.bs.modal', function() {
+    
     $.ajax({
         url: 'php/get-category.php',
         method: 'GET',
-        data: {
-            type: 'categories'
-        },
+        data: { type: 'categories' },
         success: function(data) {
             var categories = JSON.parse(data);
             var categorySelect = $('#editcategoryselect');
-            categorySelect.empty().append('<option disabled selected>Select a Category</option>');
+            categorySelect.empty().append('<option disabled>Select a Category</option>');
             categories.forEach(function(category) {
-                categorySelect.append('<option value="' + category.category_id + '">' + category.description + '</option>');
+                if (category.category_id === rowData.category_id) {
+                    categorySelect.append('<option value="' + category.category_id + '" selected>' + category.description + '</option>');
+                } else {
+                    categorySelect.append('<option value="' + category.category_id + '">' + category.description + '</option>');
+                }
             });
+
+            // Fetch sub-categories after categories have been loaded
+            fetchSubCategories(rowData.sub_category_id);
         }
     });
-});
 
-$('#editcategoryselect').change(function() {
-    var categoryId = $(this).val();
+    modal.show();
+}
+
+function fetchSubCategories(selectedSubCategoryId) {
     $.ajax({
         url: 'php/get-sub-category.php',
         method: 'GET',
-        data: {
-            type: 'subcategories'
-        },
+        data: { type: 'subcategories' },
         success: function(data) {
             var subcategories = JSON.parse(data);
             var subcategorySelect = $('#editsubcategoryselect');
-            subcategorySelect.empty().append('<option disabled selected>Select a Sub-Category</option>');
+            subcategorySelect.empty().append('<option disabled>Select a Sub-Category</option>');
             subcategories.forEach(function(subcategory) {
-                subcategorySelect.append('<option value="' + subcategory.sub_category_id + '">' + subcategory.description + '</option>');
+                if (subcategory.sub_category_id === selectedSubCategoryId) {
+                    subcategorySelect.append('<option value="' + subcategory.sub_category_id + '" selected>' + subcategory.description + '</option>');
+                } else {
+                    subcategorySelect.append('<option value="' + subcategory.sub_category_id + '">' + subcategory.description + '</option>');
+                }
             });
         }
     });
-});
+}
 
-$('#editproductform').on('submit', function(event) {
+$('#editproductform').submit(function(event) {
     event.preventDefault();
-    
-    let product_id = $(this).data('product_id');
-    let formData = {
-        product_id: product_id,
+
+    var formData = {
+        product_id: $('#editproductform').data('product_id'),
         name: $('#editproductname').val(),
         category_id: $('#editcategoryselect').val(),
-        subcategory_id: $('#editsubcategoryselect').val(),
+        sub_category_id: $('#editsubcategoryselect').val(),
         inventory: $('#editinventory').val(),
         cgst: $('#editcgst').val(),
         sgst: $('#editsgst').val(),
         igst: $('#editigst').val(),
         price: $('#editprice').val()
     };
+
     $.ajax({
-        url: 'php/update-product.php', 
+        url: 'php/update-product.php',
         method: 'POST',
         data: formData,
         success: function(response) {
-            $('#editproductFormModal').modal('hide');
-            fetchProducts();
+            var result = JSON.parse(response);
+            if (result.status === 'success') {
+                fetchProducts();  
+                $('#editproductFormModal').modal('hide');
+            } else {
+                alert('Error updating product: ' + result.message);
+            }
         },
         error: function(xhr, status, error) {
-            console.error('Error updating product:', error);
+            alert('Error updating product: ' + error);
         }
     });
 });
@@ -288,7 +306,7 @@ $(document).ready(function() {
 document.getElementById('searchbtnproduct').addEventListener('click', function() {
     let field = document.getElementById('productselect').value;
     let value = document.getElementById('searchInput').value;
-    let comparison = "like";  // Default comparison operator
+    let comparison = "like";  
     
     if (field && value) {
         table.setFilter(field, comparison, value);
