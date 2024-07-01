@@ -9,19 +9,45 @@ include("components/header.php");
 
         <form id="invoice-form">
             <div class="row">
-                <div class="mb-3 col-3">
+            <div class="mb-3 col-2">
                     <label for="invoice-number" class="form-label">Invoice Number</label>
                     <input type="text" class="form-control" id="invoice-number" value="0624001" readonly>
                 </div>
-                <div class="mb-3 col-3">
+                <div class="mb-3 col-2">
                     <label for="customer-name" class="form-label">Customer Name</label>
                     <select class="form-select" id="customer-name">
                         <option value="">Select a Customer</option>
+                        <option value="customer1">Customer 1</option>
+                        <option value="customer2">Customer 2</option>
+                        <option value="customer3">Customer 3</option>
                     </select>
                 </div>
-                <div class="mb-3 col-6">
-                    <label for="customer-address" class="form-label">Customer Address</label>
-                    <input type="text" class="form-control" id="customer-address" readonly>
+                <div class="mb-3 col-4">
+                    <label for="customer-address1" class="form-label">Address Line 1</label>
+                    <input type="text" class="form-control" id="customer-address1" readonly>
+                </div>
+                <div class="mb-3 col-4">
+                    <label for="customer-address2" class="form-label">Address Line 2</label>
+                    <input type="text" class="form-control" id="customer-address2" readonly>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="mb-3 col-3">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" id="city" readonly>
+                </div>
+                <div class="mb-3 col-3">
+                    <label for="state" class="form-label">State</label>
+                    <input type="text" class="form-control" id="state" readonly>
+                </div>
+                <div class="mb-3 col-3">
+                    <label for="pincode" class="form-label">Pincode</label>
+                    <input type="text" class="form-control" id="pincode" readonly>
+                </div>
+                <div class="mb-3 col-3">
+                    <label for="state-code" class="form-label">State Code</label>
+                    <input type="text" class="form-control" id="state-code" readonly>
                 </div>
             </div>
             <div class="row">
@@ -58,7 +84,26 @@ include("components/header.php");
     </form>
     </div>
     <script src="https://unpkg.com/tabulator-tables@5.3.2/dist/js/tabulator.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var today = new Date();
+            var day = String(today.getDate()).padStart(2, '0');
+            var month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+            var year = today.getFullYear();
+            var todayFormatted = year + '-' + month + '-' + day;
 
+            document.getElementById('invoice-date').value = todayFormatted;
+
+            var dueDate = new Date();
+            dueDate.setDate(dueDate.getDate() + 5);
+            var dueDay = String(dueDate.getDate()).padStart(2, '0');
+            var dueMonth = String(dueDate.getMonth() + 1).padStart(2, '0'); // January is 0!
+            var dueYear = dueDate.getFullYear();
+            var dueDateFormatted = dueYear + '-' + dueMonth + '-' + dueDay;
+
+            document.getElementById('due-date').value = dueDateFormatted;
+        });
+    </script>
     <script>
         function fetchProducts() {
             $.ajax({
