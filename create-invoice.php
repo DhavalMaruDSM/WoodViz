@@ -240,6 +240,7 @@ include("components/header.php");
             });
 
             document.getElementById("add-row").addEventListener("click", function() {
+                event.preventDefault();
                 table.addRow({});
             });
         }
