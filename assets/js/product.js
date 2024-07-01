@@ -193,6 +193,7 @@ $('#editproductform').submit(function(event) {
         success: function(response) {
             var result = JSON.parse(response);
             if (result.status === 'success') {
+                callToast("sucess","Edited successfully");
                 fetchProducts();  
                 $('#editproductFormModal').modal('hide');
             } else {
@@ -220,6 +221,7 @@ function showDeleteConfirmation(productId) {
             success: function(response) {
                 var result = JSON.parse(response);
                 if (result.status === 'success') {
+                    callToast("sucess","Deleted successfully");
                     table.deleteRow(productId);
                     modal.hide();
                     fetchProducts();
@@ -291,7 +293,7 @@ $(document).ready(function() {
             data: formData,
             success: function(response) {
                 alert('Product submitted successfully!');
-
+                callToast("sucess","Inserted successfully");
                 $('#productform')[0].reset();
                 location.reload();
             },
