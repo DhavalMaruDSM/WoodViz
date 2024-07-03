@@ -92,7 +92,6 @@ function filterTable(status) {
         table.clearFilter();
     }
 }
-
 function calculateTotals() {
     let totalIncome = 0;
     let totalIncome_count = 0;
