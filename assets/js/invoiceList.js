@@ -1,19 +1,19 @@
 function statusFormatter(cell, formatterParams, onRendered) {
     const value = cell.getValue();
-    let colorClass = 'bg-secondary'; 
-    
+    let colorClass = 'bg-secondary';
+
     if (value === 'Paid') {
-        colorClass = 'bg-success'; 
-    } else if (value === 'Pending') {
-        colorClass = 'bg-warning'; 
-    }  else if (value === 'Cancelled') {
-        colorClass = 'bg-danger'; 
+        colorClass = 'bg-success';
+    } else if (value === 'Unpaid') {
+        colorClass = 'bg-warning';
+    } else if (value === 'Cancelled') {
+        colorClass = 'bg-danger';
     }
 
     return `<span class="badge ${colorClass}">${value}</span>`;
 }
 
-const invoiceData = [
+let invoiceData = [
     {
         invoiceNo: 1001,
         createdDate: "2024-06-25",
@@ -55,15 +55,15 @@ let table = new Tabulator("#allinvoice-table", {
     layout: "fitColumns",
     data: invoiceData,
     columns: [
-        { title: "Invoice No.", field: "invoiceNo", sorter: "number" },
-        { title: "Created Date", field: "createdDate", sorter: "date" },
-        { title: "Customer Name", field: "customerName", sorter: "string" },
-        { title: "Total Amount", field: "totalAmt", sorter: "number" },
-        { title: "Paid Amount", field: "paidAmt", sorter: "number" },
+        { title: "Invoice No.", field: "invoice_id", sorter: "number" },
+        { title: "Created Date", field: "invoice_date", sorter: "date" },
+        { title: "Customer Name", field: "name", sorter: "string" },
+        { title: "Total Amount", field: "total_value", sorter: "number" },
+        { title: "Paid Amount", field: "paid_amount", sorter: "number" },
         { title: "Balance", field: "balance", sorter: "number" },
-        { title: "Due Date", field: "dueDate", sorter: "date" },
-        { title: "Payment Mode", field: "paymentMode", sorter: "string" },
-        { title: "Status", field: "status", sorter: "string", formatter: statusFormatter },
+        { title: "Due Date", field: "due_date", sorter: "date" },
+        { title: "Payment Mode", field: "payment_mode", sorter: "string" },
+        { title: "Status", field: "payment_status", sorter: "string", formatter: statusFormatter },
         {
             field: "actions",
             title: "Actions",
@@ -87,7 +87,7 @@ let table = new Tabulator("#allinvoice-table", {
 
 function filterTable(status) {
     if (status) {
-        table.setFilter("status", "=", status);
+        table.setFilter("payment_status", "=", status);
     } else {
         table.clearFilter();
     }
@@ -104,16 +104,16 @@ function calculateTotals() {
     let totalCancelled_count = 0;
 
     invoiceData.forEach(invoice => {
-        totalIncome += invoice.totalAmt;
+        totalIncome += invoice.total_value;
         totalIncome_count++;
-        if (invoice.status === 'Paid') {
-            totalPaid += invoice.totalAmt;
+        if (invoice.payment_status === 'Paid') {
+            totalPaid += invoice.total_value;
             totalPaid_count++;
-        } else if (invoice.status === 'Pending') {
-            totalPending += invoice.totalAmt;
+        } else if (invoice.payment_status === 'Unpaid') {
+            totalPending += invoice.total_value;
             totalPending_count++;
-        } else if (invoice.status === 'Cancelled') {
-            totalCancelled += invoice.totalAmt;
+        } else if (invoice.payment_status === 'Cancelled') {
+            totalCancelled += invoice.total_value;
             totalCancelled_count++;
         }
     });
@@ -128,5 +128,30 @@ function calculateTotals() {
     document.getElementById('calctn').textContent = `${totalCancelled_count}`;
 }
 
-// Call the function to calculate totals on page load
-window.onload = calculateTotals;
+function searchfun() {
+    let dr = document.getElementById("searchSelect").value;
+    let sbox = document.getElementById("searchInput").value;
+    table.setFilter(dr, 'like', sbox);
+}
+
+function fetchInvoiceData() {
+    fetch('php/Invoice_fetch.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Fetched data:', data); // Debugging log
+            invoiceData = data; 
+            table.setData(invoiceData); 
+            calculateTotals(); 
+        })
+        .catch(error => console.error('Error fetching invoice data:', error));
+}
+
+window.onload = function () {
+    calculateTotals();
+    fetchInvoiceData();
+};

@@ -160,7 +160,7 @@ include("components/header.php");
                             id="unpaidinvoice" 
                             data-bs-toggle="tab" 
                             data-bs-target="#unpaidinvoice-tab-pane"
-                            onclick="filterTable('Pending')"
+                            onclick="filterTable('Unpaid')"
                             type="button" 
                             role="tab" 
                             aria-controls="unpaidinvoice-tab-pane" 
