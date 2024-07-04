@@ -86,9 +86,25 @@ include("components/header.php");
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/tabulator-tables@5.3.2/dist/js/tabulator.min.js"></script>
     <script>
+        var table;
+        var productValues = {}; 
+        var products = [];
+
         document.addEventListener("DOMContentLoaded", function() {
             initializeDateFields();
             fetchProducts();
+            fetchCustomers();
+            generateInvoiceNumber();
+
+            $("#invoice-form").submit(function(event) {
+                event.preventDefault();
+                createInvoice();
+            });
+
+            document.getElementById("add-row").addEventListener("click", function(event) {
+                event.preventDefault();
+                table.addRow({});
+            });
         });
 
         function initializeDateFields() {
@@ -115,9 +131,8 @@ include("components/header.php");
                 url: 'php/get-product.php',
                 method: 'GET',
                 success: function(data) {
-                    var products = JSON.parse(data);
+                    products = JSON.parse(data);
                     var uniqueProducts = [];
-                    var productValues = {};
                     var productIds = new Set();
 
                     products.forEach(function(product) {
@@ -137,7 +152,7 @@ include("components/header.php");
         }
 
         function initializeTabulator(productValues, products) {
-            var table = new Tabulator("#invoice-table", {
+            table = new Tabulator("#invoice-table", {
                 layout: "fitColumns",
                 columns: [
                     { title: "Product ID", field: "product_id", visible: false },
@@ -187,11 +202,6 @@ include("components/header.php");
                         }
                     }
                 ]
-            });
-
-            document.getElementById("add-row").addEventListener("click", function(event) {
-                event.preventDefault();
-                table.addRow({});
             });
         }
 
@@ -292,10 +302,60 @@ include("components/header.php");
             });
         });
 
-        $(document).ready(function() {
-            fetchCustomers();
-            fetchProducts();
-        });
+        function generateInvoiceNumber() {
+    $.ajax({
+        url: 'php/get-latest-invoice-number.php',
+        method: 'GET',
+        async: false,
+        success: function(data) {
+            console.log("Generated new invoice number:", data);
+            document.getElementById('invoice-number').value = data;
+        },
+        error: function(xhr, status, error) {
+            console.error('Error generating invoice number:', error);
+        }
+    });
+}
+
+        function createInvoice() {
+            var invoiceData = {
+                invoice_number: $('#invoice-number').val(),
+                customer_id: $('#customer-name').val(),
+                customer_name: $('#customer-name option:selected').text(),
+                address_line_1: $('#customer-address1').val(),
+                address_line_2: $('#customer-address2').val(),
+                city: $('#city').val(),
+                state: $('#state').val(),
+                pincode: $('#pincode').val(),
+                state_code: $('#state-code').val(),
+                gst_number: $('#gst').val(),
+                pan_number: $('#pan').val(),
+                invoice_date: $('#invoice-date').val(),
+                due_date: $('#due-date').val(),
+                note: $('#note').val(),
+                items: []
+            };
+
+            var tableData = table.getData();
+
+            tableData.forEach(function(row) {
+                invoiceData.items.push(row);
+            });
+
+            $.ajax({
+                url: 'php/create-invoice.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(invoiceData),
+                success: function(response) {
+                    alert('Invoice created successfully!');
+                    window.location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error creating invoice:', error);
+                }
+            });
+        }
     </script>
 
 </div>

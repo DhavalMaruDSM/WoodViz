@@ -1,3 +1,4 @@
+
 function statusFormatter(cell, formatterParams, onRendered) {
     const value = cell.getValue();
     let colorClass = 'bg-secondary';
@@ -13,42 +14,7 @@ function statusFormatter(cell, formatterParams, onRendered) {
     return `<span class="badge ${colorClass}">${value}</span>`;
 }
 
-let invoiceData = [
-    {
-        invoiceNo: 1001,
-        createdDate: "2024-06-25",
-        customerName: "John Doe",
-        totalAmt: 500,
-        paidAmt: 300,
-        balance: 200,
-        dueDate: "2024-07-10",
-        paymentMode: "Credit Card",
-        status: "Pending",
-    },
-    {
-        invoiceNo: 1002,
-        createdDate: "2024-06-26",
-        customerName: "Jane Smith",
-        totalAmt: 800,
-        paidAmt: 800,
-        balance: 0,
-        dueDate: "2024-07-15",
-        paymentMode: "Cash",
-        status: "Paid",
-    },
-    {
-        invoiceNo: 1004,
-        createdDate: "2024-06-28",
-        customerName: "Bob Johnson",
-        totalAmt: 1200,
-        paidAmt: 0,
-        balance: 1200,
-        dueDate: "2024-07-25",
-        paymentMode: "Cheque",
-        status: "Cancelled",
-    },
-    // Add more dummy data as needed
-];
+let invoiceData = [];    // Add more dummy data as needed
 
 let table = new Tabulator("#allinvoice-table", {
     height: 600,
@@ -116,16 +82,17 @@ function calculateTotals() {
     let totalCancelled_count = 0;
 
     invoiceData.forEach(invoice => {
-        totalIncome += invoice.total_value;
+        totalIncome += parseFloat(invoice.total_value);
         totalIncome_count++;
         if (invoice.payment_status === 'Paid') {
-            totalPaid += invoice.total_value;
+            totalPaid += parseFloat(invoice.total_value);
             totalPaid_count++;
         } else if (invoice.payment_status === 'Unpaid') {
-            totalPending += invoice.total_value;
+            totalPending += parseFloat(invoice.total_value);
             totalPending_count++;
-        } else if (invoice.payment_status === 'Cancelled') {
-            totalCancelled += invoice.total_value;
+        } 
+        else if (invoice.payment_status === 'Cancelled') {
+            totalCancelled += parseFloat(invoice.total_value);
             totalCancelled_count++;
         }
     });
