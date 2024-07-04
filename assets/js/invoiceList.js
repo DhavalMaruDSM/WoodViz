@@ -69,19 +69,32 @@ let table = new Tabulator("#allinvoice-table", {
             title: "Actions",
             formatter: function (cell, formatterParams) {
                 let div = document.createElement("div");
-
-                let button = document.createElement("button");
-                button.className = "btn btn-sm btn-primary me-2";
-                button.innerHTML = "Edit";
-                button.onclick = function () {
+                let editLink = document.createElement("a");
+                editLink.href = "#"; 
+                editLink.className = "btn btn-sm btn-primary me-2";
+                editLink.innerHTML = "Edit";
+                editLink.onclick = function (e) {
+                    e.preventDefault();
                     let rowData = cell.getRow().getData();
-                    fillForm(rowData); // Replace with your edit function
+                    let urlParams = new URLSearchParams(rowData).toString();
+                    window.location.href = `edit-invoice.php?id=${rowData.invoice_id}`;
                 };
-                div.appendChild(button);
+                div.appendChild(editLink);
+
+                let sendBillLink = document.createElement("a");
+                sendBillLink.href = "#";
+                sendBillLink.className = "btn btn-sm btn-secondary";
+                sendBillLink.innerHTML = "Send Bill";
+                sendBillLink.onclick = function (e) {
+                    e.preventDefault();
+                    let rowData = cell.getRow().getData();
+                    window.location.href = `#`;
+                };
+                div.appendChild(sendBillLink);
 
                 return div;
-            },
-        },
+            }
+        }
     ],
 });
 
