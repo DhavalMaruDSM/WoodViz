@@ -58,11 +58,25 @@ let table = new Tabulator("#allinvoice-table", {
                 };
                 div.appendChild(sendBillLink);
 
+                let paymant = document.createElement("button");
+                paymant.className = "btn btn-sm btn-success";
+                paymant.innerHTML = "Pay";
+                paymant.onclick = function () 
+                {
+                    let rowData = cell.getRow().getData();
+                    showPaymentModel(rowData.id);
+                };
+                div.appendChild(paymant);
                 return div;
             }
         }
     ],
 });
+
+function showPaymentModel(rowData) {
+    var modal = new bootstrap.Modal(document.getElementById('paymentModal'));
+    modal.show();
+}
 
 function filterTable(status) {
     if (status) {
