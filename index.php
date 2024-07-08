@@ -95,6 +95,11 @@ include("components/header.php");
         </div>
     </div>
 
+
+
+
+    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/4.9.3/js/tabulator.min.js"></script>
     <script>
         
@@ -181,7 +186,7 @@ include("components/header.php");
         var options1 = {
             series: [100],
             chart: {
-                height: 230, // Decreased height by 20%
+                height: 230, 
                 type: 'radialBar',
             },
             plotOptions: {
@@ -191,11 +196,11 @@ include("components/header.php");
                     },
                     dataLabels: {
                         name: {
-                            fontSize: '20px', // Increase the font size of the label
-                            color: '#ffc107' // Set the color to Bootstrap warning color
+                            fontSize: '20px', 
+                            color: '#ffc107' 
                         },
                         value: {
-                            color: '#ffc107', // Bootstrap warning color
+                            color: '#ffc107', 
                             fontSize: '18px',
                         }
                     },
@@ -206,13 +211,13 @@ include("components/header.php");
                 }
             },
             labels: ['Total Sales'],
-            colors: ['#ffc107'] // Bootstrap warning color
+            colors: ['#ffc107'] 
         };
 
         var options2 = {
             series: [70],
             chart: {
-                height: 230, // Decreased height by 20%
+                height: 230, 
                 type: 'radialBar',
             },
             plotOptions: {
@@ -222,11 +227,11 @@ include("components/header.php");
                     },
                     dataLabels: {
                         name: {
-                            fontSize: '20px', // Increase the font size of the label
-                            color: '#28a745' // Set the color to Bootstrap success color
+                            fontSize: '20px', 
+                            color: '#28a745' 
                         },
                         value: {
-                            color: '#28a745', // Bootstrap success color
+                            color: '#28a745',
                             fontSize: '18px',
                         }
                     },
@@ -237,13 +242,13 @@ include("components/header.php");
                 }
             },
             labels: ['Total Paid'],
-            colors: ['#28a745'] // Bootstrap success color
+            colors: ['#28a745'] 
         };
 
         var options3 = {
             series: [30],
             chart: {
-                height: 230, // Decreased height by 20%
+                height: 230, 
                 type: 'radialBar',
             },
             plotOptions: {
@@ -253,11 +258,11 @@ include("components/header.php");
                     },
                     dataLabels: {
                         name: {
-                            fontSize: '20px', // Increase the font size of the label
-                            color: '#dc3545' // Set the color to Bootstrap danger color
+                            fontSize: '20px', 
+                            color: '#dc3545' 
                         },
                         value: {
-                            color: '#dc3545', // Bootstrap danger color
+                            color: '#dc3545', 
                             fontSize: '18px',
                         }
                     },
@@ -268,7 +273,7 @@ include("components/header.php");
                 }
             },
             labels: ['Total Unpaid'],
-            colors: ['#dc3545'] // Bootstrap danger color
+            colors: ['#dc3545'] 
         };
 
         var chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
