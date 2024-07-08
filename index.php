@@ -122,11 +122,11 @@ include("components/header.php");
 
         
         var topUnpaidBillsData = [
-            { id: 1, name: "Customer A", amount: 500 },
-            { id: 2, name: "Customer B", amount: 450 },
-            { id: 3, name: "Customer C", amount: 400 },
-            { id: 4, name: "Customer D", amount: 350 },
-            { id: 5, name: "Customer E", amount: 300 }
+            { id: 1, invoiceNumber:"2407001", name: "Customer A", amount: 500 },
+            { id: 2, invoiceNumber:"2407002", name: "Customer B", amount: 450 },
+            { id: 3, invoiceNumber:"2407003", name: "Customer C", amount: 400 },
+            { id: 4, invoiceNumber:"2407004", name: "Customer D", amount: 350 },
+            { id: 5, invoiceNumber:"2407005", name: "Customer E", amount: 300 }
         ];
 
         new Tabulator("#topSellingProducts", {
@@ -150,14 +150,15 @@ include("components/header.php");
         });
 
         new Tabulator("#topUnpaidBills", {
-            data: topUnpaidBillsData,
-            layout: "fitColumns",
-            columns: [
-                { title: "Sno.", field: "id", sorter: "number", headerSort: false, hozAlign: "center" },
-                { title: "Customer Name", field: "name", sorter: "string", headerSort: false, hozAlign: "center" },
-                { title: "Amount", field: "amount", sorter: "number", headerSort: false, hozAlign: "center" }
-            ]
-        });
+    data: topUnpaidBillsData,
+    layout: "fitColumns",
+    columns: [
+        { title: "Sno.", field: "id", sorter: "number", headerSort: false, hozAlign: "center", vertAlign: "middle" },
+        { title: "Invoice Number", field: "invoiceNumber", sorter: "string", headerSort: false, hozAlign: "center", vertAlign: "middle" },
+        { title: "Customer Name", field: "name", sorter: "string", headerSort: false, hozAlign: "center", vertAlign: "middle" },
+        { title: "Amount", field: "amount", sorter: "number", headerSort: false, hozAlign: "center", vertAlign: "middle" }
+    ]
+});
 
         var optionsPieChart = {
             series: [44, 55, 13, 43, 22],
