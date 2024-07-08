@@ -227,19 +227,24 @@ include("components/header.php");
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label for="invoiceNo" class="form-label">Invoice Number:</label>
-                                <input type="text" class="form-control" id="invoiceNo" name="invoiceNo" placeholder="Enter Invoice Number" required>
+                                <input type="text" class="form-control" id="invoiceNo" name="invoiceNo" placeholder="Enter Invoice Number" required readonly>
                             </div>
                         </div>
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label for="customername" class="form-label">Name:</label>
-                                <input type="text" class="form-control" id="customername" name="customername" placeholder="Enter Customer Name" required>
+                                <input type="text" class="form-control" id="customername" name="customername" placeholder="Enter Customer Name" required readonly>
                             </div>
                         </div>
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label for="paymentValue" class="form-label">Payment Value:</label>
-                                <input type="number" class="form-control" value="0" id="paymentValue" name="paymentValue" required>
+                                <input type="number" class="form-control" value="0" id="paymentValue" name="paymentValue" required >
+                            </div>
+                        </div><div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label for="Refrence number" class="form-label">Refrence Number :</label>
+                                <input type="text" class="form-control" value="0" id="refrence-number" name="refrence-number" required >
                             </div>
                         </div>
                         <div class="row">

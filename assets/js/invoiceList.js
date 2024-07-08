@@ -1,4 +1,3 @@
-
 function statusFormatter(cell, formatterParams, onRendered) {
     const value = cell.getValue();
     let colorClass = 'bg-secondary';
@@ -61,10 +60,9 @@ let table = new Tabulator("#allinvoice-table", {
                 let paymant = document.createElement("button");
                 paymant.className = "btn btn-sm btn-success";
                 paymant.innerHTML = "Pay";
-                paymant.onclick = function () 
-                {
+                paymant.onclick = function () {
                     let rowData = cell.getRow().getData();
-                    showPaymentModel(rowData.id);
+                    showPaymentModel(rowData); // Pass the entire row data here
                 };
                 div.appendChild(paymant);
                 return div;
@@ -76,7 +74,52 @@ let table = new Tabulator("#allinvoice-table", {
 function showPaymentModel(rowData) {
     var modal = new bootstrap.Modal(document.getElementById('paymentModal'));
     modal.show();
+
+    document.getElementById("invoiceNo").value = rowData.invoice_id;
+    document.getElementById("customername").value = rowData.name;
+    document.getElementById("paymentValue").value = rowData.total_value - rowData.paid_amount;
+    document.getElementById("paymentMode").value = ''; // Resetting value
+    document.getElementById("paymentStatus").value = ''; // Resetting value
+
+    document.getElementById("paymentButton").onclick = function (e) {
+        e.preventDefault(); // Prevent form submission
+
+        const paymentData = {
+            invoice_id: document.getElementById("invoiceNo").value,
+            customername: document.getElementById("customername").value,
+            paymentValue: document.getElementById("paymentValue").value,
+            paymentMode: document.getElementById("paymentMode").value,
+            paymentStatus: document.getElementById("paymentStatus").value
+        };
+
+        console.log('Sending payment data:', paymentData); // Log the data being sent
+
+        fetch('php/updatePayment.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(paymentData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response data:', data); // Log the response
+            if (data.success) {
+                // Redirect or show success message
+                // window.location.href = 'updatepayment.php'; // Redirect after successful payment
+                fetchInvoiceData();
+                modal.hide();
+            } else {
+                alert('Failed to process payment: ' + data.message);
+            }
+        })
+        .catch(error => {
+            alert("An error occurred: " + error);
+            console.error('Error:', error); // Log detailed error message
+        });
+    };
 }
+
 
 function filterTable(status) {
     if (status) {
@@ -85,6 +128,7 @@ function filterTable(status) {
         table.clearFilter();
     }
 }
+
 function calculateTotals() {
     let totalIncome = 0;
     let totalIncome_count = 0;
@@ -104,8 +148,7 @@ function calculateTotals() {
         } else if (invoice.payment_status === 'Unpaid') {
             totalPending += parseFloat(invoice.total_value);
             totalPending_count++;
-        } 
-        else if (invoice.payment_status === 'Cancelled') {
+        } else if (invoice.payment_status === 'Cancelled') {
             totalCancelled += parseFloat(invoice.total_value);
             totalCancelled_count++;
         }
