@@ -78,11 +78,11 @@ function showPaymentModel(rowData) {
     document.getElementById("invoiceNo").value = rowData.invoice_id;
     document.getElementById("customername").value = rowData.name;
     document.getElementById("paymentValue").value = rowData.total_value - rowData.paid_amount;
-    document.getElementById("paymentMode").value = ''; // Resetting value
-    document.getElementById("paymentStatus").value = ''; // Resetting value
+    document.getElementById("paymentMode").value = ''; 
+    document.getElementById("paymentStatus").value = ''; 
 
     document.getElementById("paymentButton").onclick = function (e) {
-        e.preventDefault(); // Prevent form submission
+        e.preventDefault(); 
 
         const paymentData = {
             invoice_id: document.getElementById("invoiceNo").value,
@@ -92,7 +92,7 @@ function showPaymentModel(rowData) {
             paymentStatus: document.getElementById("paymentStatus").value
         };
 
-        console.log('Sending payment data:', paymentData); // Log the data being sent
+        console.log('Sending payment data:', paymentData); 
 
         fetch('php/updatePayment.php', {
             method: 'POST',
@@ -103,10 +103,9 @@ function showPaymentModel(rowData) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Response data:', data); // Log the response
+            console.log('Response data:', data); 
             if (data.success) {
-                // Redirect or show success message
-                // window.location.href = 'updatepayment.php'; // Redirect after successful payment
+            
                 fetchInvoiceData();
                 modal.hide();
             } else {
@@ -115,7 +114,7 @@ function showPaymentModel(rowData) {
         })
         .catch(error => {
             alert("An error occurred: " + error);
-            console.error('Error:', error); // Log detailed error message
+            console.error('Error:', error); 
         });
     };
 }
