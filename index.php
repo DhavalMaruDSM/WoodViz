@@ -71,7 +71,7 @@ include("components/header.php");
         <div id="lineChart" class="chart mt-5 p-5"></div>
     </div>
     
-    <div class="container-fluid mt-3">
+    <div class="container-fluid mt-3 mb-5">
         <div class="row">
             <div class="col-lg-6 mt-5">
                 <h4>Top Selling Products</h4>
