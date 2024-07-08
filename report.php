@@ -78,6 +78,32 @@ include("components/header.php");
                     </ul>
                 </div>
                 <div class="card-body">
+                    <div class="m-3" style="padding: 1px;">
+                        <form id="paymentform">
+                            <div class="row">
+                                <div class="mb-3 col-md-2">
+                                    <label for="date" class="form-label">Date:</label>
+                                    <input type="text" class="form-control" id="date" name="date" placeholder="Enter Date" required>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="toDate" class="form-label">To Date:</label>
+                                    <input type="date" class="form-control" id="toDate" name="toDate" required>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="fromDate" class="form-label">From Date:</label>
+                                    <input type="date" class="form-control" id="fromDate" name="fromDate" required>
+                                </div>
+                                <div class="mt-4 mb-3 pt-2 col-md-2">
+                                    <button class="btn btn-success" type="button" id="generateButton">Generate</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="m-3">
+                        <div class="mb-4 pb-3">
+                            <button class="btn btn-warning" type="button" id="downloadButton">Download XLSX</button>
+                        </div>
+                    </div>
                     <div class="tab-content" id="myTabContent">
                         <div 
                         class="tab-pane fade show active" 
