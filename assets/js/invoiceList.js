@@ -23,7 +23,7 @@ let table = new Tabulator("#allinvoice-table", {
         { title: "Invoice No.", field: "invoice_id", sorter: "number" },
         { title: "Created Date", field: "invoice_date", sorter: "date" },
         { title: "Customer Name", field: "name", sorter: "string" },
-        { title: "Total Amount", field: "total_value", sorter: "number" },
+        { title: "Total Amount", field: "invoice_value", sorter: "number" },
         { title: "Paid Amount", field: "paid_amount", sorter: "number" },
         { title: "Balance", field: "balance", sorter: "number" },
         { title: "Due Date", field: "due_date", sorter: "date" },
@@ -42,7 +42,7 @@ let table = new Tabulator("#allinvoice-table", {
                     e.preventDefault();
                     let rowData = cell.getRow().getData();
                     let urlParams = new URLSearchParams(rowData).toString();
-                    window.location.href = `edit-invoice.php?id=${rowData.invoice_id}`;
+                    window.location.href = `edit-invoice.php?invoice_id=${rowData.invoice_id}`;
                 };
                 div.appendChild(editLink);
 
@@ -189,4 +189,8 @@ function fetchInvoiceData() {
 window.onload = function () {
     calculateTotals();
     fetchInvoiceData();
+    $('#newInvoiceBtn').click(function() {
+        window.location.href = 'create-invoice.php';
+    });
+
 };

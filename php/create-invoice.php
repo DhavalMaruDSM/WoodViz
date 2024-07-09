@@ -41,10 +41,10 @@ try {
         $cgst_amount = $conn->real_escape_string($item['cgst_amount']);
         $sgst_amount = $conn->real_escape_string($item['sgst_amount']);
         $igst_amount = $conn->real_escape_string($item['igst_amount']);
-        
+        $product_total=$taxable+$cgst_amount+$sgst_amount+$igst_amount;        
 
         $sql1 = "INSERT INTO Invoice_item (invoice_id, product_id, quantity, unit_price, cgst, sgst, igst, total_value) 
-                 VALUES ('$invoice_number', '$product_id', '$qty', '$rate', '$cgst_amount', '$sgst_amount', '$igst_amount', '$total')";
+                 VALUES ('$invoice_number', '$product_id', '$qty', '$rate', '$cgst_amount', '$sgst_amount', '$igst_amount', '$product_total')";
         if (!$conn->query($sql1)) {
             throw new Exception("Error inserting invoice item data: " . $conn->error);
         }
