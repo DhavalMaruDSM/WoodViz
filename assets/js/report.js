@@ -29,15 +29,15 @@ var table=new Tabulator("#customerReport-table",{
         {
             let div = document.createElement("div");
 
-            let Button1 = document.createElement("button");
-            Button1.className = "btn btn-sm btn-primary me-2";
-            Button1.innerHTML = "Button";
-            Button1.onclick = function () 
+            let view = document.createElement("button");
+            view.className = "btn btn-sm btn-primary me-2";
+            view.innerHTML = "View";
+            view.onclick = function () 
             {
                 let rowData = cell.getRow().getData();
                 fillForm(rowData);
             };
-            div.appendChild(Button1);
+            div.appendChild(view);
             return div;
         }
     }
@@ -63,6 +63,25 @@ var table=new Tabulator("#productReport-table",{
         field: "totalSaleAmt",
         sorter: "number",
     },
+    {
+        field: "actions",
+        title: "Actions",
+        formatter: function (cell, formatterParams) 
+        {
+            let div = document.createElement("div");
+
+            let view1 = document.createElement("button");
+            view1.className = "btn btn-sm btn-primary me-2";
+            view1.innerHTML = "View";
+            view1.onclick = function () 
+            {
+                let rowData = cell.getRow().getData();
+                fillForm(rowData);
+            };
+            div.appendChild(view1);
+            return div;
+        }
+    }
     ]
 });
 
