@@ -30,6 +30,9 @@ $paymentValue = $data['paymentValue'];
 $paymentMode = $data['paymentMode'];
 $paymentStatus = $data['paymentStatus'];
 
+// Debugging: Print received data
+file_put_contents('php://stderr', print_r($data, true));
+
 try {
     $conn->autocommit(false); // Start transaction
 
@@ -48,13 +51,26 @@ try {
 
     // Update invoice paid amount and status
     $stmt = $conn->prepare("UPDATE Invoice SET paid_amount = paid_amount + ?, payment_status = ? WHERE invoice_id = ?");
-    $stmt->bind_param('dss', $paymentValue, $paymentStatus, $invoice_id);
-    $stmt->execute();
+    if (!$stmt) {
+        throw new Exception("Prepare statement failed: " . $conn->error);
+    }
+    $stmt->bind_param('dsi', $paymentValue, $paymentStatus, $invoice_id);
+    if (!$stmt->execute()) {
+        throw new Exception("Execute failed: " . $stmt->error);
+    }
+
+    // Debugging: Print payment status
+    error_log("Payment Status: " . $paymentStatus);
 
     // Insert payment record
     $stmt = $conn->prepare("INSERT INTO Payment (customer_id, invoice_id, value, method, ref_no, payment_date, created_at, created_by, updated_at, updated_by) VALUES (?, ?, ?, ?, ?, NOW(), NOW(), 1, NOW(), 1)");
-    $stmt->bind_param('iddss', $customer_id, $invoice_id, $paymentValue, $paymentMode, $invoice_id);
-    $stmt->execute();
+    if (!$stmt) {
+        throw new Exception("Prepare statement failed: " . $conn->error);
+    }
+    $stmt->bind_param('iidss', $customer_id, $invoice_id, $paymentValue, $paymentMode, $invoice_id);
+    if (!$stmt->execute()) {
+        throw new Exception("Execute failed: " . $stmt->error);
+    }
 
     // Commit transaction
     $conn->commit();

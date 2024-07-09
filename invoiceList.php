@@ -262,7 +262,7 @@ include("components/header.php");
                                 <select class="form-select" id="paymentStatus" required>
                                     <option disabled selected>Select Payment Status</option>
                                     <option value="paid">Paid</option>
-                                    <option value="partiallyPaid">Partially Paid</option>
+                                    <option value="Partially paid">Partially paid</option>
                                 </select>
                             </div>
                         </div>

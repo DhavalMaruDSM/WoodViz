@@ -8,6 +8,8 @@ function statusFormatter(cell, formatterParams, onRendered) {
         colorClass = 'bg-warning';
     } else if (value === 'Cancelled') {
         colorClass = 'bg-danger';
+    }else if (value === 'Partially Paid') {
+        colorClass = 'bg-info';
     }
 
     return `<span class="badge ${colorClass}">${value}</span>`;
