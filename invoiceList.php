@@ -253,7 +253,7 @@ include("components/header.php");
                                 <select class="form-select" id="paymentMode" required>
                                     <option disabled selected>Select a Payment Mode</option>
                                     <option value="cheque">Cheque</option>
-                                    <option value="netBanking">Net Banking</option>
+                                    <option value="Net Banking">Net Banking</option>
                                     <option value="cash">Cash</option>
                                 </select>
                             </div>

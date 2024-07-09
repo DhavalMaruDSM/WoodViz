@@ -15,7 +15,7 @@ function statusFormatter(cell, formatterParams, onRendered) {
     return `<span class="badge ${colorClass}">${value}</span>`;
 }
 
-let invoiceData = [];    // Add more dummy data as needed
+let invoiceData = [];    
 
 let table = new Tabulator("#allinvoice-table", {
     height: 600,
@@ -34,7 +34,7 @@ let table = new Tabulator("#allinvoice-table", {
         {
             field: "actions",
             title: "Actions",
-            width: 200,  // Increased width for better visibility of buttons
+            width: 200,  
             formatter: function (cell, formatterParams) {
                 let div = document.createElement("div");
                 let editLink = document.createElement("a");
@@ -181,7 +181,7 @@ function fetchInvoiceData() {
             return response.json();
         })
         .then(data => {
-            console.log('Fetched data:', data); // Debugging log
+            console.log('Fetched data:', data); 
             invoiceData = data; 
             table.setData(invoiceData); 
             calculateTotals(); 
