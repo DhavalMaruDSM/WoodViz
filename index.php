@@ -133,7 +133,7 @@ include("components/header.php");
             data: topSellingProductsData,
             layout: "fitColumns",
             columns: [
-                { title: "Sno.", field: "id", sorter: "number", headerSort: false, hozAlign: "center" },
+                { title: "Sno.", field: "id", width:70, sorter: "number", headerSort: false, hozAlign: "center" },
                 { title: "Product Name", field: "name", sorter: "string", headerSort: false, hozAlign: "center" },
                 { title: "Amount", field: "amount", sorter: "number", headerSort: false, hozAlign: "center" }
             ]
@@ -143,7 +143,7 @@ include("components/header.php");
             data: topCustomersData,
             layout: "fitColumns",
             columns: [
-                { title: "Sno.", field: "id", sorter: "number", headerSort: false, hozAlign: "center" },
+                { title: "Sno.", field: "id", width:70, sorter: "number", headerSort: false, hozAlign: "center" },
                 { title: "Customer Name", field: "name", sorter: "string", headerSort: false, hozAlign: "center" },
                 { title: "Amount", field: "amount", sorter: "number", headerSort: false, hozAlign: "center" }
             ]
@@ -153,7 +153,7 @@ include("components/header.php");
     data: topUnpaidBillsData,
     layout: "fitColumns",
     columns: [
-        { title: "Sno.", field: "id", sorter: "number", headerSort: false, hozAlign: "center", vertAlign: "middle" },
+        { title: "Sno.", field: "id", width:70, sorter: "number", headerSort: false, hozAlign: "center", vertAlign: "middle" },
         { title: "Invoice Number", field: "invoiceNumber", sorter: "string", headerSort: false, hozAlign: "center", vertAlign: "middle" },
         { title: "Customer Name", field: "name", sorter: "string", headerSort: false, hozAlign: "center", vertAlign: "middle" },
         { title: "Amount", field: "amount", sorter: "number", headerSort: false, hozAlign: "center", vertAlign: "middle" }
@@ -294,7 +294,7 @@ include("components/header.php");
                 },
             ],
             chart: {
-                height: 350,
+                height: 470,
                 type: "line",
             },
             title: {

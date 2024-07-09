@@ -349,7 +349,7 @@ include("components/header.php");
                 data: JSON.stringify(invoiceData),
                 success: function(response) {
                     alert('Invoice created successfully!');
-                    window.location.reload();
+                    window.location.href = 'invoicelist.php';
                 },
                 error: function(xhr, status, error) {
                     console.error('Error creating invoice:', error);
