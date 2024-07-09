@@ -2,9 +2,9 @@
 include("components/header.php");
 ?>
     <style>
-        .dashboard{
+        /* .dashboard{
             display:flex;
-        }
+        }*/
     .chart-box {
         background-color: #FFFFFF; 
         border: 1px solid #E0E0E0; 
@@ -17,17 +17,14 @@ include("components/header.php");
         align-items: flex-start;
         width: 30%; 
     }
-    .chart {
-        width: 100%; 
-    }
     #lineChart {
-        flex-direction: row;
+        flex-direction: row; 
         background-color: #FFFFFF;
         border: 1px solid #E0E0E0;
         border-radius: 5px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         width: 65%; 
-        height: 100%
+        height: 100% 
         
     }
     
@@ -55,46 +52,48 @@ include("components/header.php");
 
 
 <div class="main" style="background-color: #F5F5F5;">
-<div class="dashboard">
-        <div class="chart-container">
-            <div class="chart-box m-4 p-0">
+    <div class="row">
+        <div class="chart-container col-lg-2">
+            <div class="chart-box m-4 p-0 ">
                 <div id="chart1" class="chart"></div>
             </div>
-            <div class="chart-box ms-4 p-0 mb-4">
+            
+        
+            <div class="chart-box ms-4 p-0 mb-4 ">
                 <div id="chart2" class="chart"></div>
             </div>
-            <div class="chart-box ms-4 mb-4 p-0">
+        
+            <div class="chart-box ms-4 mb-4 p-0 ">
                 <div id="chart3" class="chart"></div>
             </div>
         </div>
-
-        <div id="lineChart" class="chart mt-5 p-5"></div>
+        <div id="lineChart" class="chart mt-4 p-1 col-lg-8"></div>
     </div>
     
     <div class="container-fluid mt-3 mb-5">
         <div class="row">
-            <div class="col-lg-6 mt-5">
-                <h4>Top Selling Products</h4>
-                <div id="topSellingProducts" class="tabulator-table "></div>
+            <div class="col-lg-6 mt-5 p-4">
+                <h4 class="text-center">Top Selling Products</h4>
+                <div id="topSellingProducts" class="tabulator-table"></div>
             </div>
-            <div class="col-lg-6 mt-5">
-                <h4>Top Customers</h4>
-                <div id="topCustomers" class="tabulator-table   "></div>
+            <div class="col-lg-6 mt-5 p-4">
+                <h4 class="text-center">Top Customers</h4>
+                <div id="topCustomers" class="tabulator-table"></div>
             </div>
         </div>
         
         <div class="row mt-4">
-            <div class="col-lg-6 mt-5">
-                <h4>Category Wise Sales</h4>
+            <div class="col-lg-6 mt-0 p-4">
+                <h4 class="text-center">Category Wise Sales</h4>
                 <div id="pieChart" class="chart-box p-2"></div>
             </div>
-            <div class="col-lg-6 mt-5">
-                <h4>Top Unpaid Bills</h4>
+            <div class="col-lg-6 mt-0 p-4">
+                <h4 class="text-center">Top Unpaid Bills</h4>
                 <div id="topUnpaidBills" class="tabulator-table"></div>
             </div>
         </div>
     </div>
-
+</div>
 
 
 
@@ -133,9 +132,9 @@ include("components/header.php");
             data: topSellingProductsData,
             layout: "fitColumns",
             columns: [
-                { title: "Sno.", field: "id", width:70, sorter: "number", headerSort: false, hozAlign: "center" },
-                { title: "Product Name", field: "name", sorter: "string", headerSort: false, hozAlign: "center" },
-                { title: "Amount", field: "amount", sorter: "number", headerSort: false, hozAlign: "center" }
+                { title: "Sno.", field: "id", width:50, sorter: "number", headerHozAlign: "center", headerSort: false, hozAlign: "left" },
+                { title: "Product Name", field: "name", sorter: "string", headerHozAlign: "center", headerSort: false, hozAlign: "left" },
+                { title: "Amount", field: "amount", sorter: "number", headerHozAlign: "center", headerSort: false, hozAlign: "left" }
             ]
         });
 
@@ -143,9 +142,9 @@ include("components/header.php");
             data: topCustomersData,
             layout: "fitColumns",
             columns: [
-                { title: "Sno.", field: "id", width:70, sorter: "number", headerSort: false, hozAlign: "center" },
-                { title: "Customer Name", field: "name", sorter: "string", headerSort: false, hozAlign: "center" },
-                { title: "Amount", field: "amount", sorter: "number", headerSort: false, hozAlign: "center" }
+                { title: "Sno.", field: "id", width:50, sorter: "number", headerHozAlign: "center", headerSort: false, hozAlign: "left" },
+                { title: "Customer Name", field: "name", sorter: "string", headerHozAlign: "center", headerSort: false, hozAlign: "left" },
+                { title: "Amount", field: "amount", sorter: "number", headerHozAlign: "center", headerSort: false, hozAlign: "left" }
             ]
         });
 
@@ -153,10 +152,10 @@ include("components/header.php");
     data: topUnpaidBillsData,
     layout: "fitColumns",
     columns: [
-        { title: "Sno.", field: "id", width:70, sorter: "number", headerSort: false, hozAlign: "center", vertAlign: "middle" },
-        { title: "Invoice Number", field: "invoiceNumber", sorter: "string", headerSort: false, hozAlign: "center", vertAlign: "middle" },
-        { title: "Customer Name", field: "name", sorter: "string", headerSort: false, hozAlign: "center", vertAlign: "middle" },
-        { title: "Amount", field: "amount", sorter: "number", headerSort: false, hozAlign: "center", vertAlign: "middle" }
+        { title: "Sno.", field: "id", width:50, sorter: "number", headerHozAlign: "center", headerSort: false, hozAlign: "left", vertAlign: "middle" },
+        { title: "Invoice Number", field: "invoiceNumber", sorter: "string", headerHozAlign: "center", headerSort: false, hozAlign: "left", vertAlign: "middle" },
+        { title: "Customer Name", field: "name", sorter: "string", headerHozAlign: "center", headerSort: false, hozAlign: "left", vertAlign: "middle" },
+        { title: "Amount", field: "amount", sorter: "number", headerHozAlign: "center", headerSort: false, hozAlign: "left", vertAlign: "middle" }
     ]
 });
 
@@ -294,7 +293,7 @@ include("components/header.php");
                 },
             ],
             chart: {
-                height: 470,
+                height: 600,
                 type: "line",
             },
             title: {
