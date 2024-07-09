@@ -148,3 +148,43 @@ var table=new Tabulator("#categoryReport-table",{
     },
     ]
 });
+
+var table=new Tabulator("#invoice-table",{
+    height: 300,
+    layout: "fitColumns",
+    columns: [
+    {
+        title: "Invoice Id",
+        field: "invoice_id",
+        sorter: "number",
+    },
+    {
+        title: "Invoice Date",
+        field: "date",
+        sorter: "date",
+    },
+    {
+        title: "Amount",
+        field: "Amt",
+        sorter: "number",
+    },
+    {
+        field: "actions",
+        title: "Actions",
+        formatter: function (cell, formatterParams) 
+        {
+            let div = document.createElement("div");
+
+            let button1 = document.createElement("button");
+            button1.className = "btn btn-sm btn-primary me-2";
+            button1.innerHTML = "Button";
+            button1.onclick = function () 
+            {
+                let rowData = cell.getRow().getData();
+            };
+            div.appendChild(button1);
+            return div;
+        }
+    }
+    ]
+});
