@@ -32,6 +32,7 @@ let table = new Tabulator("#allinvoice-table", {
         {
             field: "actions",
             title: "Actions",
+            width: 200,  // Increased width for better visibility of buttons
             formatter: function (cell, formatterParams) {
                 let div = document.createElement("div");
                 let editLink = document.createElement("a");
@@ -48,7 +49,7 @@ let table = new Tabulator("#allinvoice-table", {
 
                 let sendBillLink = document.createElement("a");
                 sendBillLink.href = "#";
-                sendBillLink.className = "btn btn-sm btn-secondary";
+                sendBillLink.className = "btn btn-sm btn-secondary me-2";
                 sendBillLink.innerHTML = "Send Bill";
                 sendBillLink.onclick = function (e) {
                     e.preventDefault();
@@ -57,14 +58,14 @@ let table = new Tabulator("#allinvoice-table", {
                 };
                 div.appendChild(sendBillLink);
 
-                let paymant = document.createElement("button");
-                paymant.className = "btn btn-sm btn-success";
-                paymant.innerHTML = "Pay";
-                paymant.onclick = function () {
+                let paymentButton = document.createElement("button");
+                paymentButton.className = "btn btn-sm btn-success";
+                paymentButton.innerHTML = "Pay";
+                paymentButton.onclick = function () {
                     let rowData = cell.getRow().getData();
                     showPaymentModel(rowData); // Pass the entire row data here
                 };
-                div.appendChild(paymant);
+                div.appendChild(paymentButton);
                 return div;
             }
         }
