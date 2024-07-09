@@ -35,7 +35,7 @@ var table=new Tabulator("#customerReport-table",{
             view.onclick = function () 
             {
                 let rowData = cell.getRow().getData();
-                fillForm(rowData);
+                allInvoice(rowData);
             };
             div.appendChild(view);
             return div;
@@ -76,7 +76,7 @@ var table=new Tabulator("#productReport-table",{
             view1.onclick = function () 
             {
                 let rowData = cell.getRow().getData();
-                fillForm(rowData);
+                allInvoice(rowData);
             };
             div.appendChild(view1);
             return div;
@@ -84,6 +84,11 @@ var table=new Tabulator("#productReport-table",{
     }
     ]
 });
+
+function allInvoice(rowData) {
+    var modal = new bootstrap.Modal(document.getElementById('invoiceModal'));
+    modal.show();
+}
 
 var table=new Tabulator("#transactionActivity-table",{
     height: 300,
