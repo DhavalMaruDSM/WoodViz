@@ -248,16 +248,19 @@ $(document).ready(function () {
     
         if (!rowData.customer_id) {
             console.error("No invoice_id provided in rowData:", rowData);
-            // Show an error message to the user
             alert("No invoice details found. Please try again.");
             return;
         }
+        var fromDate = document.getElementById('fromDate').value;
+        var toDate = document.getElementById('toDate').value;
     
         $.ajax({
             type: "GET",
             url: "php/CustomerReportView.php",
             data: {
-                cname: rowData.customer_id
+                cname: rowData.customer_id,
+                fromDate: fromDate,
+                toDate: toDate
             },
             success: function(response) {
                 console.log("Invoice details fetched successfully:", response);

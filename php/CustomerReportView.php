@@ -5,9 +5,9 @@ if (isset($_GET['cname'])) {
 
     $invoiceId = intval($_GET['cname']);
     
-    $sql = "SELECT * FROM Invoice WHERE customer_id = ?";
+    $sql = "SELECT * FROM Invoice WHERE customer_id = ? AND invoice_date BETWEEN ? AND ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('i', $invoiceId); 
+    $stmt->bind_param('iss', $invoiceId, $fromDate, $toDate);  
     $stmt->execute();
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
