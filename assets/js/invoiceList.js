@@ -92,6 +92,7 @@ function showPaymentModel(rowData) {
             customername: document.getElementById("customername").value,
             paymentValue: document.getElementById("paymentValue").value,
             paymentMode: document.getElementById("paymentMode").value,
+            refrenceno: document.getElementById("refrence-number").value,
             paymentStatus: document.getElementById("paymentStatus").value
         };
 

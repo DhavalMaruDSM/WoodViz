@@ -164,7 +164,7 @@ $(document).ready(function () {
             },
             {
                 title: "Amount",
-                field: "paid_amount",
+                field: "invoice_value",
                 sorter: "number",
             },
             {
