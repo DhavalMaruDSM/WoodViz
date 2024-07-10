@@ -20,9 +20,8 @@ include 'db.php';
     } else {
         // Generate the invoice number with the prefix year+month
         $prefix = $year . $month;
-        echo $prefix;
+        $prefix;
         $inv_no = $prefix . '001';
     }
-echo "\n";
     echo $inv_no;
 ?>
