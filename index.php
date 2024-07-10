@@ -104,6 +104,9 @@ include("components/header.php");
     fetch('php/fetch-dashboard-data.php')
         .then(response => response.json())
         .then(data => {
+            function calculatePercentage(value, total) {
+                return (value / total) * 360; 
+            }
             // Function to add serial numbers
             function addSerialNumbers(dataArray) {
                 return dataArray.map((item, index) => {
@@ -151,13 +154,15 @@ include("components/header.php");
                     { title: "Amount", field: "amount", sorter: "number", headerSort: false, hozAlign: "center" }
                 ]
             });
-            var categorySalesData = data.categorySales.map(function(item) {
-                return item.total;
+            var totalCategorySales = data.categorySales.reduce((acc, curr) => acc + curr.total, 0);
+            var categorySalesData = data.categorySales.map(item => {
+                return calculatePercentage(item.total, totalCategorySales);
             });
 
-            var categoryLabels = data.categorySales.map(function(item) {
-                return `Category ${item.category_id}`; // Change to item.category_name if you have the names
+            var categoryLabels = data.categorySales.map(item => {
+                return `Category ${item.category_id}`; // Adjust to use item.category_name if available
             });
+
             // Define pie chart options
             var optionsPieChart = {
                 series: categorySalesData,
@@ -179,6 +184,7 @@ include("components/header.php");
                     }
                 }]
             };
+
             var pieChart = new ApexCharts(document.querySelector("#pieChart"), optionsPieChart);
             pieChart.render();
             var options1 = {
