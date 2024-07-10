@@ -45,7 +45,7 @@ let table = new Tabulator("#allinvoice-table", {
                     e.preventDefault();
                     let rowData = cell.getRow().getData();
                     let urlParams = new URLSearchParams(rowData).toString();
-                    window.location.href = `edit-invoice.php?id=${rowData.invoice_id}`;
+                    window.location.href = `edit-invoice.php?invoice_id=${rowData.invoice_id}`;
                 };
                 div.appendChild(editLink);
 
