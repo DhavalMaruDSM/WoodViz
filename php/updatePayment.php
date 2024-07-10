@@ -70,7 +70,6 @@ try {
     if (!$stmt->execute()) {
         throw new Exception("Execute failed: " . $stmt->error);
     }
-
     $conn->commit();
 
     echo json_encode(['success' => true]);
