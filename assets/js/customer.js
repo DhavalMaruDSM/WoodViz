@@ -109,8 +109,10 @@ var currentCustomerId = null;
                                         }
                                         else if (e.target.classList.contains('view-button')) {
                                             var data = cell.getRow().getData();
+                                            currentCustomerId = data.id;
                                             var myModal = new bootstrap.Modal(document.getElementById('customerModal'));
                                             myModal.show();
+                                            fetchData(currentCustomerId); 
                                         }
                                     }
                                 }
@@ -147,7 +149,7 @@ var currentCustomerId = null;
                     },
                     {
                         title: "Invoice Id",
-                        field: "invoice_Id",
+                        field: "invoice_id",
                         sorter: "number",
                     },
                     {
@@ -170,6 +172,22 @@ var currentCustomerId = null;
             document.addEventListener('DOMContentLoaded', function() {
                 showData();
             });
+
+            function fetchData(currentCustomerId) {
+                var fromDate = '2023-01-01'; 
+                var toDate =  new Date().toISOString().split('T')[0];
+
+                fetch(`php/fetch-customer-trans-data.php?fromDate=${fromDate}&toDate=${toDate}&c_id=${currentCustomerId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            console.log(data.message);
+                        } else {
+                            table.setData(data);
+                        }
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
 
 
             //edit account
