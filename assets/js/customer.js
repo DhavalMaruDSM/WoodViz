@@ -43,7 +43,7 @@ var currentCustomerId = null;
                                     <button class="btn btn-sm btn-success view-button">View</button>
                                 `;
                                     },
-                                    width: 150,
+                                    width: 250,
                                     hozAlign: "center",
                                     cellClick: function(e, cell) {
                                         if (e.target.classList.contains('edit-button')) {
@@ -135,7 +135,7 @@ var currentCustomerId = null;
                     })
                     .catch(error => console.error('Error fetching data:', error));
             }
-            
+
             //model tabulator
             var table=new Tabulator("#customerdata-table",{
                 height: 300,
