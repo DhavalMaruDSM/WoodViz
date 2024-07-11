@@ -40,6 +40,7 @@ var currentCustomerId = null;
                                         return `
                                     <button class="btn btn-sm btn-primary edit-button">Edit</button>
                                     <button class="btn btn-sm btn-danger delete-button">Delete</button>
+                                    <button class="btn btn-sm btn-success view-button">View</button>
                                 `;
                                     },
                                     width: 150,
@@ -106,6 +107,11 @@ var currentCustomerId = null;
                                                 document.getElementById('confirmDeleteCustomer').removeEventListener('click', confirmDeleteHandler); // Remove the handler to avoid multiple bindings
                                             });
                                         }
+                                        else if (e.target.classList.contains('view-button')) {
+                                            var data = cell.getRow().getData();
+                                            var myModal = new bootstrap.Modal(document.getElementById('customerModal'));
+                                            myModal.show();
+                                        }
                                     }
                                 }
                             ]
@@ -129,8 +135,38 @@ var currentCustomerId = null;
                     })
                     .catch(error => console.error('Error fetching data:', error));
             }
-
-
+            
+            //model tabulator
+            var table=new Tabulator("#customerdata-table",{
+                height: 300,
+                layout: "fitColumns",
+                columns: [{
+                        title: "Date",
+                        field: "date",
+                        sorter: "date",
+                    },
+                    {
+                        title: "Invoice Id",
+                        field: "invoice_Id",
+                        sorter: "number",
+                    },
+                    {
+                        title: "Payment Mode",
+                        field: "paymentMode",
+                        sorter: "string",
+                    },
+                    {
+                        title: "Ref",
+                        field: "ref",
+                        sorter: "string",
+                    },
+                    {
+                        title: "Value",
+                        field: "value",
+                        sorter: "number",
+                    }
+                ]
+            });
             document.addEventListener('DOMContentLoaded', function() {
                 showData();
             });
