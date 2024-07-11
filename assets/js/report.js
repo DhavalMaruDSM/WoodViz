@@ -53,38 +53,22 @@ $(document).ready(function () {
         height: 300,
         layout: "fitColumns",
         columns: [
-            {
-                title: "Product Name",
-                field: "productName",
-                sorter: "string",
-            },
-            {
-                title: "Total Product Sale",
-                field: "totalProductSale",
-                sorter: "number",
-            },
-            {
-                title: "Total Sale Amount",
-                field: "totalSaleAmt",
-                sorter: "number",
-            },
-            {
-                field: "actions",
-                title: "Actions",
-                formatter: function (cell, formatterParams) {
-                    let div = document.createElement("div");
+            { title: "Product Name", field: "productName", sorter: "string" },
+            { title: "Total Product Sale", field: "totalProductSale", sorter: "number" },
+            { title: "Total Sale Amount", field: "totalSaleAmt", sorter: "number" },
+            { field: "actions", title: "Actions", formatter: function (cell, formatterParams) {
+                let div = document.createElement("div");
 
-                    let view1 = document.createElement("button");
-                    view1.className = "btn btn-sm btn-primary me-2";
-                    view1.innerHTML = "View";
-                    view1.onclick = function () {
-                        let rowData = cell.getRow().getData();
-                        allInvoice(rowData);
-                    };
-                    div.appendChild(view1);
-                    return div;
-                }
-            }
+                let view = document.createElement("button");
+                view.className = "btn btn-sm btn-primary me-2";
+                view.innerHTML = "View";
+                view.onclick = function () {
+                    let rowData = cell.getRow().getData();
+                    allInvoice(rowData);
+                };
+                div.appendChild(view);
+                return div;
+            }}
         ]
     });
 
@@ -131,17 +115,17 @@ $(document).ready(function () {
         columns: [
             {
                 title: "Category",
-                field: "category",
+                field: "categoryName",
                 sorter: "string",
             },
             {
                 title: "Total Sale Quantity",
-                field: "totalSaleQuantity",
+                field: "totalCategorySale",
                 sorter: "number",
             },
             {
                 title: "Total Sale Amount",
-                field: "totalSaleAmt",
+                field: "totalCategorySaleAmt",
                 sorter: "number",
             }
         ]
@@ -207,6 +191,20 @@ $(document).ready(function () {
     }
 
     function fetchProductReport(fromDate, toDate) {
+        $.ajax({
+            type: "GET",
+            url: "php/fetchProductReport.php",
+            data: { fromDate: fromDate, toDate: toDate },
+            success: function(response) {
+                console.log("Product report fetched successfully:", response);
+                productReportTable.setData(JSON.parse(response));
+            },
+            error: function(xhr, status, error) {
+                console.error("An error occurred while fetching product report:", error);
+                console.log(xhr.responseText);
+                alert("Failed to fetch product report. Please try again later.");
+            }
+        });
     }
 
     function fetchTransactionActivity(fromDate, toDate) {
@@ -230,7 +228,20 @@ $(document).ready(function () {
     }
 
     function fetchCategoryReport(fromDate, toDate) {
-        
+        $.ajax({
+            type: "GET",
+            url: "php/fetchCategoryReport.php",
+            data: { fromDate: fromDate, toDate: toDate },
+            success: function(response) {
+                console.log("Category report fetched successfully:", response);
+                categoryReportTable.setData(JSON.parse(response));
+            },
+            error: function(xhr, status, error) {
+                console.error("An error occurred while fetching category report:", error);
+                console.log(xhr.responseText);
+                alert("Failed to fetch category report. Please try again later.");
+            }
+        });
     }
 
     function renderCustomerReport(data) {
