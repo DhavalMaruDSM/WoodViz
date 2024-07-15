@@ -215,6 +215,67 @@ include("components/header.php");
             </div>
         </div>
     </div>
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Payment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ms-2 me-2">
+                    <form id="paymentform">
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label for="invoiceNo" class="form-label">Invoice Number:</label>
+                                <input type="text" class="form-control" id="invoiceNo" name="invoiceNo" placeholder="Enter Invoice Number" required readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label for="customername" class="form-label">Name:</label>
+                                <input type="text" class="form-control" id="customername" name="customername" placeholder="Enter Customer Name" required readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label for="paymentValue" class="form-label">Payment Value:</label>
+                                <input type="number" class="form-control" value="0" id="paymentValue" name="paymentValue" required >
+                            </div>
+                        </div><div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label for="Refrence number" class="form-label">Refrence Number :</label>
+                                <input type="text" class="form-control" value="0" id="refrence-number" name="refrence-number" required >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label for="paymentMode" class="form-label">Payment Mode:</label>
+                                <select class="form-select" id="paymentMode" required>
+                                    <option disabled selected>Select a Payment Mode</option>
+                                    <option value="cheque">Cheque</option>
+                                    <option value="Net Banking">Net Banking</option>
+                                    <option value="cash">Cash</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="paymentStatus" class="form-label">Payment Status:</label>
+                                <select class="form-select" id="paymentStatus" required>
+                                    <option disabled selected>Select Payment Status</option>
+                                    <option value="paid">Paid</option>
+                                    <option value="Partially paid">Partially paid</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn button-color" id="paymentButton">Pay</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://unpkg.com/tabulator-tables@6.2.1/dist/css/tabulator.min.css" rel="stylesheet">

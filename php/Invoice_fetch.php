@@ -1,7 +1,7 @@
 <?php
 include 'db.php';
 
-$sql = "SELECT * from Customers as c,Invoice as i,Invoice_item as it where c.customer_id=i.customer_id and i.invoice_id=it.invoice_id";
+$sql = "SELECT * from Customers as c,Invoice as i,Invoice_item as it where c.customer_id=i.customer_id and i.invoice_id=it.invoice_id group by it.invoice_id";
 $result = $conn->query($sql);
 
 $users = array();

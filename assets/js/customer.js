@@ -6,310 +6,193 @@ function removeExistingToasts() {
   existingToasts.forEach((toast) => toast.remove());
 }
 
-function showData() {
-  fetch("php/get-customer.php")
-    .then((response) => response.json())
-    .then((data) => {
-      table = new Tabulator("#customer-table", {
-        data: data,
-        layout: "fitColumns",
-        columns: [
-          { title: "#", field: "id", width: 50 },
-          { title: "Full Name", field: "name" },
-          { title: "Email", field: "email" },
-          { title: "Mobile", field: "mobile" },
-          {
-            title: "Balance",
-            field: "balance",
-            formatter: function (cell, formatterParams, onRendered) {
-              const value = cell.getValue();
-              const className =
-                value < 0 ? "balance-negative" : "balance-positive";
-              return `<span class="${className}">${value}</span>`;
-            },
-          },
-          {
-            title: "Action",
-            formatter: function (cell, formatterParams, onRendered) {
-              const container = document.createElement("div");
+            function showData() {
+                fetch('php/get-customer.php')
+                    .then(response => response.json())
+                    .then(data => {
 
-              const editButton = document.createElement("button");
-              editButton.className = "btn btn-sm btn-primary edit-button";
-              editButton.textContent = "Edit";
-              editButton.addEventListener("click", function () {
-                var data = cell.getRow().getData();
-                currentCustomerId = data.id;
-                editCustomer(currentCustomerId);
-              });
+                        const table = new Tabulator("#customer-table", {
+                            data: data,
+                            layout: "fitColumns",
+                            columns: [{
+                                    title: "#",
+                                    field: "id",
+                                    width: 50
+                                },
+                                {
+                                    title: "Full Name",
+                                    field: "name"
+                                },
+                                {
+                                    title: "Email",
+                                    field: "email"
+                                },
+                                {
+                                    title: "Mobile",
+                                    field: "mobile"
+                                },
+                                {
+                                    title: "Balance",
+                                    field: "balance",
+                                    formatter: function(cell, formatterParams, onRendered) {
+                                        const value = cell.getValue();
+                                        const className = value < 0 ? 'balance-negative' : 'balance-positive';
+                                        return `<span class="${className}">${value}</span>`;
+                                    }
+                                },
+                                {
+                                    title: "Action",
+                                    formatter: function(cell, formatterParams, onRendered) {
+                                        return `
+                                    <button class="btn btn-sm btn-primary edit-button">Edit</button>
+                                    <button class="btn btn-sm btn-danger delete-button">Delete</button>
+                                `;
+                                    },
+                                    width: 150,
+                                    hozAlign: "center",
+                                    cellClick: function(e, cell) {
+                                        if (e.target.classList.contains('edit-button')) {
+                                            var data = cell.getRow().getData();
+                                            currentCustomerId = data.id;
 
-              const deleteButton = document.createElement("button");
-              deleteButton.className = "btn btn-sm btn-danger delete-button";
-              deleteButton.textContent = "Delete";
-              deleteButton.addEventListener("click", function () {
-                var data = cell.getRow().getData();
-                currentCustomerId = data.id;
-                deleteCustomer(currentCustomerId, data.name);
-              });
+                                            $.post("php/edit-customer.php", {
+                                                id: currentCustomerId
+                                            }, function(data, status) {
+                                                var customer = JSON.parse(data);
+                                                $('#editAccountName').val(customer.name);
+                                                $('#editMobile').val(customer.phone);
+                                                $('#editAddressLine1').val(customer.address_line_1);
+                                                $('#editAddressLine2').val(customer.address_line_2);
+                                                $('#editIfsc').val(customer.ifsc);
+                                                $('#editCity').val(customer.city);
+                                                $('#editState').val(customer.state);
+                                                $('#editbalance').val(customer.balance);
+                                                $('#editGst').val(customer.gst);
+                                                $('#editEmail').val(customer.email);
+                                                $('#editPan').val(customer.pan);
+                                                $('#editPincode').val(customer.pincode);
+                                                $('#editBankAccount').val(customer.bank_account);
 
-              container.appendChild(editButton);
-              container.appendChild(deleteButton);
-              return container;
-            },
-            width: 150,
-            hozAlign: "center",
-          },
-        ],
-      });
+                                            });
+                                            var myModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
+                                            myModal.show();
+                                        } else if (e.target.classList.contains('delete-button')) {
 
-      // Add event listener for search button
-      document
-        .getElementById("search-button")
-        .addEventListener("click", function () {
-          const query = document.getElementById("search-input").value;
-          const field = document.getElementById("search-field").value;
-          table.setFilter([{ field: field, type: "like", value: query }]);
-        });
-    })
-    .catch((error) => console.error("Error fetching data:", error));
-}
+                                            var data = cell.getRow().getData();
+                                            currentCustomerId = data.id;
+                                            document.getElementById('deleteCustomerText').innerText = `Are you sure you want to delete customer ${data.name}?`;
+                                            var myModal = new bootstrap.Modal(document.getElementById('deleteCustomerModal'));
+                                            myModal.show();
 
-function removeValidationErrors() {
-  $("#editAccountNameError").text("");
-  $("#editAddressLine1Error").text("");
-  $("#editAddressLine2Error").text("");
-  $("#editMobileError").text("");
-  $("#editEmailError").text("");
-  $("#editCityError").text("");
-  $("#editStateError").text("");
-  $("#editPincodeError").text("");
-  $("#editGstError").text("");
-  $("#editPanError").text("");
-}
+                                            document.getElementById('confirmDeleteCustomer').addEventListener('click', function confirmDeleteHandler() {
+                                                if (currentCustomerId !== null) {
+                                                    fetch('php/delete-customer.php', {
+                                                            method: 'POST',
+                                                            headers: {
+                                                                'Content-Type': 'application/json'
+                                                            },
+                                                            body: JSON.stringify({
+                                                                id: currentCustomerId
+                                                            })
+                                                        })
+                                                        .then(response => response.json())
+                                                        .then(result => {
+                                                            if (result.success) {
+                                                                table.deleteRow(currentCustomerId);
+                                                                callToast('success', 'Customer Deleted successfully!');
+                                                                var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteCustomerModal'));
+                                                                deleteModal.hide();
+                                                                currentCustomerId = null;
+                                                            } else {
+                                                                callToast('danger', 'Failed to update customer: ' + response.message);
+                                                            }
+                                                        })
+                                                        .catch(error => console.error('Error:', error));
+                                                }
+                                                document.getElementById('confirmDeleteCustomer').removeEventListener('click', confirmDeleteHandler); // Remove the handler to avoid multiple bindings
+                                            });
+                                        }
+                                    }
+                                }
+                            ]
+                        });
+                        // Add event listener for search button
+                        document.getElementById('search-button').addEventListener('click', function() {
+                            const query = document.getElementById('search-input').value;
+                            const field = document.getElementById('search-field').value;
+                            table.setFilter([{
+                                field: field,
+                                type: "like",
+                                value: query
+                            }, ]);
+                        });
 
-function removeaddValidationErrors() {
-  $("#accountNameError").text("");
-  $("#addressLine1Error").text("");
-  $("#addressLine2Error").text("");
-  $("#mobileError").text("");
-  $("#emailError").text("");
-  $("#cityError").text("");
-  $("#stateError").text("");
-  $("#pincodeError").text("");
-  $("#gstError").text("");
-  $("#panError").text("");
-}
-
-function editCustomer(id) {
-  $.post("php/edit-customer.php", { id: id }, function (data, status) {
-    var customer = JSON.parse(data);
-    populateEditModal(customer);
-    showModal("editCustomerModal");
-  });
-}
-
-//  delete customer
-function deleteCustomer(id, name) {
-  document.getElementById(
-    "deleteCustomerText"
-  ).innerText = `Are you sure you want to delete customer ${name}?`;
-  showModal("deleteCustomerModal");
-
-  document
-    .getElementById("confirmDeleteCustomer")
-    .addEventListener("click", function confirmDeleteHandler() {
-      if (currentCustomerId !== null) {
-        fetch("php/delete-customer.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id: currentCustomerId }),
-        })
-          .then((response) => response.json())
-          .then((result) => {
-            if (result.success) {
-              table.deleteRow(currentCustomerId);
-              removeExistingToasts();
-              callToast("success", "Customer deleted successfully!");
-              hideModal("deleteCustomerModal");
-              currentCustomerId = null;
-            } else {
-              removeExistingToasts();
-              callToast(
-                "danger",
-                "Failed to delete customer: " + result.message
-              );
+                        // Add event listener for save edit customer button
+                        document.getElementById('saveEditCustomer').addEventListener('click', function() {
+                            var myModal = bootstrap.Modal.getInstance(document.getElementById('editCustomerModal'));
+                            myModal.hide();
+                        });
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
             }
-          })
-          .catch((error) => console.error("Error:", error));
-      }
-      document
-        .getElementById("confirmDeleteCustomer")
-        .removeEventListener("click", confirmDeleteHandler);
-    });
-}
 
-// populate edit modal with customer data
-function populateEditModal(customer) {
-  $("#editAccountName").val(customer.name);
-  $("#editMobile").val(customer.phone);
-  $("#editAddressLine1").val(customer.address_line_1);
-  $("#editAddressLine2").val(customer.address_line_2);
-  $("#editIfsc").val(customer.ifsc);
-  $("#editCity").val(customer.city);
-  $("#editState").val(customer.state);
-  $("#editbalance").val(customer.balance);
-  $("#editGst").val(customer.gst);
-  $("#editEmail").val(customer.email);
-  $("#editPan").val(customer.pan);
-  $("#editPincode").val(customer.pincode);
-  $("#editBankAccount").val(customer.bank_account);
-}
 
-function showModal(modalId) {
-    var myModal = new bootstrap.Modal(document.getElementById(modalId));
-    myModal.show();
-  }
-  
-function hideModal(modalId) {
-    var myModal = bootstrap.Modal.getInstance(document.getElementById(modalId));
-    myModal.hide();
-  }
-// Function edit account
-function editAccount() {
-  var id = currentCustomerId;
-  var name = $("#editAccountName").val();
-  var addressLine1 = $("#editAddressLine1").val();
-  var addressLine2 = $("#editAddressLine2").val();
-  var city = $("#editCity").val();
-  var state = $("#editState").val();
-  var pincode = $("#editPincode").val();
-  var mobile = $("#editMobile").val();
-  var ifsc = $("#editIfsc").val();
-  var email = $("#editEmail").val();
-  var gst = $("#editGst").val();
-  var pan = $("#editPan").val();
-  var bankAccount = $("#editBankAccount").val();
-  var balance = $("#editbalance").val();
+            document.addEventListener('DOMContentLoaded', function() {
+                showData();
+            });
 
-  // Validation checks
-  var isEValid = true;
-  if (!name) {
-    $("#editAccountNameError").text("Account Name is required.");
-    isEValid = false;
-  } else {
-    $("#editAccountNameError").text("");
-  }
 
-  if (!addressLine1) {
-    $("#editAddressLine1Error").text("Address line 1 is required.");
-    isEValid = false;
-  } else {
-    $("#editAddressLine1Error").text("");
-  }
-
-  if (!addressLine2) {
-    $("#editAddressLine2Error").text("Address line 2 is required.");
-    isEValid = false;
-  } else {
-    $("#editAddressLine2Error").text("");
-  }
-
-  if (!mobile) {
-    $("#editMobileError").text("Mobile number is required.");
-    isEValid = false;
-  } else if (mobile.length > 0 && mobile.length !== 10) {
-    $("#editMobileError").text("Mobile number must be 10 characters long.");
-    isEValid = false;
-  } else if (mobile.length == 10) {
-    $("#editMobileError").text("");
-  }
-
-  if (!email) {
-    $("#editEmailError").text("Email is required.");
-    isEValid = false;
-  } else {
-    $("#editEmailError").text("");
-  }
-
-  if (!city) {
-    $("#editCityError").text("City is required.");
-    isEValid = false;
-  } else {
-    $("#editCityError").text("");
-  }
-
-  if (!state) {
-    $("#editStateError").text("State is required.");
-    isEValid = false;
-  } else {
-    $("#editStateError").text("");
-  }
-
-  if (!pincode) {
-    $("#editPincodeError").text("Pincode is required.");
-    isEValid = false;
-  } else {
-    $("#editPincodeError").text("");
-  }
-
-  if (gst.length > 0 && gst.length !== 15) {
-    $("#editGstError").text("GST number must be 15 characters long.");
-    isEValid = false;
-  } else if (gst.length == 15) {
-    $("#editGstError").text("");
-  }
-
-  if (pan.length > 0 && pan.length !== 10) {
-    $("#editPanError").text("PAN number must be 10 characters long.");
-    isEValid = false;
-  } else if (pan.length == 10) {
-    $("#editPanError").text("");
-  }
-
-  // If any validation fails, stop the function
-  if (!isEValid) {
-    return;
-  }
-
-  $.ajax({
-    url: "php/edit-customer.php",
-    type: "POST",
-    data: {
-      id: id,
-      name: name,
-      addressLine1: addressLine1,
-      addressLine2: addressLine2,
-      city: city,
-      state: state,
-      pincode: pincode,
-      mobile: mobile,
-      ifsc: ifsc,
-      email: email,
-      gst: gst,
-      pan: pan,
-      bankAccount: bankAccount,
-      balance: balance,
-    },
-    success: function (response) {
-      response = JSON.parse(response);
-      if (response.success) {
-        removeExistingToasts();
-        callToast("success", "Customer updated successfully!");
-        hideModal("editCustomerModal");
-        showData();
-      } else {
-        removeExistingToasts();
-        hideModal("editCustomerModal");
-        callToast("danger", "Failed to update customer: " + response.message);
-      }
-    },
-    error: function (xhr, status, error) {
-      console.error("AJAX error:", status, error);
-      callToast("danger", "Failed to update customer due to a server error.");
-    },
-  });
-}
+            //edit account
+            function editAccount() {
+                var id = currentCustomerId;
+                var name = $('#editAccountName').val();
+                var addressLine1 = $('#editAddressLine1').val();
+                var addressLine2 = $('#editAddressLine2').val();
+                var city = $('#editCity').val();
+                var state = $('#editState').val();
+                var pincode = $('#editPincode').val();
+                var mobile = $('#editMobile').val();
+                var ifsc = $('#editIfsc').val();
+                var email = $('#editEmail').val();
+                var gst = $('#editGst').val();
+                var pan = $('#editPan').val();
+                var bankAccount = $('#editBankAccount').val();
+                var balance = $('#editbalance').val();
+                $.ajax({
+                    url: "php/edit-customer.php",
+                    type: "POST",
+                    data: {
+                        id: id,
+                        name: name,
+                        addressLine1: addressLine1,
+                        addressLine2: addressLine2,
+                        city: city,
+                        state: state,
+                        pincode: pincode,
+                        mobile: mobile,
+                        ifsc: ifsc,
+                        email: email,
+                        gst: gst,
+                        pan: pan,
+                        bankAccount: bankAccount,
+                        balance: balance
+                    },
+                    success: function(response) {
+                        response = JSON.parse(response);
+                        if (response.success) {
+                            callToast('success', 'Customer updated successfully!');
+                            $('#editCustomerModal').modal('hide');
+                            showData();
+                        } else {
+                            callToast('danger', 'Failed to update customer: ' + response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX error:", status, error);
+                        callToast('danger', 'Failed to update customer due to a server error.');
+                    }
+                });
+            }
 
 // Function to add account
 function addAccount() {

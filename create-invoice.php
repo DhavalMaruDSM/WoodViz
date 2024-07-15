@@ -83,39 +83,67 @@ include("components/header.php");
         </div>
     </form>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/tabulator-tables@5.3.2/dist/js/tabulator.min.js"></script>
     <script>
+        var table;
+        var productValues = {}; 
+        var products = [];
+
         document.addEventListener("DOMContentLoaded", function() {
-            var today = new Date();
-            var day = String(today.getDate()).padStart(2, '0');
-            var month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
-            var year = today.getFullYear();
-            var todayFormatted = year + '-' + month + '-' + day;
+            initializeDateFields();
+            fetchProducts();
+            fetchCustomers();
+            generateInvoiceNumber();
 
-            document.getElementById('invoice-date').value = todayFormatted;
+            $("#invoice-form").submit(function(event) {
+                event.preventDefault();
+                createInvoice();
+            });
 
-            var dueDate = new Date();
-            dueDate.setDate(dueDate.getDate() + 5);
-            var dueDay = String(dueDate.getDate()).padStart(2, '0');
-            var dueMonth = String(dueDate.getMonth() + 1).padStart(2, '0'); // January is 0!
-            var dueYear = dueDate.getFullYear();
-            var dueDateFormatted = dueYear + '-' + dueMonth + '-' + dueDay;
-
-            document.getElementById('due-date').value = dueDateFormatted;
+            document.getElementById("add-row").addEventListener("click", function(event) {
+                event.preventDefault();
+                table.addRow({});
+            });
         });
-    </script>
-    <script>
+
+        function initializeDateFields() {
+            var today = new Date();
+            document.getElementById('invoice-date').value = formatDate(today);
+            document.getElementById('due-date').value = formatDate(addDays(today, 5));
+        }
+
+        function formatDate(date) {
+            var day = String(date.getDate()).padStart(2, '0');
+            var month = String(date.getMonth() + 1).padStart(2, '0');
+            var year = date.getFullYear();
+            return year + '-' + month + '-' + day;
+        }
+
+        function addDays(date, days) {
+            var result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
+        }
+
         function fetchProducts() {
             $.ajax({
                 url: 'php/get-product.php',
                 method: 'GET',
                 success: function(data) {
-                    var products = JSON.parse(data);
-                    var productValues = {};
+                    products = JSON.parse(data);
+                    var uniqueProducts = [];
+                    var productIds = new Set();
+
                     products.forEach(function(product) {
-                        productValues[product.name] = product.name;
+                        if (!productIds.has(product.product_id)) {
+                            productIds.add(product.product_id);
+                            uniqueProducts.push(product);
+                            productValues[product.product_id] = product.name;
+                        }
                     });
-                    initializeTabulator(productValues);
+
+                    initializeTabulator(productValues, uniqueProducts);
                 },
                 error: function(xhr, status, error) {
                     console.error('Error fetching products:', error);
@@ -123,110 +151,47 @@ include("components/header.php");
             });
         }
 
-        function initializeTabulator(productValues) {
-            var tabledata = [{
-                    item: "Item 1",
-                    qty: 1,
-                    rate: 100,
-                    taxable: 100,
-                    cgst_percent: 5,
-                    cgst_amount: 5,
-                    sgst_percent: 5,
-                    sgst_amount: 5,
-                    igst_percent: 10,
-                    igst_amount: 10,
-                    total: 120
-                },
-                {
-                    item: "Item 2",
-                    qty: 2,
-                    rate: 200,
-                    taxable: 400,
-                    cgst_percent: 5,
-                    cgst_amount: 20,
-                    sgst_percent: 5,
-                    sgst_amount: 20,
-                    igst_percent: 10,
-                    igst_amount: 40,
-                    total: 480
-                },
-                {
-                    item: "Item 3",
-                    qty: 1,
-                    rate: 150,
-                    taxable: 150,
-                    cgst_percent: 5,
-                    cgst_amount: 7.5,
-                    sgst_percent: 5,
-                    sgst_amount: 7.5,
-                    igst_percent: 10,
-                    igst_amount: 15,
-                    total: 180
-                }
-            ];
-
-            var table = new Tabulator("#invoice-table", {
-                data: tabledata,
+        function initializeTabulator(productValues, products) {
+            table = new Tabulator("#invoice-table", {
                 layout: "fitColumns",
-                columns: [{
+                columns: [
+                    { title: "Product ID", field: "product_id", visible: false },
+                    {
                         title: "Item",
-                        field: "name",
+                        field: "product_name",
                         editor: "select",
-                        editorParams: {
-                            values: productValues
+                        editorParams: function(cell) {
+                            return {
+                                values: getAvailableProducts(cell, productValues)
+                            };
+                        },
+                        cellEdited: function(cell) {
+                            var selectedProductId = cell.getValue();
+                            var selectedProduct = products.find(product => product.product_id == selectedProductId);
+                            if (selectedProduct) {
+                                cell.getRow().update({
+                                    product_id: selectedProduct.product_id,
+                                    product_name: selectedProduct.name,
+                                });
+                                fetchProductDetails(selectedProduct.product_id, cell.getRow());
+                            } else {
+                                console.error('Product not found');
+                            }
                         }
                     },
-                    {
-                        title: "Qty",
-                        field: "qty",
-                        editor: "input"
-                    },
-                    {
-                        title: "Rate",
-                        field: "rate",
-                        editor: "input"
-                    },
-                    {
-                        title: "Taxable",
-                        field: "taxable",
-                        bottomCalc: "sum"
-                    },
-                    {
-                        title: "Cgst (%)",
-                        field: "cgst_percent"
-                    },
-                    {
-                        title: "Cgst Amount",
-                        field: "cgst_amount",
-                        bottomCalc: "sum"
-                    },
-                    {
-                        title: "Sgst (%)",
-                        field: "sgst_percent"
-                    },
-                    {
-                        title: "Sgst Amount",
-                        field: "sgst_amount",
-                        bottomCalc: "sum"
-                    },
-                    {
-                        title: "Igst (%)",
-                        field: "igst_percent"
-                    },
-                    {
-                        title: "Igst Amount",
-                        field: "igst_amount",
-                        bottomCalc: "sum"
-                    },
-                    {
-                        title: "Total",
-                        field: "total",
-                        bottomCalc: "sum"
-                    },
+                    { title: "Qty", field: "qty", editor: "input", cellEdited: function(cell) { updateRowAmounts(cell.getRow()); } },
+                    { title: "Rate", field: "rate", editor: "input", cellEdited: function(cell) { updateRowAmounts(cell.getRow()); } },
+                    { title: "Taxable", field: "taxable", bottomCalc: "sum" },
+                    { title: "Cgst (%)", field: "cgst_percent" },
+                    { title: "Cgst Amount", field: "cgst_amount", bottomCalc: "sum" },
+                    { title: "Sgst (%)", field: "sgst_percent" },
+                    { title: "Sgst Amount", field: "sgst_amount", bottomCalc: "sum" },
+                    { title: "Igst (%)", field: "igst_percent" },
+                    { title: "Igst Amount", field: "igst_amount", bottomCalc: "sum" },
+                    { title: "Total", field: "total", bottomCalc: "sum" },
                     {
                         title: "Actions",
-                        field: "actions",
-                        formatter: function(cell, formatterParams) {
+                        formatter: function(cell) {
                             var button = document.createElement("button");
                             button.classList.add("btn", "btn-danger", "btn-sm");
                             button.innerHTML = "Delete";
@@ -238,10 +203,61 @@ include("components/header.php");
                     }
                 ]
             });
+        }
 
-            document.getElementById("add-row").addEventListener("click", function() {
-                event.preventDefault();
-                table.addRow({});
+        function getAvailableProducts(cell, productValues) {
+            var table = cell.getTable();
+            var rows = table.getRows();
+            var selectedProductIds = rows.map(row => row.getData().product_id);
+            var availableProducts = Object.assign({}, productValues);
+
+            selectedProductIds.forEach(function(productId) {
+                delete availableProducts[productId];
+            });
+
+            return availableProducts;
+        }
+
+        function fetchProductDetails(product_id, row) {
+            $.ajax({
+                url: 'php/get-product-details.php',
+                method: 'GET',
+                data: { product_id: product_id },
+                success: function(data) {
+                    var product = JSON.parse(data);
+                    row.update({
+                        rate: product.price,
+                        cgst_percent: product.cgst,
+                        sgst_percent: product.sgst,
+                        igst_percent: product.igst
+                    });
+                    updateRowAmounts(row);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching product details:', error);
+                }
+            });
+        }
+
+        function updateRowAmounts(row) {
+            var data = row.getData();
+            var qty = parseFloat(data.qty) || 1;
+            var rate = parseFloat(data.rate) || 0;
+            var taxable = qty * rate;
+            var cgst_percent = parseFloat(data.cgst_percent) || 0;
+            var sgst_percent = parseFloat(data.sgst_percent) || 0;
+            var igst_percent = parseFloat(data.igst_percent) || 0;
+            var cgst_amount = (taxable * cgst_percent) / 100;
+            var sgst_amount = (taxable * sgst_percent) / 100;
+            var igst_amount = (taxable * igst_percent) / 100;
+            var total = taxable + cgst_amount + sgst_amount + igst_amount;
+
+            row.update({
+                taxable: taxable.toFixed(2),
+                cgst_amount: cgst_amount.toFixed(2),
+                sgst_amount: sgst_amount.toFixed(2),
+                igst_amount: igst_amount.toFixed(2),
+                total: total.toFixed(2)
             });
         }
 
@@ -268,20 +284,17 @@ include("components/header.php");
             $.ajax({
                 url: 'php/get-customer-details.php',
                 method: 'GET',
-                data: {
-                    customer_id: customerId
-                },
+                data: { customer_id: customerId },
                 success: function(data) {
                     var customer = JSON.parse(data);
-                    $('#customer-address').val(customer.address_line_1 + "," + customer.address_line_2);
+                    $('#customer-address1').val(customer.address_line_1);
+                    $('#customer-address2').val(customer.address_line_2);
+                    $('#city').val(customer.city);
+                    $('#state').val(customer.state);
+                    $('#pincode').val(customer.pincode);
+                    $('#state-code').val(customer.state_code);
                     $('#gst').val(customer.gst);
                     $('#pan').val(customer.pan);
-                    var today = new Date().toISOString().split('T')[0];
-                    $('#invoice-date').val(today);
-
-                    var dueDate = new Date();
-                    dueDate.setDate(dueDate.getDate() + 5);
-                    $('#due-date').val(dueDate.toISOString().split('T')[0]);
                 },
                 error: function(xhr, status, error) {
                     console.error('Error fetching customer details:', error);
@@ -289,10 +302,60 @@ include("components/header.php");
             });
         });
 
-        $(document).ready(function() {
-            fetchCustomers();
-            fetchProducts();
-        });
+        function generateInvoiceNumber() {
+    $.ajax({
+        url: 'php/get-latest-invoice-number.php',
+        method: 'GET',
+        async: false,
+        success: function(data) {
+            console.log("Generated new invoice number:", data);
+            document.getElementById('invoice-number').value = data;
+        },
+        error: function(xhr, status, error) {
+            console.error('Error generating invoice number:', error);
+        }
+    });
+}
+
+        function createInvoice() {
+            var invoiceData = {
+                invoice_number: $('#invoice-number').val(),
+                customer_id: $('#customer-name').val(),
+                customer_name: $('#customer-name option:selected').text(),
+                address_line_1: $('#customer-address1').val(),
+                address_line_2: $('#customer-address2').val(),
+                city: $('#city').val(),
+                state: $('#state').val(),
+                pincode: $('#pincode').val(),
+                state_code: $('#state-code').val(),
+                gst_number: $('#gst').val(),
+                pan_number: $('#pan').val(),
+                invoice_date: $('#invoice-date').val(),
+                due_date: $('#due-date').val(),
+                note: $('#note').val(),
+                items: []
+            };
+
+            var tableData = table.getData();
+
+            tableData.forEach(function(row) {
+                invoiceData.items.push(row);
+            });
+
+            $.ajax({
+                url: 'php/create-invoice.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(invoiceData),
+                success: function(response) {
+                    alert('Invoice created successfully!');
+                    window.location.href = 'invoicelist.php';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error creating invoice:', error);
+                }
+            });
+        }
     </script>
 
 </div>

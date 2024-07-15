@@ -8,47 +8,14 @@ function statusFormatter(cell, formatterParams, onRendered) {
         colorClass = 'bg-warning';
     } else if (value === 'Cancelled') {
         colorClass = 'bg-danger';
+    }else if (value === 'Partially Paid') {
+        colorClass = 'bg-info';
     }
 
     return `<span class="badge ${colorClass}">${value}</span>`;
 }
 
-let invoiceData = [
-    {
-        invoiceNo: 1001,
-        createdDate: "2024-06-25",
-        customerName: "John Doe",
-        totalAmt: 500,
-        paidAmt: 300,
-        balance: 200,
-        dueDate: "2024-07-10",
-        paymentMode: "Credit Card",
-        status: "Pending",
-    },
-    {
-        invoiceNo: 1002,
-        createdDate: "2024-06-26",
-        customerName: "Jane Smith",
-        totalAmt: 800,
-        paidAmt: 800,
-        balance: 0,
-        dueDate: "2024-07-15",
-        paymentMode: "Cash",
-        status: "Paid",
-    },
-    {
-        invoiceNo: 1004,
-        createdDate: "2024-06-28",
-        customerName: "Bob Johnson",
-        totalAmt: 1200,
-        paidAmt: 0,
-        balance: 1200,
-        dueDate: "2024-07-25",
-        paymentMode: "Cheque",
-        status: "Cancelled",
-    },
-    // Add more dummy data as needed
-];
+let invoiceData = [];    
 
 let table = new Tabulator("#allinvoice-table", {
     height: 600,
@@ -67,23 +34,95 @@ let table = new Tabulator("#allinvoice-table", {
         {
             field: "actions",
             title: "Actions",
+            width: 200,  
             formatter: function (cell, formatterParams) {
                 let div = document.createElement("div");
-
-                let button = document.createElement("button");
-                button.className = "btn btn-sm btn-primary me-2";
-                button.innerHTML = "Edit";
-                button.onclick = function () {
+                let editLink = document.createElement("a");
+                editLink.href = "#"; 
+                editLink.className = "btn btn-sm btn-primary me-2";
+                editLink.innerHTML = "Edit";
+                editLink.onclick = function (e) {
+                    e.preventDefault();
                     let rowData = cell.getRow().getData();
-                    fillForm(rowData); // Replace with your edit function
+                    let urlParams = new URLSearchParams(rowData).toString();
+                    window.location.href = `edit-invoice.php?invoice_id=${rowData.invoice_id}`;
                 };
-                div.appendChild(button);
+                div.appendChild(editLink);
 
+                let sendBillLink = document.createElement("a");
+                sendBillLink.href = "#";
+                sendBillLink.className = "btn btn-sm btn-secondary me-2";
+                sendBillLink.innerHTML = "Send Bill";
+                sendBillLink.onclick = function (e) {
+                    e.preventDefault();
+                    let rowData = cell.getRow().getData();
+                    window.location.href = `#`;
+                };
+                div.appendChild(sendBillLink);
+
+                let paymentButton = document.createElement("button");
+                paymentButton.className = "btn btn-sm btn-success";
+                paymentButton.innerHTML = "Pay";
+                paymentButton.onclick = function () {
+                    let rowData = cell.getRow().getData();
+                    showPaymentModel(rowData); // Pass the entire row data here
+                };
+                div.appendChild(paymentButton);
                 return div;
-            },
-        },
+            }
+        }
     ],
 });
+
+function showPaymentModel(rowData) {
+    var modal = new bootstrap.Modal(document.getElementById('paymentModal'));
+    modal.show();
+
+    document.getElementById("invoiceNo").value = rowData.invoice_id;
+    document.getElementById("customername").value = rowData.name;
+    document.getElementById("paymentValue").value = rowData.total_value - rowData.paid_amount;
+    document.getElementById("paymentMode").value = ''; 
+    document.getElementById("paymentStatus").value = ''; 
+
+    document.getElementById("paymentButton").onclick = function (e) {
+        e.preventDefault(); 
+
+        const paymentData = {
+            invoice_id: document.getElementById("invoiceNo").value,
+            customername: document.getElementById("customername").value,
+            paymentValue: document.getElementById("paymentValue").value,
+            paymentMode: document.getElementById("paymentMode").value,
+            refrenceno: document.getElementById("refrence-number").value,
+            paymentStatus: document.getElementById("paymentStatus").value
+        };
+
+        console.log('Sending payment data:', paymentData); 
+
+        fetch('php/updatePayment.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(paymentData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response data:', data); 
+            if (data.success) {
+            
+                fetchInvoiceData();
+                modal.hide();
+            } else {
+                alert('Failed to process payment: ' + data.message);
+            }
+        })
+        .catch(error => {
+            alert("An error occurred: " + error);
+            console.error('Error:', error); 
+        });
+    };
+}
+
 
 function filterTable(status) {
     if (status) {
@@ -104,16 +143,16 @@ function calculateTotals() {
     let totalCancelled_count = 0;
 
     invoiceData.forEach(invoice => {
-        totalIncome += invoice.total_value;
+        totalIncome += parseFloat(invoice.total_value);
         totalIncome_count++;
         if (invoice.payment_status === 'Paid') {
-            totalPaid += invoice.total_value;
+            totalPaid += parseFloat(invoice.total_value);
             totalPaid_count++;
         } else if (invoice.payment_status === 'Unpaid') {
-            totalPending += invoice.total_value;
+            totalPending += parseFloat(invoice.total_value);
             totalPending_count++;
         } else if (invoice.payment_status === 'Cancelled') {
-            totalCancelled += invoice.total_value;
+            totalCancelled += parseFloat(invoice.total_value);
             totalCancelled_count++;
         }
     });
@@ -143,7 +182,7 @@ function fetchInvoiceData() {
             return response.json();
         })
         .then(data => {
-            console.log('Fetched data:', data); // Debugging log
+            console.log('Fetched data:', data); 
             invoiceData = data; 
             table.setData(invoiceData); 
             calculateTotals(); 
