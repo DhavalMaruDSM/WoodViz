@@ -176,14 +176,14 @@
                             >
                                 <li>
                                     <a
-                                        href="#"
+                                        href="create-invoice.php"
                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded"
                                         ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">Create Invoice</span></a
                                     >
                                 </li>
                                 <li>
                                     <a
-                                        href="#"
+                                        href="invoiceList.php"
                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded"
                                         ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">Invoice List</span></a
                                     >
