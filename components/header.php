@@ -192,14 +192,10 @@
                         </div>
                     </li>
                     <li class="sidebar-item mb-1">
-                        <button
-                            class="btn width1 d-inline-flex align-items-center rounded border-0 collapsed"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#report-collapse"
-                            aria-expanded="false"
-                        ><i class="bi bi-database-fill p-3"></i>
-                        <span class="sidebar-span-style">Reports</span>
-                        </button>
+                        <a
+                            href="report.php"
+                            class="btn width1 d-inline-flex align-items-center rounded border-0 "
+                            ><i class="bi bi-database-fill p-3"></i><span class="sidebar-span-style">Reports</span></a>
                     </li>
                     <li class="sidebar-item mb-1">
                         <button
