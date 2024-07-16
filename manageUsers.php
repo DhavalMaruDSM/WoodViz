@@ -132,32 +132,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                                 <div class="form-check me-3">
                                     <input class="form-check-input" type="checkbox" value="customer" id="customer" name="permissions[]">
                                     <label class="form-check-label" for="customer">Customer</label>
-                                </div>
-                                <div class="form-check me-3">
-                                    <input class="form-check-input" type="checkbox" value="Report" id="report" name="permissions[]">
-                                    <input class="form-check-input" type="checkbox" value="" id="admin">
-                                    <label class="form-check-label" for="admin">Admin</label>
-                                </div>
-                                <div class="form-check me-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="product">
-                                    <label class="form-check-label" for="product">Product</label>
-                                </div>
-                                <div class="form-check me-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="purchase">
-                                    <label class="form-check-label" for="purchase">Purchase</label>
-                                </div>
-                                <div class="form-check me-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="production">
-                                    <label class="form-check-label" for="production">Production</label>
-                                </div>
-                                <div class="form-check me-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="billing">
-                                    <label class="form-check-label" for="billing">Billing</label>
-                                </div>
-                                <div class="form-check me-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="customer">
-                                    <label class="form-check-label" for="customer">Customer</label>
-                                </div>
+                                </div>        
                                 <div class="form-check me-3">
                                     <input class="form-check-input" type="checkbox" value="" id="report">
                                     <label class="form-check-label" for="report">Report</label>
