@@ -184,11 +184,17 @@ include("components/header.php");
                     }
                 }]
             };
+            var totalSales = data.totalSales;
+            var totalPaid = data.totalPaid;
+            var totalUnpaid = data.totalUnpaid;
+
+            var paidPercentage = (totalPaid / totalSales) * 100;
+            var unpaidPercentage = (totalUnpaid / totalSales) * 100;
 
             var pieChart = new ApexCharts(document.querySelector("#pieChart"), optionsPieChart);
             pieChart.render();
             var options1 = {
-                series: [data.totalSales],
+                series: [totalSales],
                 chart: {
                     height: 230, 
                     type: 'radialBar',
@@ -222,7 +228,7 @@ include("components/header.php");
             };
 
             var options2 = {
-                series: [data.totalPaid],
+                series: [paidPercentage],
                 chart: {
                     height: 230, 
                     type: 'radialBar',
@@ -240,8 +246,8 @@ include("components/header.php");
                             value: {
                                 color: '#28a745',
                                 fontSize: '18px',
-                                formatter: function (val) {
-                                    return `₹ ${val}`; // Display the actual value
+                                formatter: function () {
+                                    return `₹ ${totalPaid}`; // Display the actual value
                                 }
                             }
                         },
@@ -257,7 +263,7 @@ include("components/header.php");
 
 
             var options3 = {
-                series: [data.totalUnpaid],
+                series: [unpaidPercentage],
                 chart: {
                     height: 230, 
                     type: 'radialBar',
@@ -275,8 +281,8 @@ include("components/header.php");
                             value: {
                                 color: '#dc3545', 
                                 fontSize: '18px',
-                                formatter: function (val) {
-                                    return `₹ ${val}`; // Display the actual value
+                                formatter: function () {
+                                    return `₹ ${totalUnpaid}`; // Display the actual value
                                 }
                             }
                         },
