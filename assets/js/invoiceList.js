@@ -25,7 +25,7 @@ let table = new Tabulator("#allinvoice-table", {
         { title: "Invoice No.", field: "invoice_id", sorter: "number" },
         { title: "Created Date", field: "invoice_date", sorter: "date" },
         { title: "Customer Name", field: "name", sorter: "string" },
-        { title: "Total Amount", field: "total_value", sorter: "number" },
+        { title: "Total Amount", field: "invoice_value", sorter: "number" },
         { title: "Paid Amount", field: "paid_amount", sorter: "number" },
         { title: "Balance", field: "balance", sorter: "number" },
         { title: "Due Date", field: "due_date", sorter: "date" },

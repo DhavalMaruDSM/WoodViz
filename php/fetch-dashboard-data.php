@@ -83,7 +83,7 @@ $sql_total_sales = "SELECT SUM(invoice_value) as totalSales FROM Invoice";
 $result = $conn->query($sql_total_sales);
 $response['totalSales'] = $result->fetch_assoc()['totalSales'];
 
-$sql_total_paid = "SELECT SUM(invoice_value) as totalPaid FROM Invoice WHERE payment_status = 'Paid'";
+$sql_total_paid = "SELECT SUM(invoice_value) as totalPaid FROM Invoice WHERE payment_status = 'Paid' or payment_status='Partially paid'";
 $result = $conn->query($sql_total_paid);
 $response['totalPaid'] = $result->fetch_assoc()['totalPaid'];
 
