@@ -141,77 +141,6 @@
                         <button
                             class="btn width1 d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse"
-                            data-bs-target="#purchase-collapse"
-                            aria-expanded="false"
-                        ><i class="bi bi-bag-fill p-3"></i>
-                        <span class="sidebar-span-style">Purchase</span>
-                        </button>
-                        <div class="collapse" id="purchase-collapse">
-                            <ul
-                                class="sidebar-sub-item btn-toggle-nav list-unstyled fw-normal pb-1 small"
-                            >
-                                <li>
-                                    <a
-                                        href="#"
-                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">New</span></a
-                                    >
-                                </li>
-                               
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="sidebar-item mb-1">
-                        <button
-                            class="btn width1 d-inline-flex align-items-center rounded border-0 collapsed"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#production-collapse"
-                            aria-expanded="false"
-                        ><i class="bi bi-database-fill p-3"></i>
-                        <span class="sidebar-span-style">Production</span>
-                        </button>
-                        <div class="collapse" id="production-collapse">
-                            <ul
-                                class="sidebar-sub-item btn-toggle-nav list-unstyled fw-normal pb-1 small"
-                            >
-                                <li>
-                                    <a
-                                        href="#"
-                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">New...</span></a
-                                    >
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="sidebar-item mb-1">
-                        <button
-                            class="btn width1 d-inline-flex align-items-center rounded border-0 collapsed"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#billing-collapse"
-                            aria-expanded="false"
-                        ><i class="bi bi-receipt p-3"></i>
-                        <span class="sidebar-span-style">Billing</span>
-                        </button>
-                        <div class="collapse" id="billing-collapse">
-                            <ul
-                                class="sidebar-sub-item btn-toggle-nav list-unstyled fw-normal pb-1 small"
-                            >
-                                <li>
-                                    <a
-                                        href="#"
-                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">New...</span></a
-                                    >
-                                </li>
-                                
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="sidebar-item mb-1">
-                        <button
-                            class="btn width1 d-inline-flex align-items-center rounded border-0 collapsed"
-                            data-bs-toggle="collapse"
                             data-bs-target="#customer-collapse"
                             aria-expanded="false"
                         ><i class="bi bi-people-fill p-3"></i>
@@ -236,6 +165,42 @@
                         <button
                             class="btn width1 d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse"
+                            data-bs-target="#billing-collapse"
+                            aria-expanded="false"
+                        ><i class="bi bi-receipt p-3"></i>
+                        <span class="sidebar-span-style">Billing</span>
+                        </button>
+                        <div class="collapse" id="billing-collapse">
+                            <ul
+                                class="sidebar-sub-item btn-toggle-nav list-unstyled fw-normal pb-1 small"
+                            >
+                                <li>
+                                    <a
+                                        href="create-invoice.php"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">Create Invoice</span></a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="invoiceList.php"
+                                        class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">Invoice List</span></a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="sidebar-item mb-1">
+                        <a
+                            href="report.php"
+                            class="btn width1 d-inline-flex align-items-center rounded border-0 "
+                            ><i class="bi bi-database-fill p-3"></i><span class="sidebar-span-style">Reports</span></a>
+                    </li>
+                    <li class="sidebar-item mb-1">
+                        <button
+                            class="btn width1 d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse"
                             data-bs-target="#admin-collapse"
                             aria-expanded="false"
                         ><i class="bi bi-person-circle p-3 icon-b"></i>
@@ -249,7 +214,7 @@
                                     <a
                                         href="manageUsers.php"
                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">Users</span></a
+                                        ><i class="bi bi-dash icon-b1"></i><span class="sidebar-sub-span-style">User List</span></a
                                     >
                                 </li>
                                 
