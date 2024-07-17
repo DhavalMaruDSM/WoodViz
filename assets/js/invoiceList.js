@@ -189,6 +189,12 @@ function fetchInvoiceData() {
         })
         .catch(error => console.error('Error fetching invoice data:', error));
 }
+function searchbtn() {
+    let searchtype = document.getElementById("searchSelect").value;
+    let searchbox = document.getElementById("searchInput").value;
+    table.setFilter(searchtype, "like", searchbox);
+}
+
 
 window.onload = function () {
     calculateTotals();

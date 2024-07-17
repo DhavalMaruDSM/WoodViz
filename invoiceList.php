@@ -194,7 +194,7 @@ include("components/header.php");
                                 <option value="customerName">Customer Name</option>
                             </select>
                             <input type="search" class="form-control" id="searchInput" placeholder="Search here..">
-                            <button class="btn btn-outline-warning" id="searchbtninvoice">Search</button>
+                            <button class="btn btn-outline-warning" onclick="searchbtn()" id="searchbtninvoice">Search</button>
                         </div>
                     </div>
                     <div class="tab-content" id="myTabContent">
