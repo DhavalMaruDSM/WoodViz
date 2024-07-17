@@ -1,31 +1,24 @@
 <?php
-include 'db.php';
+require 'db.php';
 
-header('Content-Type: application/json');
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $category_id = $_POST['category_id'];
+    $description = $_POST['editcategoryname'];
+    $updated_at = date('Y-m-d H:i:s');
+    $updated_by = 1; // This should be dynamically set based on the logged-in user
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $input = json_decode(file_get_contents('php://input'), true);
+    $stmt = $conn->prepare("UPDATE Category SET description = ?, updated_at = ?, updated_by = ? WHERE category_id = ?");
+    $stmt->bind_param("ssii", $description, $updated_at, $updated_by, $category_id);
 
-    if (isset($input['id']) && isset($input['category'])) {
-        $id = $input['id'];
-        $category = $input['category'];
-
-        $stmt = $conn->prepare("UPDATE Category SET description = ? WHERE category_id = ?");
-        $stmt->bind_param("si", $category, $id);
-
-        if ($stmt->execute()) {
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Failed to update category.']);
-        }
-
-        $stmt->close();
+    if ($stmt->execute()) {
+        echo json_encode(['status' => 'success']);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Invalid input.']);
+        echo json_encode(['status' => 'error', 'message' => 'Unable to update category: ' . $stmt->error]);
     }
-} else {
-    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
-}
 
-$conn->close();
+    $stmt->close();
+    $conn->close();
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
+}
 ?>
