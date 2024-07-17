@@ -37,8 +37,10 @@
 <body class="bodycolor">
     <?php
     session_start();
-
-    //      
+    if (!isset($_SESSION['User_id']) || !isset($_SESSION['User_name'])) {
+        header("Location: login.php");
+        exit();
+    }    
     ?>
     <div>
         <div class="bgcolor py-2">
