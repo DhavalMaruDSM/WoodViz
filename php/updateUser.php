@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param('ssssssiiiiiiis', $username, $fullname, $email, $mobile, $role, $password, $admin, $product, $purchase, $production, $billing, $customer, $report, $userId);
     
     if ($stmt->execute()) {
-        echo json_encode(['message' => 'User updated successfullyyyyyyyyyyyyyyyyyyyyyyy']);
+        echo json_encode(['message' => 'User updated successfully']);
     } else {
         echo json_encode(['error' => 'Failed to update user']);
     }

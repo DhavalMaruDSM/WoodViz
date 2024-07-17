@@ -12,7 +12,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     </link>
     <link rel="stylesheet" href="assets/css/tabulator_bootstrap5.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -27,8 +27,8 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                     <select class="form-select" id="searchDropdown" required>
                         <option value="username">Username</option>
                         <option value="fullname">Fullname</option>
-                        <option value="email">Email</option>
-                        <option value="mobile">Mobile</option>
+                        <option value="email_id">Email</option>
+                        <option value="mobile_number">Mobile</option>
                     </select>
                     <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="usersearchBtn">
                 </div>
@@ -49,7 +49,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
 </div>
 
     <!--User Form Modal-->
-    <div class="modal fade" id="userFormModal" tabindex="-1" aria-labelledby="userFormModalLabel" aria-hidden="true">
+    <div class="modal fade" id="userFormModal" data-backdrop="" tabindex="-1" aria-labelledby="userFormModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -111,7 +111,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                             <!--Role-->
                             <div class="mb-3 col-md-6">
                                 <label for="role" class="form-label">Role:</label>
-                                <select class="form-select" id="role" required>
+                                <select class="form-select" name ="role" id="role" required>
                                     <option value="" disabled selected>Select a role</option>
                                     <option value="admin">Admin</option>
                                     <option value="limited">Limited</option>
@@ -126,31 +126,31 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                                 <label for="permissions" class="form-label">Permissions:</label>
                                 <div class="d-flex flex-wrap">
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="admin">
+                                        <input class="form-check-input" type="checkbox" value="admin" id="admin" name="permissions[]">
                                         <label class="form-check-label" for="admin">Admin</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="product">
+                                        <input class="form-check-input" type="checkbox" value="product" id="product" name="permissions[]">
                                         <label class="form-check-label" for="product">Product</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="purchase">
+                                        <input class="form-check-input" type="checkbox" value="purchase" id="purchase" name="permissions[]">
                                         <label class="form-check-label" for="purchase">Purchase</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="production">
+                                        <input class="form-check-input" type="checkbox" value="production" id="production" name="permissions[]">
                                         <label class="form-check-label" for="production">Production</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="billing">
+                                        <input class="form-check-input" type="checkbox" value="billing" id="billing" name="permissions[]">
                                         <label class="form-check-label" for="billing">Billing</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="customer">
+                                        <input class="form-check-input" type="checkbox" value="customer" id="customer" name="permissions[]">
                                         <label class="form-check-label" for="customer">Customer</label>
                                     </div>
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="report">
+                                        <input class="form-check-input" type="checkbox" value="report" id="report" name="permissions[]">
                                         <label class="form-check-label" for="report">Report</label>
                                     </div>
                                 </div>
@@ -211,20 +211,20 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                         </div>
                     </div>
                     <!--3rd Row-->
-                    <div class="row">
-                        <!--Password-->
+                     <div class="row visually-hidden" >
+                        
                         <div class="mb-3 col-md-6">
-                            <label for="password" class="form-label">Password:</label>
-                            <input type="password" class="form-control" id="editPassword" name="password" placeholder="Enter the Password" pattern=".{8,15}" required autocomplete="new-password">
+                            <label for="password" class="form-label visually-hidden">Password:</label>
+                            <input type="password" class="form-control visually-hidden" id="editPassword" name="password" >
                             <div class="invalid-feedback">Password must be between 8 and 15 characters long!</div>
                         </div>
-                        <!--Confirm Password-->
+                        
                         <div class="mb-3 col-md-6">
                             <label for="confirmPassword" class="form-label">Confirm Password:</label>
                             <input type="password" class="form-control" id="editConfirmPassword" name="confirmPassword" placeholder="Confirm Password" required required autocomplete="new-confirmPassword">
                             <div class="invalid-feedback">Please Confirm your password!</div>
                         </div>
-                    </div>
+                    </div> 
                     <!--4th Row-->
                     <div class="row">
                         <!--Role-->
@@ -310,4 +310,6 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="assets/js/manageUsers.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-</body>
+    <?php
+include("components/footer.php");
+?>
