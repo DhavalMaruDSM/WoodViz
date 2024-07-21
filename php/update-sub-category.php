@@ -1,30 +1,24 @@
 <?php
-include 'db.php';
+require 'db.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $sub_category_id = $_POST['sub_category_id'];
+    $description = $_POST['editsubcategoryname'];
+    $updated_at = date('Y-m-d H:i:s');
+    $updated_by = 1; // Example user ID
 
-    $id = $data['id'];
-    $subcategory = $data['subcategory'];
-
-    $query = "UPDATE SubCategory SET description = ? WHERE sub_category_id = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("si", $subcategory, $id);
+    $stmt = $conn->prepare("UPDATE SubCategory SET description = ?, updated_at = ?, updated_by = ? WHERE sub_category_id = ?");
+    $stmt->bind_param("ssii", $description, $updated_at, $updated_by, $sub_category_id);
 
     if ($stmt->execute()) {
-        echo json_encode([
-            'success' => true,
-            'subcategory' => [
-                'id' => $id,
-                'subcategory' => $subcategory
-            ]
-        ]);
+        echo json_encode(['status' => 'success']);
     } else {
-        echo json_encode(['success' => false]);
+        echo json_encode(['status' => 'error', 'message' => 'Unable to update sub-category: ' . $stmt->error]);
     }
 
     $stmt->close();
+    $conn->close();
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
 }
-
-$conn->close();
 ?>
