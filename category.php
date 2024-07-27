@@ -1,5 +1,5 @@
 <?php
-include("components/header.php");
+include ("components/header.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,19 +14,19 @@ include("components/header.php");
     <div class="main" style="background-color: 	#F5F5F5;">
         <div class="container mb-3 mt-5">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-10"> 
                     <div class="input-group" style="padding: 1px;">
                         <i class="bi bi-search p-2" style="color: orange; -webkit-text-stroke: 1px;"></i>
                         <select class="form-select" id="categoryselect" required>
                             <option disabled selected>Category</option>
-                            <option></option>
                         </select>
-                        <input type="search" class="form-control" placeholder="Search here..">
+                        <input type="search" class="form-control" id="searchInput" placeholder="Search here..">
                         <button class="btn btn-outline-warning" id="searchbtncategory">Search</button>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-warning" id="addcategoryBtn" data-bs-toggle="modal" data-bs-target="#categoryFormModal">+ Add Category</button>
+                    <button class="btn btn-warning" id="addcategoryBtn" data-bs-toggle="modal"
+                        data-bs-target="#categoryFormModal">+ Add Category</button>
                 </div>
             </div>
         </div>
@@ -38,7 +38,8 @@ include("components/header.php");
             </div>
         </div>
     </div>
-    <div class="modal fade" id="categoryFormModal" tabindex="-1" aria-labelledby="categoryFormModalLabel" aria-hidden="true">
+    <div class="modal fade" id="categoryFormModal" tabindex="-1" aria-labelledby="categoryFormModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -50,7 +51,8 @@ include("components/header.php");
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label for="categoryname" class="form-label">Name:</label>
-                                <input type="text" class="form-control" id="categoryname" name="categoryname" placeholder="Enter Category Name" required>
+                                <input type="text" class="form-control" id="categoryname" name="categoryname"
+                                    placeholder="Enter Category Name" required>
                             </div>
                         </div>
                         <hr>
@@ -63,7 +65,8 @@ include("components/header.php");
             </div>
         </div>
     </div>
-    <div class="modal fade" id="editcategoryFormModal" tabindex="-1" aria-labelledby="editcategoryFormModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editcategoryFormModal" tabindex="-1" aria-labelledby="editcategoryFormModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -75,20 +78,23 @@ include("components/header.php");
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label for="editcategoryname" class="form-label">Name:</label>
-                                <input type="text" class="form-control" id="editcategoryname" name="editcategoryname" placeholder="Enter Category Name" required>
+                                <input type="text" class="form-control" id="editcategoryname" name="editcategoryname"
+                                    placeholder="Enter Category Name" required>
                             </div>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn button-color" id="editaddcategoryBtn">Edit Category</button>
+                            <button type="submit" class="btn button-color" id="editaddcategoryBtn">Edit
+                                Category</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -111,8 +117,10 @@ include("components/header.php");
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.2.1/dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="assets/js/js/tabulator.min.js"></script>
     <script src="assets/js/category.js"></script>
+
 </body>
+
 </html>
 <?php
-include("components/footer.php");
+include ("components/footer.php");
 ?>
